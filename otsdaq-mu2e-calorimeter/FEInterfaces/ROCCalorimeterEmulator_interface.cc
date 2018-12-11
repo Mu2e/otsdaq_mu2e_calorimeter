@@ -17,6 +17,7 @@ ROCCalorimeterEmulator::ROCCalorimeterEmulator(
 {
 	INIT_MF("ROCCalorimeterEmulator");
 
+	__CFG_COUT__ << "emulator constructor..." << __E__;
 
 	try
 	{

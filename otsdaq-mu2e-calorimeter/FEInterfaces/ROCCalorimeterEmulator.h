@@ -18,9 +18,8 @@ public:
 
 	~ROCCalorimeterEmulator(void);
 
-	void 					writeRegister		(unsigned address, unsigned data_to_write);
-
-	int 					readRegister		(unsigned address);
+	void 					writeRegister		(unsigned address, unsigned data_to_write) override;
+	int 					readRegister		(unsigned address) override;
 
 	bool 					emulatorWorkLoop	(void) override;
 
