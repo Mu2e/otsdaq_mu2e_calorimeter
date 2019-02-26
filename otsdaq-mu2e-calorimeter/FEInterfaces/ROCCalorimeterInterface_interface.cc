@@ -114,6 +114,26 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 	//	}
 }  // end emulatorWorkLoop()
 
+
+//==================================================================================================
+void ROCPolarFireCoreInterface::configure(void) try
+{
+	ROCPolarFireCoreInterface::configure();
+
+
+}
+catch(const std::runtime_error& e)
+{
+	__FE_MOUT__ << "Error caught: " << e.what() << __E__;
+	throw;
+}
+catch(...)
+{
+	__FE_SS__ << "Unknown error caught. Check printouts!" << __E__;
+	__FE_MOUT__ << ss.str();
+	__FE_SS_THROW__;
+}
+
 //==================================================================================================
 void ROCCalorimeterInterface::SetVoltageChannel(__ARGS__) 
 {
