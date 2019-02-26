@@ -18,7 +18,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	virtual void writeEmulatorRegister(unsigned address, unsigned data_to_write) override;
 	virtual int  readEmulatorRegister(unsigned address) override;
 
-	void configure(void) override;
+	virtual void configure(void) override;
 
 	bool emulatorWorkLoop(void) override;
 

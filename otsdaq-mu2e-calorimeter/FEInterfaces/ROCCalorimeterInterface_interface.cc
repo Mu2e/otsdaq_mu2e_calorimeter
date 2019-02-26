@@ -116,7 +116,7 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 
 
 //==================================================================================================
-void ROCPolarFireCoreInterface::configure(void) try
+void ROCCalorimeterInterface::configure(void) try
 {
 	ROCPolarFireCoreInterface::configure();
 
