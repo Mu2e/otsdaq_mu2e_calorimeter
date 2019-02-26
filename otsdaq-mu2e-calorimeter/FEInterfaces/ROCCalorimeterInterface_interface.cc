@@ -59,6 +59,8 @@ int ROCCalorimeterInterface::readEmulatorRegister(unsigned address)
 
 	__CFG_COUT__ << "emulator read" << __E__;
 
+	if(address == 6 || address == 7)
+		return ROCPolarFireCoreInterface::readEmulatorRegister(address);
 	if(address == ADDRESS_FIRMWARE_VERSION)
 		return 0x5;
 	else if(address == ADDRESS_MYREGISTER)
