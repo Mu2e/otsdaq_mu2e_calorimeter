@@ -29,6 +29,23 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	}
 
 	temp1_.noiseTemp(inputTemp_);
+	
+	
+	registerFEMacroFunction("SetROCCaloVoltageChannel",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::SetVoltageChannel),
+	                        std::vector<std::string>{"channelNumber", "value"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+	       
+
+	
+	registerFEMacroFunction("GetROCCaloVoltageChannel",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::GetVoltageChannel),
+	                        std::vector<std::string>{"channelNumber"}, //inputs parameters
+	                        std::vector<std::string>{"readValue"}, //output parameters
+	                        1);  // requiredUserPermissions
 }
 
 //==========================================================================================
@@ -96,5 +113,20 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 	//		return true;
 	//	}
 }  // end emulatorWorkLoop()
+
+//==================================================================================================
+void ROCCalorimeterInterface::SetVoltageChannel(__ARGS__) 
+{
+	__MOUT__ << "Set called" << __E__;
+}
+
+//==================================================================================================
+void ROCCalorimeterInterface::GetVoltageChannel(__ARGS__) 
+{
+	__MOUT__ << "Get called" << __E__;
+	__SET_ARG_OUT__("readValue",12);
+}
+
+
 
 DEFINE_OTS_INTERFACE(ROCCalorimeterInterface)
