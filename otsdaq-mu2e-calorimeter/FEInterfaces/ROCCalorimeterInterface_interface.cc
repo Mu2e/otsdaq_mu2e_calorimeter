@@ -18,6 +18,9 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 
 	__CFG_COUT__ << "Constructor..." << __E__;
 
+	__MCOUT_INFO__("ROCPolarFireCoreInterface instantiated with link: "
+		               << linkID_ << " and EventWindowDelayOffset = " << delay_ << __E__);
+
 	try
 	{
 		inputTemp_ = getSelfNode().getNode("inputTemperature").getValue<double>();
@@ -137,13 +140,13 @@ catch(...)
 //==================================================================================================
 void ROCCalorimeterInterface::SetVoltageChannel(__ARGS__) 
 {
-	__MOUT__ << "Set called" << __E__;
+	__MOUT_INFO__ << "Set called" << __E__;
 }
 
 //==================================================================================================
 void ROCCalorimeterInterface::GetVoltageChannel(__ARGS__) 
 {
-	__MOUT__ << "Get called" << __E__;
+	__MOUT_INFO__ << "Get called" << __E__;
 	__SET_ARG_OUT__("readValue",12);
 }
 
