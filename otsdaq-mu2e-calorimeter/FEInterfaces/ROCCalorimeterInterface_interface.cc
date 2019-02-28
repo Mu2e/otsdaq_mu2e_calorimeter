@@ -58,11 +58,6 @@ ROCCalorimeterInterface::~ROCCalorimeterInterface(void) {}
 void ROCCalorimeterInterface::writeEmulatorRegister(unsigned address,
                                                     unsigned data_to_write)
 {
-	// lockout member variables for the remainder of the scope
-	// this guarantees the emulator thread can safely access the members
-	//	Note: the ROCCoreVEmulator locks before calling emulatorWorkLoop
-	std::lock_guard<std::mutex> lock(workloopMutex_);
-
 	__CFG_COUT__ << "emulator write" << __E__;
 
 	return;
@@ -72,11 +67,6 @@ void ROCCalorimeterInterface::writeEmulatorRegister(unsigned address,
 //==================================================================================================
 int ROCCalorimeterInterface::readEmulatorRegister(unsigned address)
 {
-	// lockout member variables for the remainder of the scope
-	// this guarantees the emulator thread can safely access the members
-	//	Note: the ROCCoreVEmulator locks before calling emulatorWorkLoop
-	std::lock_guard<std::mutex> lock(workloopMutex_);
-
 	__CFG_COUT__ << "emulator read" << __E__;
 
 	if(address == 6 || address == 7)
@@ -94,11 +84,9 @@ int ROCCalorimeterInterface::readEmulatorRegister(unsigned address)
 // return false to stop workloop thread
 bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 {
-	__CFG_COUT__ << "emulator working..." << __E__;
+	//__CFG_COUT__ << "emulator working..." << __E__;
 
 	temp1_.noiseTemp(inputTemp_);
-
-	usleep(1000000 /*microseconds*/);
 	return true;  // true to keep workloop going
 
 	//	float input, inputTemp;
