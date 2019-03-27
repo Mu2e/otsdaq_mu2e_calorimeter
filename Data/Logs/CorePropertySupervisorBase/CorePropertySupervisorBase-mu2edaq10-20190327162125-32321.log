@@ -1,0 +1,165 @@
+%MSG-i configureMessageFacility:  Early 27-Mar-2019 16:21:25 CDT pre-events configureMessageFacility.cc:286
+Message Facility Application CorePropertySupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CorePropertySupervisorBase" pattern:"CorePropertySupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i _TCPConnect:  DAQ 27-Mar-2019 16:21:25 CDT Booted TCPConnect.cc:334
+Resolving host 127.0.0.1, on port 30000
+%MSG
+%MSG-i _TCPConnect:  DAQ 27-Mar-2019 16:21:25 CDT Booted TCPConnect.cc:241
+Resolving ip mu2edaq10.fnal.gov
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:25 CDT Booted configureMessageFacility.cc:286
+Message Facility Application RunControlStateMachine configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/RunControlStateMachine" pattern:"RunControlStateMachine-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:25 CDT Booted configureMessageFacility.cc:286
+Message Facility Application CoreSupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CoreSupervisorBase" pattern:"CoreSupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:25 CDT Booted configureMessageFacility.cc:286
+Message Facility Application ConfigurationGUI configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/ConfigurationGUI" pattern:"ConfigurationGUI-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:26 CDT Booted configureMessageFacility.cc:286
+Message Facility Application OtsConfigurationWizard configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/OtsConfigurationWizard" pattern:"OtsConfigurationWizard-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application CorePropertySupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CorePropertySupervisorBase" pattern:"CorePropertySupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application RunControlStateMachine configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/RunControlStateMachine" pattern:"RunControlStateMachine-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application CoreSupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CoreSupervisorBase" pattern:"CoreSupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application ConsoleSupervisor configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/ConsoleSupervisor" pattern:"ConsoleSupervisor-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application CorePropertySupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CorePropertySupervisorBase" pattern:"CorePropertySupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application RunControlStateMachine configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/RunControlStateMachine" pattern:"RunControlStateMachine-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:21:27 CDT Booted configureMessageFacility.cc:286
+Message Facility Application CoreSupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CoreSupervisorBase" pattern:"CoreSupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"127.0.0.1" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i Console:  Early 27-Mar-2019 16:21:27 CDT pre-events ConsoleSupervisor.cc:171
+otsdaq_utilities/otsdaq-utilities/Console/ConsoleSupervisor.cc [171]	INFO messages look like this.
+%MSG
+%MSG-w Console:  Early 27-Mar-2019 16:21:27 CDT pre-events ConsoleSupervisor.cc:172
+otsdaq_utilities/otsdaq-utilities/Console/ConsoleSupervisor.cc [172]	WARNING messages look like this.
+%MSG
+%MSG-e Console:  Early 27-Mar-2019 16:21:27 CDT pre-events ConsoleSupervisor.cc:173
+otsdaq_utilities/otsdaq-utilities/Console/ConsoleSupervisor.cc [173]	ERROR messages look like this.
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:29:03 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:29:03 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:29:03 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(102)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:29:03 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:29:03 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(146)
+%MSG
+%MSG-e ConfigurationGUISupervisor-280:  Early 27-Mar-2019 16:32:33 CDT  pre-events
+otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [179]	'saveSpecificTable' ERROR encountered: Error saving new view!  :ConfigurationGUISupervisor:280:otsdaq_utilities/otsdaq-utilities/ConfigurationGUI/ConfigurationGUISupervisor.cc [5152] No rows were modified! No reason to fill a view with same content.
+%MSG
+%MSG-e ConfigurationGUISupervisor-280:  Early 27-Mar-2019 16:32:41 CDT  pre-events
+otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [179]	'saveNewTableGroup' ERROR encountered: :ConfigurationGUISupervisor:280:otsdaq_utilities/otsdaq-utilities/ConfigurationGUI/ConfigurationGUISupervisor.cc [4438] Table group &quot;defaultConfig(147)&quot; members can not be loaded!  :ConfigurationGUISupervisor:280:otsdaq_utilities/otsdaq-utilities/ConfigurationGUI/ConfigurationGUISupervisor.cc [4427]   At node &apos;ROCInterfaceTable&apos; with entry UID &apos;DTC1_ROC2_Calo0&apos; there is a disconnected child node at link column &apos;ROCTypeLinkTable&apos; that points to table named &apos;SubsystemCalorimeterParametersTable&apos; ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:19 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:19 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:19 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(102)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:19 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:19 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(148)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:23 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:23 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:23 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(103)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:23 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:34:23 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(148)
+%MSG
+%MSG-e ConfigurationGUISupervisor-280:  Early 27-Mar-2019 16:35:17 CDT  pre-events
+otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [179]	'saveSpecificTable' ERROR encountered: Error saving new view!  :ConfigurationGUISupervisor:280:otsdaq_utilities/otsdaq-utilities/ConfigurationGUI/ConfigurationGUISupervisor.cc [5152] No rows were modified! No reason to fill a view with same content.
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:01 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:01 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:01 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(103)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:01 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:01 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(149)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:06 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:06 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:06 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(104)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:06 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:06 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(149)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:48 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:48 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:48 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(104)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:48 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:48 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(150)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:52 CDT pre-events ConfigurationManagerRW.cc:497
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [497]	Updating persistent active groups to /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg ...
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:52 CDT pre-events ConfigurationManagerRW.cc:517
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [517]	Active Context table group: testContext(63)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:52 CDT pre-events ConfigurationManagerRW.cc:523
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [523]	Active Backbone table group: TableEditWizBackbone(105)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:52 CDT pre-events ConfigurationManagerRW.cc:529
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [529]	Active Iterate table group: (-1)
+%MSG
+%MSG-i ConfigurationManagerRW:  Early 27-Mar-2019 16:37:52 CDT pre-events ConfigurationManagerRW.cc:535
+otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManagerRW.cc [535]	Active Configuration table group: defaultConfig(150)
+%MSG

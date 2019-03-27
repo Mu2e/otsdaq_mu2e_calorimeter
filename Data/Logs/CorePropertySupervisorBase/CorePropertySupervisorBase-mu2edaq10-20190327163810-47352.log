@@ -1,0 +1,33 @@
+%MSG-i configureMessageFacility:  Early 27-Mar-2019 16:38:10 CDT pre-events configureMessageFacility.cc:286
+Message Facility Application CorePropertySupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CorePropertySupervisorBase" pattern:"CorePropertySupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"192.168.157.6" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i _TCPConnect:  DAQ 27-Mar-2019 16:38:10 CDT Booted TCPConnect.cc:334
+Resolving host 192.168.157.6, on port 30000
+%MSG
+%MSG-i _TCPConnect:  DAQ 27-Mar-2019 16:38:10 CDT Booted TCPConnect.cc:241
+Resolving ip mu2edaq10.fnal.gov
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:38:11 CDT Booted configureMessageFacility.cc:286
+Message Facility Application RunControlStateMachine configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/RunControlStateMachine" pattern:"RunControlStateMachine-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"192.168.157.6" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  DAQ 27-Mar-2019 16:38:11 CDT Booted configureMessageFacility.cc:286
+Message Facility Application CoreSupervisorBase configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/CoreSupervisorBase" pattern:"CoreSupervisorBase-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"192.168.157.6" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i configureMessageFacility:  Early 27-Mar-2019 16:42:09 CDT pre-events configureMessageFacility.cc:286
+Message Facility Application ROCCoreVInterface configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/ROCCoreVInterface" pattern:"ROCCoreVInterface-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"192.168.157.6" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i FE-ROCCoreVInterface:  Early 27-Mar-2019 16:42:09 CDT pre-events
+otsdaq_mu2e/otsdaq-mu2e/ROCCore/ROCCoreVInterface.cc [28]	ROCCoreVInterface instantiated with link: 2 and EventWindowDelayOffset = 123
+%MSG
+%MSG-i configureMessageFacility:  Early 27-Mar-2019 16:42:09 CDT pre-events configureMessageFacility.cc:286
+Message Facility Application ROCPolarFireCoreInterface configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/ROCPolarFireCoreInterface" pattern:"ROCPolarFireCoreInterface-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"192.168.157.6" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i FE-ROCPolarFireCoreInterface:  Early 27-Mar-2019 16:42:09 CDT pre-events
+otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterface_interface.cc [19]	ROCPolarFireCoreInterface instantiated with link: 2 and EventWindowDelayOffset = 123
+%MSG
+%MSG-i configureMessageFacility:  Early 27-Mar-2019 16:42:09 CDT pre-events configureMessageFacility.cc:286
+Message Facility Application ROCCalorimeterInterface configured with: debugModules:["*"] destinations:{file:{append:false directory:"/home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/ROCCalorimeterInterface" pattern:"ROCCalorimeterInterface-%?H%t-%p.log" seperator:"-" threshold:"DEBUG" timestamp_pattern:"%Y%m%d%H%M%S" type:"GenFile"} udp:{host:"192.168.157.6" port:30000 threshold:"DEBUG" type:"UDP"}}
+%MSG
+%MSG-i FE-ROCCalorimeterInterface:  Early 27-Mar-2019 16:42:09 CDT pre-events
+otsdaq_mu2e_calorimeter/otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface_interface.cc [22]	ROCPolarFireCoreInterface instantiated with link: 2 and EventWindowDelayOffset = 123
+%MSG
