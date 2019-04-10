@@ -1,24 +1,24 @@
-27 Mar 2019 21:38:09.856 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - xdaq version: 05.03.01, compiled on Nov 30 2018 at 11:32:13, 64bit
-27 Mar 2019 21:38:09.857 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - Loaded profile: /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/XDAQConfigurations/otsConfiguration_CMake.xml
-27 Mar 2019 21:38:09.857 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - b2innub version: 02.05.01, compiled on Nov 30 2018 at 11:35:34
-27 Mar 2019 21:38:09.858 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - executive version: 04.00.06, compiled on Nov 30 2018 at 11:35:00
-27 Mar 2019 21:38:09.860 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - b2inutils version: 04.04.05, compiled on Nov 30 2018 at 11:35:40
-27 Mar 2019 21:38:09.861 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - pthttp version: 04.05.07, compiled on Nov 30 2018 at 11:33:38
-27 Mar 2019 21:38:09.862 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - ptfifo version: 04.03.01, compiled on Nov 30 2018 at 11:34:34
-27 Mar 2019 21:38:09.863 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - xrelay version: 04.01.00, compiled on Nov 30 2018 at 11:35:26
-27 Mar 2019 21:38:09.865 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - hyperdaq version: 05.02.01, compiled on Nov 30 2018 at 11:35:24
-27 Mar 2019 21:38:09.866 [140597337684160] DEBUG gov.fnal.mu2edaq10.p:3028 <> - Create application descriptor for class: executive::Application id: 0
-27 Mar 2019 21:38:09.878 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028.executive::Application.lid(0) <> - Log URL not set (was already console)
-27 Mar 2019 21:38:09.878 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028.executive::Application.lid(0) <> - Changed Log level to INFO
-27 Mar 2019 21:38:09.880 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028.pt::http::PeerTransportHTTP.lid(1) <> - No security policies on this server
-27 Mar 2019 21:38:10.090 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - CoreSupervisors version: 03.00.00, compiled on Mar 19 2019 at 11:36:37
+04 Apr 2019 19:56:29.897 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - xdaq version: 05.03.01, compiled on Nov 30 2018 at 11:32:13, 64bit
+04 Apr 2019 19:56:29.898 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - Loaded profile: /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/XDAQConfigurations/otsConfiguration_CMake.xml
+04 Apr 2019 19:56:29.899 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - b2innub version: 02.05.01, compiled on Nov 30 2018 at 11:35:34
+04 Apr 2019 19:56:29.900 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - executive version: 04.00.06, compiled on Nov 30 2018 at 11:35:00
+04 Apr 2019 19:56:29.901 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - b2inutils version: 04.04.05, compiled on Nov 30 2018 at 11:35:40
+04 Apr 2019 19:56:29.902 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - pthttp version: 04.05.07, compiled on Nov 30 2018 at 11:33:38
+04 Apr 2019 19:56:29.903 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - ptfifo version: 04.03.01, compiled on Nov 30 2018 at 11:34:34
+04 Apr 2019 19:56:29.904 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - xrelay version: 04.01.00, compiled on Nov 30 2018 at 11:35:26
+04 Apr 2019 19:56:29.905 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - hyperdaq version: 05.02.01, compiled on Nov 30 2018 at 11:35:24
+04 Apr 2019 19:56:29.906 [140360103848128] DEBUG gov.fnal.mu2edaq10.p:3028 <> - Create application descriptor for class: executive::Application id: 0
+04 Apr 2019 19:56:29.918 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028.executive::Application.lid(0) <> - Log URL not set (was already console)
+04 Apr 2019 19:56:29.918 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028.executive::Application.lid(0) <> - Changed Log level to INFO
+04 Apr 2019 19:56:29.921 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028.pt::http::PeerTransportHTTP.lid(1) <> - No security policies on this server
+04 Apr 2019 19:56:31.188 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - CoreSupervisors version: 03.00.00, compiled on Apr  4 2019 at 13:31:34
 LogDebug:TableBase-TableGroupMetadata:otsdaq/otsdaq-core/TableCore/TableBase.cc [1216]	Table: TableGroupMetadata
 LogDebug:TableBase-TableGroupMetadata:otsdaq/otsdaq-core/TableCore/TableBase.cc [1218]	Num of Views: 0 (Temporary Views: 0)
 LogDebug:TableBase-TableGroupMetadata:otsdaq/otsdaq-core/TableCore/TableBase.cc [1249]	Using Mock-up view
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [197]	ACTIVE_GROUPS_FILENAME = /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [198]	ARTDAQ_DATABASE_URI = filesystemdb:///home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/databases/filesystemdb/test_db
+LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [197]	ACTIVE_GROUPS_FILENAME = /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg
+LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [198]	ARTDAQ_DATABASE_URI = filesystemdb:///home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/databases/filesystemdb/test_db
 LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1123]	------------------------------------- init start    	 [for all plug-ins in Context group 'testContext(63)']
-LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/MessageFacilityTable_table.cc [105]	Opened.. /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
+LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/MessageFacilityTable_table.cc [105]	Opened.. /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
 LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/MessageFacilityTable_table.cc [159]	Forwarding to Web GUI with UDP forward MesageFacility table.
 LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/XDAQContextTable_table.cc [497]	Fixing deprecated Supervisor class from ots::Supervisor to ots::GatewaySupervisorLogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1288]	------------------------------------- init complete 	 [for all plug-ins in Context group 'testContext(63)']
 LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1123]	------------------------------------- init start    	 [for all plug-ins in Backbone group 'TableEditWizBackbone(105)']
@@ -29,8 +29,8 @@ LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table
 LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table.cc [72]	BurstDataCount
 LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table.cc [74]	childType=unsigned long long
 LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1288]	------------------------------------- init complete 	 [for all plug-ins in Configuration group 'defaultConfig(150)']
-LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
-03-27 16:38:10.909074                         UDP_mfPlugin err Error sending message 2 to 192.168.157.6, errno=17 (File exists)
+LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
+04-04 14:56:42.859001                         UDP_mfPlugin err Error sending message 2 to 192.168.157.6, errno=17 (File exists)
 LogDebug:FESupervisor:UNINITIALIZED_supervisorApplicationUID:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [33]	application->getApplicationContext()->getContextDescriptor()->getURL() = http://mu2edaq10.fnal.gov:3028
 LogDebug:FESupervisor:UNINITIALIZED_supervisorApplicationUID:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [34]	application->getApplicationDescriptor()->getLocalId() = 312
 LogDebug:FESupervisor:UNINITIALIZED_supervisorApplicationUID:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [35]	supervisorClass_ = ots::FESupervisor
@@ -41,10 +41,10 @@ LogDebug:ots:otsdaq/otsdaq-core/SupervisorInfo/AllSupervisorInfo.cc [98]	Initial
 LogDebug:TableBase-TableGroupMetadata:otsdaq/otsdaq-core/TableCore/TableBase.cc [1216]	Table: TableGroupMetadata
 LogDebug:TableBase-TableGroupMetadata:otsdaq/otsdaq-core/TableCore/TableBase.cc [1218]	Num of Views: 0 (Temporary Views: 0)
 LogDebug:TableBase-TableGroupMetadata:otsdaq/otsdaq-core/TableCore/TableBase.cc [1249]	Using Mock-up view
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [197]	ACTIVE_GROUPS_FILENAME = /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [198]	ARTDAQ_DATABASE_URI = filesystemdb:///home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/databases/filesystemdb/test_db
+LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [197]	ACTIVE_GROUPS_FILENAME = /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/ServiceData/ActiveTableGroups.cfg
+LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [198]	ARTDAQ_DATABASE_URI = filesystemdb:///home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/databases/filesystemdb/test_db
 LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1123]	------------------------------------- init start    	 [for all plug-ins in Context group 'testContext(63)']
-LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/MessageFacilityTable_table.cc [105]	Opened.. /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
+LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/MessageFacilityTable_table.cc [105]	Opened.. /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
 LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/MessageFacilityTable_table.cc [159]	Forwarding to Web GUI with UDP forward MesageFacility table.
 LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/XDAQContextTable_table.cc [497]	Fixing deprecated Supervisor class from ots::Supervisor to ots::GatewaySupervisorLogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1288]	------------------------------------- init complete 	 [for all plug-ins in Context group 'testContext(63)']
 LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1123]	------------------------------------- init start    	 [for all plug-ins in Backbone group 'TableEditWizBackbone(105)']
@@ -64,137 +64,25 @@ LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CorePr
 LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [104]	CorePropertySupervisorBase::supervisorApplicationUID_ = FESupervisorDTC1
 LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [105]	CorePropertySupervisorBase::supervisorConfigurationPath_ = /ContextDTC1/LinkToApplicationTable/FESupervisorDTC1/LinkToSupervisorTable
 LogDebug:ots:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [145]	hostname = mu2edaq10.fnal.gov
-LogDebug:ots:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [160]	Marked alive: /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/Logs/otsdaq_is_alive-mu2edaq10.fnal.gov-3028.dat
+LogDebug:ots:otsdaq/otsdaq-core/CoreSupervisors/CorePropertySupervisorBase.cc [160]	Marked alive: /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/Logs/otsdaq_is_alive-mu2edaq10.fnal.gov-3028.dat
 LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/FiniteStateMachine.cc [22]	Constructing FiniteStateMachine
-LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
+LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
 LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [171]	Resetting RunControlStateMachine with name 'FESupervisor:FESupervisorDTC1'...
 LogDebug:ots:otsdaq/otsdaq-core/WorkLoopManager/WorkLoopManager.cc [20]	Request name: StateMachine jobName: StateMachine
 LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [28]	Constructor.
-LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
+LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2ecalo/test_stand/ots/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
 LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [52]	Constructed.
 LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/Configurable/Configurable.cc [16]	 Configurable class constructed. 
 LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [25]	Constructed.
 LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/FESupervisor.cc [875]	State Machine 0 WAS of type FEVInterfacesManager
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/FESupervisor.cc [887]	theFEInterfacesManager pointer = 0x978d70
+LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/FESupervisor.cc [887]	theFEInterfacesManager pointer = 0x25c1850
 LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/FESupervisor.cc [32]	Destructed.
-27 Mar 2019 21:38:11.606 [140597337684160] INFO  gov.fnal.mu2edaq10.p:3028 <> - Ready.
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [215]	Received... 	Command: Initialize Par 0 Name: commandId Value: 2, Par 0 Name: xmlns:xdaq Value: urn:xdaq-soap:3.0,
+04 Apr 2019 19:56:53.939 [140360103848128] INFO  gov.fnal.mu2edaq10.p:3028 <> - Ready.
+LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [215]	Received... 	Command: Error Par 0 Name: commandId Value: 3, Par 0 Name: xmlns:xdaq Value: urn:xdaq-soap:3.0,
 LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [228]	Defaulting iteration index to 0.
 LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [241]	Defaulting subIterationIndex_ index to 0.
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [283]	Starting state for FESupervisor:FESupervisorDTC1 is Initial and attempting to Initialize
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/FiniteStateMachine.cc [143]	transition = Initialize
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [697]	transitionInitializing
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [380]	CoreSupervisorBase::stateHalted
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [475]	Ending state for FESupervisor:FESupervisorDTC1 is Halted
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [477]	result = InitializeDone
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [215]	Received... 	Command: Configure Par 0 Name: ConfigurationAlias Value: defaultSystemAlias, Par 0 Name: ConfigurationTableGroupKey Value: 150, Par 0 Name: ConfigurationTableGroupName Value: defaultConfig, Par 0 Name: commandId Value: 3, Par 0 Name: xmlns:xdaq Value: urn:xdaq-soap:3.0,
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [228]	Defaulting iteration index to 0.
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [241]	Defaulting subIterationIndex_ index to 0.
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [283]	Starting state for FESupervisor:FESupervisorDTC1 is Halted and attempting to Configure
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/FiniteStateMachine.cc [143]	transition = Configure
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [532]	transitionConfiguring
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [546]	Configuration table group name: defaultConfig key: 150
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1123]	------------------------------------- init start    	 [for all plug-ins in Configuration group 'defaultConfig(150)']
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [339]	Deactivating Configuration group: defaultConfig
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [381]	Destroying Configuration Key: 150
-LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table.cc [61]	*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*
-LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table.cc [62]	FESlowControlsTable
-LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table.cc [72]	BurstDataCount
-LogDebug:ots:otsdaq/otsdaq-core/TablePluginDataFormats/FESlowControlsTable_table.cc [74]	childType=unsigned long long
-LogDebug:ConfigurationManager:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationManager.cc [1288]	------------------------------------- init complete 	 [for all plug-ins in Configuration group 'defaultConfig(150)']
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [557]	Configuring all state machine implementations...
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [471]	theStateMachineImplementation Iteration 0.0
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [159]	Configuring FEVInterfacesManager 
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [55]	Path: /ContextDTC1/LinkToApplicationTable/FESupervisorDTC1/LinkToSupervisorTable/LinkToFEInterfaceTable
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [63]	appNode.getValueAsString() = FESupervisorDTC1
-LogDebug:TableView-FE_INTERFACE_TABLE:v17:otsdaq/otsdaq-core/TableCore/TableView.cc [1005]	Column Types: 
-GroupID-FE() FEInterfaceGroupID
-UID() FEInterfaceUID
-OnOff() Status
-FixedChoiceData() FEInterfacePluginName
-ChildLink-0() LinkToFETypeTable
-ChildLinkUID-0() LinkToFETypeUID
-ChildLink-SlowControlsChannels() LinkToSlowControlsChannelTable
-ChildLinkGroupID-SlowControlsChannels() LinkToSlowControlsChannelGroupID
-ChildLink-SlowControlsSupervisor() LinkToSlowControlsSupervisorTable
-ChildLinkUID-SlowControlsSupervisor() LinkToSlowControlsSupervisorUID
-Data() SlowControlsTxSocketIPAddress
-Data() SlowControlsTxSocketPort
-YesNo() SlowControlsLocalAggregateSavingEnabled
-Data() SlowControlsLocalFilePath
-Data() SlowControlsRadixFileName
-TrueFalse() SlowControlsSaveBinaryFile
-Comment() CommentDescription
-Author() Author
-Timestamp() RecordInsertionTime
-LogError:TableView-FE_INTERFACE_TABLE:v17:otsdaq/otsdaq-core/TableCore/TableView.cc [1015]	
-:TableView-FE_INTERFACE_TABLE:v17:otsdaq/otsdaq-core/TableCore/TableView.cc [1010]	Missing Priority Column in config named FE_INTERFACE_TABLE. (The Priority column is identified when TableView is initialized)
-LogWarning:ConfigurationTree:otsdaq/otsdaq-core/ConfigurationInterface/ConfigurationTree.cc [2193]	Priority configuration not found. Assuming all children have equal priority (Error: :TableView-FE_INTERFACE_TABLE:v17:otsdaq/otsdaq-core/TableCore/TableView.cc [1010]	Missing Priority Column in config named FE_INTERFACE_TABLE. (The Priority column is identified when TableView is initialized)
-
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [75]	StringMacros::vectorToString(theFENamesByPriority_) = DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [91]	Interface Plugin Name: DTCFrontEndInterface
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [95]	Interface Name: DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [96]	XDAQContext Node: XDAQContextTable
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [97]	Path to configuration: /ContextDTC1/LinkToApplicationTable/FESupervisorDTC1/LinkToSupervisorTable/LinkToFEInterfaceTable/DTC1/LinkToFETypeTable
-LogDebug:Workloop-DTC1:otsdaq/otsdaq-core/WorkLoopManager/WorkLoop.cc [23]	Constructed.
-LogDebug:ots:DTC1:otsdaq/otsdaq-core/Configurable/Configurable.cc [16]	 Configurable class constructed. 
-LogDebug:Workloop-DTC1-SlowControls:otsdaq/otsdaq-core/WorkLoopManager/WorkLoop.cc [23]	Constructed.
-LogDebug:ots:otsdaq/otsdaq-core/FECore/FEVInterface.cc [28]	'DTC1' Constructed.
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [18]	instantiate DTC... DTC1 XDAQContextTable /ContextDTC1/LinkToApplicationTable/FESupervisorDTC1/LinkToSupervisorTable/LinkToFEInterfaceTable/DTC1/LinkToFETypeTable
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [47]	Emulator DTC mode starting up...
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [260]	ROC Plugin Name: ROCCalorimeterInterface
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [264]	ROC Name: DTC1_ROC2_Calo
-LogDebug:DTCFrontEndInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [268]	theXDAQContextConfigTree_.getValueAsString() = XDAQContextTable
-LogDebug:DTCFrontEndInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [270]	roc.second.getNode("ROCInterfacePluginName").getValue<std::string>() = ROCCalorimeterInterface
-LogDebug:Workloop-DTC1_ROC2_Calo:otsdaq/otsdaq-core/WorkLoopManager/WorkLoop.cc [23]	Constructed.
-LogDebug:ots:DTC1_ROC2_Calo:otsdaq/otsdaq-core/Configurable/Configurable.cc [16]	 Configurable class constructed. 
-LogDebug:Workloop-DTC1_ROC2_Calo-SlowControls:otsdaq/otsdaq-core/WorkLoopManager/WorkLoop.cc [23]	Constructed.
-LogDebug:ots:otsdaq/otsdaq-core/FECore/FEVInterface.cc [28]	'DTC1_ROC2_Calo' Constructed.
-LogDebug:FE:ROCCalorimeterInterface:DTC1_ROC2_Calo:DTC1_ROC2_Calo:otsdaq_mu2e/otsdaq-mu2e/ROCCore/ROCCoreVInterface.cc [20]	Constructing...
-LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
-LogInfo:FE-ROCCoreVInterface:otsdaq_mu2e/otsdaq-mu2e/ROCCore/ROCCoreVInterface.cc [28]	ROCCoreVInterface instantiated with link: 2 and EventWindowDelayOffset = 123
-LogDebug:FE:ROCCalorimeterInterface:DTC1_ROC2_Calo:DTC1_ROC2_Calo:otsdaq_mu2e/otsdaq-mu2e/ROCCore/ROCCoreVInterface.cc [30]	Constructed.
-LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
-LogInfo:FE-ROCPolarFireCoreInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterface_interface.cc [19]	ROCPolarFireCoreInterface instantiated with link: 2 and EventWindowDelayOffset = 123
-LogDebug:ots:otsdaq/otsdaq-core/MessageFacility/MessageFacility.h [41]	Configuring message facility with /home/mu2edaq/sync_demo/ots_calorimeter/srcs/otsdaq_mu2e_calorimeter/Data/MessageFacilityConfigurations/MessageFacilityGen.fcl
-LogDebug:FE-ROCCalorimeterInterface:DTC1_ROC2_Calo:otsdaq_mu2e_calorimeter/otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface_interface.cc [19]	Constructor...
-LogInfo:FE-ROCCalorimeterInterface:otsdaq_mu2e_calorimeter/otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface_interface.cc [22]	ROCPolarFireCoreInterface instantiated with link: 2 and EventWindowDelayOffset = 123
-LogDebug:FE-ROCCalorimeterInterface:DTC1_ROC2_Calo:otsdaq_mu2e_calorimeter/otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface_interface.cc [30]	inputTemperature field not defined. Defaulting...
-LogDebug:DTCFrontEndInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [292]	tmpRoc.emulatorMode_ = 0
-LogDebug:DTCFrontEndInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [294]	tmpRoc.emulatorMode_ = 1
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [298]	Creating ROC in emulator mode...
-LogDebug:DTCFrontEndInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [349]	rocs_[roc.first]->emulatorMode_ = 1
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [380]	Done creating LogDebug:DTCFrontEndInterface:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [314]	Starting ROC emulator thread...
-1 ROC(s)
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [202]	Getting children ROC FEMacros...
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [209]	DTC1_ROC2_Calo::GetROCCaloVoltageChannel
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [217]	macroName = Link2_DTC1_ROC2_Calo_GetROCCaloVoltageChannel
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [228]	StringMacros::vectorToString(inputArgs) = channelNumber
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [229]	StringMacros::vectorToString(outputArgs) = readValue
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [209]	DTC1_ROC2_Calo::SetROCCaloVoltageChannel
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [217]	macroName = Link2_DTC1_ROC2_Calo_SetROCCaloVoltageChannel
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [228]	StringMacros::vectorToString(inputArgs) = channelNumber, value
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [229]	StringMacros::vectorToString(outputArgs) = 
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [151]	Done creating interfaces
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [2274]	Number of front ends to transition: 1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [184]	Configuring interface DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [185]	Configuring interface DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [186]	Configuring interface DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [2313]	theStateMachineImplementation Iteration 0.0
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [727]	getIterationIndex() = 0
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [728]	getSubIterationIndex() = 0
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/DTCFrontEndInterface_interface.cc [732]	Emulator DTC configuring... # of ROCs = 1
-LogDebug:FE:ROCCalorimeterInterface:DTC1_ROC2_Calo:DTC1_ROC2_Calo:otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterface_interface.cc [103]	Emulator ROC configuring...
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq/otsdaq-core/FECore/FEVInterface.cc [52]	slowControlsGroupLink is disconnected, so done configuring slow controls.
-LogDebug:Workloop-DTC1-SlowControls:otsdaq/otsdaq-core/WorkLoopManager/WorkLoop.cc [38]	Starting WorkLoop: DTC1-SlowControls
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [197]	Done Configuring interface DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [198]	Done Configuring interface DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [199]	Done Configuring interface DTC1
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [2376]	Done transitioning all state machine implementations...
-LogDebug:ots:FESupervisor2Config:otsdaq/otsdaq-core/FECore/FEVInterfacesManager.cc [203]	Done Configuring all interfaces.
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [525]	Done configuration all state machine implementations...
-LogDebug:FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/CoreSupervisors/CoreSupervisorBase.cc [394]	CoreSupervisorBase::stateConfigured
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq/otsdaq-core/FECore/FEVInterface.cc [110]	slowControlsRunning
-LogDebug:FE:DTCFrontEndInterface:DTC1:DTC1:otsdaq/otsdaq-core/FECore/FEVInterface.cc [114]	No slow controls channels to monitor, exiting slow controls workloop.
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [475]	Ending state for FESupervisor:FESupervisorDTC1 is Configured
-LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [477]	result = ConfigureDone
+otsdaq/otsdaq-core/ProgressBar/ProgressBar.cc [66]	File Not there
+LogDebug:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [283]	Starting state for FESupervisor:FESupervisorDTC1 is Initial and attempting to Error
+LogError:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [306]	
+:FSM-FESupervisor:FESupervisorDTC1:otsdaq/otsdaq-core/FiniteStateMachine/RunControlStateMachine.cc [305]	Error was received! Halting immediately.
+Terminating...

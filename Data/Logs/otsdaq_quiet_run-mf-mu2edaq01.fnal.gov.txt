@@ -10,9 +10,6 @@
 
 
 
-/home/mu2ecalo/test_stand/ots/srcs/otsdaq_utilities/otsdaq-utilities/Console/MF_ReceiveAndForward.cpp	 Forwarding from: 30000 to: 192.168.157.6:30001
+/home/mu2ecalo/test_stand/ots/srcs/otsdaq_utilities/otsdaq-utilities/Console/MF_ReceiveAndForward.cpp	 Forwarding from: 30000 to: 127.0.0.1:30001
 
 
-listener: bind: Address already in use
-listener: bind: Address already in use
-listener: failed to bind socket
