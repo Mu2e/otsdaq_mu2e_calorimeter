@@ -19,7 +19,7 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	__CFG_COUT__ << "Constructor..." << __E__;
 
 	__MCOUT_INFO__("ROCPolarFireCoreInterface instantiated with link: "
-		               << linkID_ << " and EventWindowDelayOffset = " << delay_ << __E__);
+	               << linkID_ << " and EventWindowDelayOffset = " << delay_ << __E__);
 
 	try
 	{
@@ -32,31 +32,30 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	}
 
 	temp1_.noiseTemp(inputTemp_);
-	
-	
-	registerFEMacroFunction("SetROCCaloVoltageChannel",
-	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
-	                            &ROCCalorimeterInterface::SetVoltageChannel),
-	                        std::vector<std::string>{"channelNumber", "value"}, //inputs parameters
-	                        std::vector<std::string>{}, //output parameters
-	                        1);  // requiredUserPermissions
-	       
 
-	
-	registerFEMacroFunction("GetROCCaloVoltageChannel",
-	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
-	                            &ROCCalorimeterInterface::GetVoltageChannel),
-	                        std::vector<std::string>{"channelNumber"}, //inputs parameters
-	                        std::vector<std::string>{"readValue"}, //output parameters
-	                        1);  // requiredUserPermissions
+	registerFEMacroFunction(
+	    "SetROCCaloVoltageChannel",
+	    static_cast<FEVInterface::frontEndMacroFunction_t>(
+	        &ROCCalorimeterInterface::SetVoltageChannel),
+	    std::vector<std::string>{"channelNumber", "value"},  // inputs parameters
+	    std::vector<std::string>{},                          // output parameters
+	    1);                                                  // requiredUserPermissions
+
+	registerFEMacroFunction(
+	    "GetROCCaloVoltageChannel",
+	    static_cast<FEVInterface::frontEndMacroFunction_t>(
+	        &ROCCalorimeterInterface::GetVoltageChannel),
+	    std::vector<std::string>{"channelNumber"},  // inputs parameters
+	    std::vector<std::string>{"readValue"},      // output parameters
+	    1);                                         // requiredUserPermissions
 }
 
 //==========================================================================================
 ROCCalorimeterInterface::~ROCCalorimeterInterface(void) {}
 
 //==================================================================================================
-void ROCCalorimeterInterface::writeEmulatorRegister(unsigned address,
-                                                    unsigned data_to_write)
+void ROCCalorimeterInterface::writeEmulatorRegister(uint16_t address,
+                                                    uint16_t data_to_write)
 {
 	__CFG_COUT__ << "emulator write" << __E__;
 
@@ -65,7 +64,7 @@ void ROCCalorimeterInterface::writeEmulatorRegister(unsigned address,
 }  // end writeRegister()
 
 //==================================================================================================
-int ROCCalorimeterInterface::readEmulatorRegister(unsigned address)
+int ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
 {
 	__CFG_COUT__ << "emulator read" << __E__;
 
@@ -105,13 +104,10 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 	//	}
 }  // end emulatorWorkLoop()
 
-
 //==================================================================================================
 void ROCCalorimeterInterface::configure(void) try
 {
 	ROCPolarFireCoreInterface::configure();
-
-
 }
 catch(const std::runtime_error& e)
 {
@@ -126,18 +122,16 @@ catch(...)
 }
 
 //==================================================================================================
-void ROCCalorimeterInterface::SetVoltageChannel(__ARGS__) 
+void ROCCalorimeterInterface::SetVoltageChannel(__ARGS__)
 {
 	__MOUT_INFO__ << "Set called" << __E__;
 }
 
 //==================================================================================================
-void ROCCalorimeterInterface::GetVoltageChannel(__ARGS__) 
+void ROCCalorimeterInterface::GetVoltageChannel(__ARGS__)
 {
 	__MOUT_INFO__ << "Get called" << __E__;
-	__SET_ARG_OUT__("readValue",12);
+	__SET_ARG_OUT__("readValue", 12);
 }
-
-
 
 DEFINE_OTS_INTERFACE(ROCCalorimeterInterface)
