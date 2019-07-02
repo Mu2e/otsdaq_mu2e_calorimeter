@@ -64,7 +64,7 @@ void ROCCalorimeterInterface::writeEmulatorRegister(uint16_t address,
 }  // end writeRegister()
 
 //==================================================================================================
-int ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
+uint16_t ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
 {
 	__CFG_COUT__ << "emulator read" << __E__;
 
@@ -75,7 +75,7 @@ int ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
 	else if(address == ADDRESS_MYREGISTER)
 		return temp1_.GetBoardTempC();
 	else
-		return -1;
+		return 0xBAAD;
 
 }  // end readRegister()
 
