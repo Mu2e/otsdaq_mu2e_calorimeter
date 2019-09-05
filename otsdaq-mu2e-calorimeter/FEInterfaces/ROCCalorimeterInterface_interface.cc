@@ -32,22 +32,32 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	}
 
 	temp1_.noiseTemp(inputTemp_);
+	
+	
+	registerFEMacroFunction("SetROCCaloVoltageChannel",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::SetVoltageChannel),
+	                        std::vector<std::string>{"channelNumber", "value"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+	       
 
-	registerFEMacroFunction(
-	    "SetROCCaloVoltageChannel",
-	    static_cast<FEVInterface::frontEndMacroFunction_t>(
-	        &ROCCalorimeterInterface::SetVoltageChannel),
-	    std::vector<std::string>{"channelNumber", "value"},  // inputs parameters
-	    std::vector<std::string>{},                          // output parameters
-	    1);                                                  // requiredUserPermissions
+	
+	registerFEMacroFunction("GetROCCaloVoltageChannel",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::GetVoltageChannel),
+	                        std::vector<std::string>{"channelNumber"}, //inputs parameters
+	                        std::vector<std::string>{"readValue"}, //output parameters
+	                        1);  // requiredUserPermissions
 
-	registerFEMacroFunction(
-	    "GetROCCaloVoltageChannel",
-	    static_cast<FEVInterface::frontEndMacroFunction_t>(
-	        &ROCCalorimeterInterface::GetVoltageChannel),
-	    std::vector<std::string>{"channelNumber"},  // inputs parameters
-	    std::vector<std::string>{"readValue"},      // output parameters
-	    1);                                         // requiredUserPermissions
+// function for webgui
+	registerFEMacroFunction("GetROCCaloTemperatureChannel",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::GetTempChannel),
+	                        std::vector<std::string>{"channelNumber"}, //inputs parameters
+	                        std::vector<std::string>{"readValue"}, //output parameters
+	                        1);  // requiredUserPermissions
+
 }
 
 //==========================================================================================
@@ -73,7 +83,10 @@ uint16_t ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
 	if(address == ADDRESS_FIRMWARE_VERSION)
 		return 0x5;
 	else if(address == ADDRESS_MYREGISTER)
-		return temp1_.GetBoardTempC();
+	{	
+		temp1_.noiseTemp(temp1_.GetBoardTempC());
+		return temp1_.GetBoardTempC()*256;	
+	}
 	else
 		return 0xBAAD;
 
@@ -108,6 +121,18 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 void ROCCalorimeterInterface::configure(void) try
 {
 	ROCPolarFireCoreInterface::configure();
+
+    // consider that we know all the init files
+    // all the init information are stored in the configuration tree    // 
+    // set parameter 
+    // int linkID = getSelfNode().getNode("linkID").getValue<int>();
+    //	__MOUTV__(linkID);
+    
+   int myTemp = GetTemperature(1);
+	__MOUTV__(myTemp);
+	__MOUT__<<"my temp"<<myTemp<<__E__;
+    __COUTV__(myTemp);
+    __MCOUTV__(myTemp);
 }
 catch(const std::runtime_error& e)
 {
@@ -132,6 +157,19 @@ void ROCCalorimeterInterface::GetVoltageChannel(__ARGS__)
 {
 	__MOUT_INFO__ << "Get called" << __E__;
 	__SET_ARG_OUT__("readValue", 12);
+}
+//==================================================================================================
+void ROCCalorimeterInterface::GetTempChannel(__ARGS__)
+{
+	__MOUT_INFO__ << "Temp is" << __E__;
+    int channelnumber = __GET_ARG_IN__("channelNumber",int);
+	__SET_ARG_OUT__("readValue",GetTemperature(channelnumber));
+}
+
+//==================================================================================================
+int ROCCalorimeterInterface::GetTemperature(int idchannel)
+{
+	return readRegister(ADDRESS_MYREGISTER);
 }
 
 DEFINE_OTS_INTERFACE(ROCCalorimeterInterface)

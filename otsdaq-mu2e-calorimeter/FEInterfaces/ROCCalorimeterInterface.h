@@ -35,7 +35,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 		ADDRESS_FIRMWARE_VERSION = 5,
 		ADDRESS_MYREGISTER       = 0x65,
 	};
-
+	int GetTemperature(int idchannel);
 	//	temperature--
 	class Thermometer
 	{
@@ -57,6 +57,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	
 	void SetVoltageChannel(__ARGS__);
 	void GetVoltageChannel(__ARGS__);
+	void GetTempChannel(__ARGS__);
 
 	// clang-format on
 };
