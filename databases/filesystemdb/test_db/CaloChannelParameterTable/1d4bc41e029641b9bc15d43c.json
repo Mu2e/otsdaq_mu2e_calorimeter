@@ -1,0 +1,150 @@
+{
+"document" : {
+"data" : {
+"NAME" : "CALO_CHANNEL_PARAMETER_TABLE",
+"COMMENT" : "No comment.",
+"AUTHOR" : "admin",
+"CREATION_TIME" : 1561135214,
+"COL_TYPES" : {
+"UID" : "VARCHAR2",
+"GROUP_ID" : "VARCHAR2",
+"NAME" : "VARCHAR2",
+"VALUE" : "VARCHAR2",
+"COMMENT_DESCRIPTION" : "VARCHAR2",
+"AUTHOR" : "VARCHAR2",
+"RECORD_INSERTION_TIME" : "TIMESTAMP WITH TIMEZONE"
+},
+"DATA_SET" : [
+{
+"UID" : "Ch0_V",
+"GROUP_ID" : "",
+"NAME" : "voltage",
+"VALUE" : "60",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561135214"
+},
+{
+"UID" : "Ch0_T",
+"GROUP_ID" : "",
+"NAME" : "temperature",
+"VALUE" : "25",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561135214"
+},
+{
+"UID" : "Ch0_I",
+"GROUP_ID" : "",
+"NAME" : "current",
+"VALUE" : "0.1",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561135214"
+}
+]
+},
+"metadata" : {
+
+},
+"search" : [
+
+]
+},
+"comments" : [
+
+],
+"origin" : {
+"source" : "template",
+"name" : "notprovided",
+"format" : "json",
+"created" : "2019-06-21T11:40:14.400-0500",
+"rawdata" : [
+
+]
+},
+"version" : "2",
+"entities" : [
+{
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:40:14.400-0500"
+}
+],
+"configurations" : [
+{
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:40:14.400-0500"
+},
+{
+"name" : "defaultConfig_v6",
+"assigned" : "2019-06-21T11:40:15.725-0500"
+}
+],
+"changelog" : "notprovided",
+"bookkeeping" : {
+"isdeleted" : false,
+"isreadonly" : false,
+"updates" : [
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:40:14.400-0500",
+"value" : {
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:40:14.400-0500"
+}
+},
+{
+"event" : "setVersion",
+"timestamp" : "2019-06-21T11:40:14.400-0500",
+"value" : {
+"name" : "2",
+"assigned" : "2019-06-21T11:40:14.400-0500"
+}
+},
+{
+"event" : "setCollection",
+"timestamp" : "2019-06-21T11:40:14.400-0500",
+"value" : {
+"name" : "CaloChannelParameterTable",
+"assigned" : "2019-06-21T11:40:14.400-0500"
+}
+},
+{
+"event" : "addEntity",
+"timestamp" : "2019-06-21T11:40:14.400-0500",
+"value" : {
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:40:14.400-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:40:15.725-0500",
+"value" : {
+"name" : "defaultConfig_v6",
+"assigned" : "2019-06-21T11:40:15.725-0500"
+}
+}
+],
+"created" : "2019-06-21T11:40:14.400-0500"
+},
+"_id" : {
+"$oid" : "1d4bc41e029641b9bc15d43c"
+},
+"collection" : "CaloChannelParameterTable",
+"aliases" : {
+"active" : [
+
+],
+"history" : [
+
+]
+},
+"runs" : [
+
+],
+"attachments" : [
+
+],
+"configtype" : "notprovided"
+}

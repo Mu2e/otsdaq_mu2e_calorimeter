@@ -1,0 +1,37 @@
+{
+"ouid" : [
+"cad35a0910334757a2b410c2"
+],
+"version" : {
+"1" : [
+"cad35a0910334757a2b410c2"
+]
+},
+"configurations.name" : {
+"notprovided" : [
+"cad35a0910334757a2b410c2"
+],
+"defaultConfig_v1" : [
+"cad35a0910334757a2b410c2"
+]
+},
+"entities.name" : {
+"OTSROOT" : [
+"cad35a0910334757a2b410c2"
+]
+},
+"aliases.active.name" : {
+
+},
+"runs.name" : {
+
+},
+"configurations.assigned" : {
+"notprovided" : [
+"2019-06-17T10:36:47.671-0500"
+],
+"defaultConfig_v1" : [
+"2019-06-17T10:36:49.966-0500"
+]
+}
+}

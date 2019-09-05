@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+	<ROOT xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="TableInfo.xsd">
+		<TABLE Name="CaloChannelROCTable">
+			<VIEW Name="CALO_CHANNEL_ROC_TABLE" Type="File,Database,DatabaseTest" Description="Set%20a%20parameter%20of%20a%20channel%20in%20a%20ROC">
+				<COLUMN Type="UID" 	 Name="ChannelID" 	 StorageName="CHANNEL_ID" 		DataType="VARCHAR2" 		DataChoices=""/>
+				<COLUMN Type="GroupID-ChannelGroup" 	 Name="GroupID" 	 StorageName="GROUP_ID" 		DataType="VARCHAR2" 		DataChoices=""/>
+				<COLUMN Type="Data" 	 Name="HighVoltage" 	 StorageName="HIGH_VOLTAGE" 		DataType="VARCHAR2" 		DataChoices=""/>
+				<COLUMN Type="Comment" 	 Name="CommentDescription" 	 StorageName="COMMENT_DESCRIPTION" 		DataType="VARCHAR2" 		DataChoices=""/>
+				<COLUMN Type="Author" 	 Name="Author" 	 StorageName="AUTHOR" 		DataType="VARCHAR2" 		DataChoices=""/>
+				<COLUMN Type="Timestamp" 	 Name="RecordInsertionTime" 	 StorageName="RECORD_INSERTION_TIME" 		DataType="TIMESTAMP WITH TIMEZONE" 		DataChoices=""/>
+			</VIEW>
+		</TABLE>
+	</ROOT>

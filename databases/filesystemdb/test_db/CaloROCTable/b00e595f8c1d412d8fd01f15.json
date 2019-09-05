@@ -1,0 +1,182 @@
+{
+"document" : {
+"data" : {
+"NAME" : "CALO_ROC_TABLE",
+"COMMENT" : "Auto-generated from mock-up.",
+"AUTHOR" : "admin",
+"CREATION_TIME" : 1561135765,
+"COL_TYPES" : {
+"UID" : "VARCHAR2",
+"CHANNEL_NAME" : "VARCHAR2",
+"STATUS" : "VARCHAR2",
+"LINK_TO_CALO_CHANNEL_PARAMETER_TABLE" : "VARCHAR2",
+"LINK_TO_CALO_CHANNEL_PARAMETER_GROUP_ID" : "VARCHAR2",
+"COMMENT_DESCRIPTION" : "VARCHAR2",
+"AUTHOR" : "VARCHAR2",
+"RECORD_INSERTION_TIME" : "TIMESTAMP WITH TIMEZONE"
+},
+"DATA_SET" : [
+{
+"UID" : "ROC0",
+"CHANNEL_NAME" : "0",
+"STATUS" : "On",
+"LINK_TO_CALO_CHANNEL_PARAMETER_TABLE" : "CaloChannelParameterTable",
+"LINK_TO_CALO_CHANNEL_PARAMETER_GROUP_ID" : "Ch0",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561135756"
+}
+]
+},
+"metadata" : {
+
+},
+"search" : [
+
+]
+},
+"comments" : [
+
+],
+"origin" : {
+"source" : "template",
+"name" : "notprovided",
+"format" : "json",
+"created" : "2019-06-21T11:49:25.280-0500",
+"rawdata" : [
+
+]
+},
+"version" : "2",
+"entities" : [
+{
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:49:25.281-0500"
+}
+],
+"configurations" : [
+{
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:49:25.281-0500"
+},
+{
+"name" : "defaultConfig_v7",
+"assigned" : "2019-06-21T11:49:26.929-0500"
+},
+{
+"name" : "defaultConfig_v8",
+"assigned" : "2019-06-23T16:20:59.427-0500"
+},
+{
+"name" : "defaultConfig_v9",
+"assigned" : "2019-06-24T10:06:40.825-0500"
+},
+{
+"name" : "defaultConfig_v10",
+"assigned" : "2019-06-24T10:07:12.334-0500"
+},
+{
+"name" : "defaultConfig_v11",
+"assigned" : "2019-06-24T10:58:33.747-0500"
+}
+],
+"changelog" : "notprovided",
+"bookkeeping" : {
+"isdeleted" : false,
+"isreadonly" : false,
+"updates" : [
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:49:25.281-0500",
+"value" : {
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:49:25.281-0500"
+}
+},
+{
+"event" : "setVersion",
+"timestamp" : "2019-06-21T11:49:25.281-0500",
+"value" : {
+"name" : "2",
+"assigned" : "2019-06-21T11:49:25.281-0500"
+}
+},
+{
+"event" : "setCollection",
+"timestamp" : "2019-06-21T11:49:25.281-0500",
+"value" : {
+"name" : "CaloROCTable",
+"assigned" : "2019-06-21T11:49:25.281-0500"
+}
+},
+{
+"event" : "addEntity",
+"timestamp" : "2019-06-21T11:49:25.281-0500",
+"value" : {
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:49:25.281-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:49:26.929-0500",
+"value" : {
+"name" : "defaultConfig_v7",
+"assigned" : "2019-06-21T11:49:26.929-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-23T16:20:59.427-0500",
+"value" : {
+"name" : "defaultConfig_v8",
+"assigned" : "2019-06-23T16:20:59.427-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:06:40.825-0500",
+"value" : {
+"name" : "defaultConfig_v9",
+"assigned" : "2019-06-24T10:06:40.825-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:07:12.334-0500",
+"value" : {
+"name" : "defaultConfig_v10",
+"assigned" : "2019-06-24T10:07:12.334-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:58:33.747-0500",
+"value" : {
+"name" : "defaultConfig_v11",
+"assigned" : "2019-06-24T10:58:33.747-0500"
+}
+}
+],
+"created" : "2019-06-21T11:49:25.281-0500"
+},
+"_id" : {
+"$oid" : "b00e595f8c1d412d8fd01f15"
+},
+"collection" : "CaloROCTable",
+"aliases" : {
+"active" : [
+
+],
+"history" : [
+
+]
+},
+"runs" : [
+
+],
+"attachments" : [
+
+],
+"configtype" : "notprovided"
+}

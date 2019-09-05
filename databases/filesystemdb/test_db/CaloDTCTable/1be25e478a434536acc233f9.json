@@ -1,0 +1,148 @@
+{
+"document" : {
+"data" : {
+"NAME" : "CALO_DTC_TABLE",
+"COMMENT" : "Auto-generated from mock-up.",
+"AUTHOR" : "admin",
+"CREATION_TIME" : 1561134433,
+"COL_TYPES" : {
+"UID" : "VARCHAR2",
+"PATH_GROUP" : "VARCHAR2",
+"ROC_NAME" : "VARCHAR2",
+"STATUS" : "VARCHAR2",
+"LINK_TO_CALO_ROC_TABLE" : "VARCHAR2",
+"LINK_TO_CALO_ROC_TABLE_UID" : "VARCHAR2",
+"COMMENT_DESCRIPTION" : "VARCHAR2",
+"AUTHOR" : "VARCHAR2",
+"RECORD_INSERTION_TIME" : "TIMESTAMP WITH TIMEZONE"
+},
+"DATA_SET" : [
+{
+"UID" : "DTC0",
+"PATH_GROUP" : "DEFAULT",
+"ROC_NAME" : "0",
+"STATUS" : "On",
+"LINK_TO_CALO_ROC_TABLE" : "CaloROCTable",
+"LINK_TO_CALO_ROC_TABLE_UID" : "ROC0",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561134183"
+}
+]
+},
+"metadata" : {
+
+},
+"search" : [
+
+]
+},
+"comments" : [
+
+],
+"origin" : {
+"source" : "template",
+"name" : "notprovided",
+"format" : "json",
+"created" : "2019-06-21T11:27:13.434-0500",
+"rawdata" : [
+
+]
+},
+"version" : "1",
+"entities" : [
+{
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:27:13.435-0500"
+}
+],
+"configurations" : [
+{
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:27:13.435-0500"
+},
+{
+"name" : "defaultConfig_v5",
+"assigned" : "2019-06-21T11:27:14.765-0500"
+},
+{
+"name" : "defaultConfig_v6",
+"assigned" : "2019-06-21T11:40:16.029-0500"
+}
+],
+"changelog" : "notprovided",
+"bookkeeping" : {
+"isdeleted" : false,
+"isreadonly" : false,
+"updates" : [
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:27:13.435-0500",
+"value" : {
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:27:13.435-0500"
+}
+},
+{
+"event" : "setVersion",
+"timestamp" : "2019-06-21T11:27:13.435-0500",
+"value" : {
+"name" : "1",
+"assigned" : "2019-06-21T11:27:13.435-0500"
+}
+},
+{
+"event" : "setCollection",
+"timestamp" : "2019-06-21T11:27:13.435-0500",
+"value" : {
+"name" : "CaloDTCTable",
+"assigned" : "2019-06-21T11:27:13.435-0500"
+}
+},
+{
+"event" : "addEntity",
+"timestamp" : "2019-06-21T11:27:13.435-0500",
+"value" : {
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:27:13.435-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:27:14.765-0500",
+"value" : {
+"name" : "defaultConfig_v5",
+"assigned" : "2019-06-21T11:27:14.765-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:40:16.029-0500",
+"value" : {
+"name" : "defaultConfig_v6",
+"assigned" : "2019-06-21T11:40:16.029-0500"
+}
+}
+],
+"created" : "2019-06-21T11:27:13.434-0500"
+},
+"_id" : {
+"$oid" : "1be25e478a434536acc233f9"
+},
+"collection" : "CaloDTCTable",
+"aliases" : {
+"active" : [
+
+],
+"history" : [
+
+]
+},
+"runs" : [
+
+],
+"attachments" : [
+
+],
+"configtype" : "notprovided"
+}

@@ -1,0 +1,192 @@
+{
+"document" : {
+"data" : {
+"NAME" : "CALO_DTC_TABLE",
+"COMMENT" : "Auto-generated from mock-up.",
+"AUTHOR" : "admin",
+"CREATION_TIME" : 1561135765,
+"COL_TYPES" : {
+"UID" : "VARCHAR2",
+"ROC_NAME" : "VARCHAR2",
+"STATUS" : "VARCHAR2",
+"LINK_TO_CALO_ROC_TABLE" : "VARCHAR2",
+"LINK_TO_CALO_ROC_TABLE_UID" : "VARCHAR2",
+"COMMENT_DESCRIPTION" : "VARCHAR2",
+"AUTHOR" : "VARCHAR2",
+"RECORD_INSERTION_TIME" : "TIMESTAMP WITH TIMEZONE"
+},
+"DATA_SET" : [
+{
+"UID" : "DTC0",
+"ROC_NAME" : "0",
+"STATUS" : "On",
+"LINK_TO_CALO_ROC_TABLE" : "CaloROCTable",
+"LINK_TO_CALO_ROC_TABLE_UID" : "ROC0",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561135730"
+},
+{
+"UID" : "DEFAULT",
+"ROC_NAME" : "DEFAULT",
+"STATUS" : "Off",
+"LINK_TO_CALO_ROC_TABLE" : "NO_LINK",
+"LINK_TO_CALO_ROC_TABLE_UID" : "ROC0",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561134183"
+}
+]
+},
+"metadata" : {
+
+},
+"search" : [
+
+]
+},
+"comments" : [
+
+],
+"origin" : {
+"source" : "template",
+"name" : "notprovided",
+"format" : "json",
+"created" : "2019-06-21T11:49:25.142-0500",
+"rawdata" : [
+
+]
+},
+"version" : "2",
+"entities" : [
+{
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:49:25.142-0500"
+}
+],
+"configurations" : [
+{
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:49:25.142-0500"
+},
+{
+"name" : "defaultConfig_v7",
+"assigned" : "2019-06-21T11:49:26.809-0500"
+},
+{
+"name" : "defaultConfig_v8",
+"assigned" : "2019-06-23T16:20:58.949-0500"
+},
+{
+"name" : "defaultConfig_v9",
+"assigned" : "2019-06-24T10:06:40.523-0500"
+},
+{
+"name" : "defaultConfig_v10",
+"assigned" : "2019-06-24T10:07:11.831-0500"
+},
+{
+"name" : "defaultConfig_v11",
+"assigned" : "2019-06-24T10:58:33.194-0500"
+}
+],
+"changelog" : "notprovided",
+"bookkeeping" : {
+"isdeleted" : false,
+"isreadonly" : false,
+"updates" : [
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:49:25.142-0500",
+"value" : {
+"name" : "notprovided",
+"assigned" : "2019-06-21T11:49:25.142-0500"
+}
+},
+{
+"event" : "setVersion",
+"timestamp" : "2019-06-21T11:49:25.142-0500",
+"value" : {
+"name" : "2",
+"assigned" : "2019-06-21T11:49:25.142-0500"
+}
+},
+{
+"event" : "setCollection",
+"timestamp" : "2019-06-21T11:49:25.142-0500",
+"value" : {
+"name" : "CaloDTCTable",
+"assigned" : "2019-06-21T11:49:25.142-0500"
+}
+},
+{
+"event" : "addEntity",
+"timestamp" : "2019-06-21T11:49:25.142-0500",
+"value" : {
+"name" : "OTSROOT",
+"assigned" : "2019-06-21T11:49:25.142-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-21T11:49:26.809-0500",
+"value" : {
+"name" : "defaultConfig_v7",
+"assigned" : "2019-06-21T11:49:26.809-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-23T16:20:58.949-0500",
+"value" : {
+"name" : "defaultConfig_v8",
+"assigned" : "2019-06-23T16:20:58.949-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:06:40.523-0500",
+"value" : {
+"name" : "defaultConfig_v9",
+"assigned" : "2019-06-24T10:06:40.523-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:07:11.831-0500",
+"value" : {
+"name" : "defaultConfig_v10",
+"assigned" : "2019-06-24T10:07:11.831-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:58:33.194-0500",
+"value" : {
+"name" : "defaultConfig_v11",
+"assigned" : "2019-06-24T10:58:33.194-0500"
+}
+}
+],
+"created" : "2019-06-21T11:49:25.142-0500"
+},
+"_id" : {
+"$oid" : "71148cd396dd428195cc62fd"
+},
+"collection" : "CaloDTCTable",
+"aliases" : {
+"active" : [
+
+],
+"history" : [
+
+]
+},
+"runs" : [
+
+],
+"attachments" : [
+
+],
+"configtype" : "notprovided"
+}

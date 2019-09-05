@@ -1,0 +1,148 @@
+{
+"document" : {
+"data" : {
+"NAME" : "SUBSYSTEM_CALORIMETER_PARAMETERS_TABLE",
+"COMMENT" : "dummy table ",
+"AUTHOR" : "admin",
+"CREATION_TIME" : 1561388830,
+"COL_TYPES" : {
+"SUBSYSTEM_CALORIMETER_PARAMETERS_UID" : "VARCHAR2",
+"NUMBER_PARAM1" : "VARCHAR2",
+"TRUE_FALSE_PARAM2" : "VARCHAR2",
+"MUST_BE_UNIQUE_PARAM3" : "VARCHAR2",
+"LINK_TO_SUBSYSTEM_CALORIMETER_GROUPED_PARAMETERS_TABLE" : "VARCHAR2",
+"LINK_TO_SUBSYSTEM_CALORIMETER_GROUPED_PARAMETERS_GROUP_ID" : "VARCHAR2",
+"COMMENT_DESCRIPTION" : "VARCHAR2",
+"AUTHOR" : "VARCHAR2",
+"RECORD_INSERTION_TIME" : "TIMESTAMP WITH TIMEZONE"
+},
+"DATA_SET" : [
+{
+"SUBSYSTEM_CALORIMETER_PARAMETERS_UID" : "DTC1_ROC2_Calo0",
+"NUMBER_PARAM1" : "12344321",
+"TRUE_FALSE_PARAM2" : "False",
+"MUST_BE_UNIQUE_PARAM3" : "calouniqueparam0",
+"LINK_TO_SUBSYSTEM_CALORIMETER_GROUPED_PARAMETERS_TABLE" : "CaloParameterRangeTable",
+"LINK_TO_SUBSYSTEM_CALORIMETER_GROUPED_PARAMETERS_GROUP_ID" : "DEFAULT",
+"COMMENT_DESCRIPTION" : "No Comment",
+"AUTHOR" : "admin",
+"RECORD_INSERTION_TIME" : "1561388830"
+}
+]
+},
+"metadata" : {
+
+},
+"search" : [
+
+]
+},
+"comments" : [
+
+],
+"origin" : {
+"source" : "template",
+"name" : "notprovided",
+"format" : "json",
+"created" : "2019-06-24T10:07:10.202-0500",
+"rawdata" : [
+
+]
+},
+"version" : "2",
+"entities" : [
+{
+"name" : "OTSROOT",
+"assigned" : "2019-06-24T10:07:10.202-0500"
+}
+],
+"configurations" : [
+{
+"name" : "notprovided",
+"assigned" : "2019-06-24T10:07:10.202-0500"
+},
+{
+"name" : "defaultConfig_v10",
+"assigned" : "2019-06-24T10:07:13.769-0500"
+},
+{
+"name" : "defaultConfig_v11",
+"assigned" : "2019-06-24T10:58:36.015-0500"
+}
+],
+"changelog" : "notprovided",
+"bookkeeping" : {
+"isdeleted" : false,
+"isreadonly" : false,
+"updates" : [
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:07:10.202-0500",
+"value" : {
+"name" : "notprovided",
+"assigned" : "2019-06-24T10:07:10.202-0500"
+}
+},
+{
+"event" : "setVersion",
+"timestamp" : "2019-06-24T10:07:10.202-0500",
+"value" : {
+"name" : "2",
+"assigned" : "2019-06-24T10:07:10.202-0500"
+}
+},
+{
+"event" : "setCollection",
+"timestamp" : "2019-06-24T10:07:10.202-0500",
+"value" : {
+"name" : "SubsystemCalorimeterParametersTable",
+"assigned" : "2019-06-24T10:07:10.202-0500"
+}
+},
+{
+"event" : "addEntity",
+"timestamp" : "2019-06-24T10:07:10.202-0500",
+"value" : {
+"name" : "OTSROOT",
+"assigned" : "2019-06-24T10:07:10.202-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:07:13.769-0500",
+"value" : {
+"name" : "defaultConfig_v10",
+"assigned" : "2019-06-24T10:07:13.769-0500"
+}
+},
+{
+"event" : "addConfiguration",
+"timestamp" : "2019-06-24T10:58:36.015-0500",
+"value" : {
+"name" : "defaultConfig_v11",
+"assigned" : "2019-06-24T10:58:36.015-0500"
+}
+}
+],
+"created" : "2019-06-24T10:07:10.202-0500"
+},
+"_id" : {
+"$oid" : "c7d254b0db58443d9f8d2522"
+},
+"collection" : "SubsystemCalorimeterParametersTable",
+"aliases" : {
+"active" : [
+
+],
+"history" : [
+
+]
+},
+"runs" : [
+
+],
+"attachments" : [
+
+],
+"configtype" : "notprovided"
+}
