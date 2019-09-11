@@ -1,6 +1,6 @@
 #include "otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface.h"
 
-#include "otsdaq-core/Macros/InterfacePluginMacros.h"
+#include "otsdaq/Macros/InterfacePluginMacros.h"
 
 using namespace ots;
 
