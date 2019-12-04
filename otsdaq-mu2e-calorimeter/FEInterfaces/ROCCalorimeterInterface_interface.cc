@@ -14,7 +14,7 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
     const std::string&       theConfigurationPath)
     : ROCPolarFireCoreInterface(rocUID, theXDAQContextConfigTree, theConfigurationPath)
 {
-	INIT_MF("ROCCalorimeterInterface");
+	INIT_MF("." /*directory used is USER_DATA/LOG/.*/);
 
 	__CFG_COUT__ << "Constructor..." << __E__;
 
