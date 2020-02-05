@@ -58,10 +58,14 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{"readValue"}, //output parameters
 	                        1);  // requiredUserPermissions
 
-}
+} //end constructor()
 
 //==========================================================================================
-ROCCalorimeterInterface::~ROCCalorimeterInterface(void) {}
+ROCCalorimeterInterface::~ROCCalorimeterInterface(void) {
+  // NOTE:: be careful not to call __FE_COUT__ decoration because it uses the
+  // tree and it may already be destructed partially
+  __COUT__ << FEVInterface::interfaceUID_ << "Destructed." << __E__;
+} //end destructor()
 
 //==================================================================================================
 void ROCCalorimeterInterface::writeEmulatorRegister(uint16_t address,
@@ -96,7 +100,7 @@ uint16_t ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
 // return false to stop workloop thread
 bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 {
-	//__CFG_COUT__ << "emulator working..." << __E__;
+	__COUT__ << FEVInterface::interfaceUID_ << "emulator working..." << __E__;
 
 	temp1_.noiseTemp(inputTemp_);
 	return true;  // true to keep workloop going
