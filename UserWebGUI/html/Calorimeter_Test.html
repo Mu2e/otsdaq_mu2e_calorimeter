@@ -74,8 +74,6 @@
 		/////////////////////////////////////////////////////////////////////////////////////////
 	
 		//functions:		
-			//htmlOpen(tag,attObj,innerHTML,closeTag)
-			//htmlClearDiv()	
 			//init()	
 			//runMacro(r,c)
 			//getDateString(date)
@@ -132,31 +130,6 @@
 		/////////////////////////////////////////////////////////////////////////////////////////
 		/////////////////////////////////////////////////////////////////////////////////////////
 
-
-		//=====================================================================================
-		//htmlOpen ~~		
-		//	tab name and attribute/value map object
-		function htmlOpen(tag,attObj,innerHTML,doCloseTag)
-		{
-			var str = "";
-			var attKeys = attObj?Object.keys(attObj):[]; 
-			str += "<" + tag + " ";
-			for(var i=0;i<attKeys.length;++i)
-				str += " " + attKeys[i] + "='" +
-				attObj[attKeys[i]] + "' ";
-			str += ">";
-			if(innerHTML) str += innerHTML;
-			if(doCloseTag)
-				str += "</" + tag + ">";
-			return str;
-		} // end htmlOpen()
-
-		//=====================================================================================
-		//htmlClearDiv ~~		
-		function htmlClearDiv()
-		{
-			return "<div id='clearDiv'></div>";
-		} //end htmlClearDiv()
 		
 		
 		//=====================================================================================
@@ -477,7 +450,7 @@
 					if(name == "Filename" || name == "filename")
 						str += name + " = " +
 							//if filename, add link to CodeEditor
-							htmlOpen("a", //start macro module table
+							DesktopContent.htmlOpen("a", //start macro module table
 								{
 									"title":"Open file in a new browser tab: \n" +
 									value,
@@ -542,16 +515,16 @@
 			
 			//make module grid
 			var str = "";
-			str += htmlOpen("table",
+			str += DesktopContent.htmlOpen("table",
 					{
 							"id": "macroModulesTable",
 					});
 			for(var c=0;c<=maxCol;++c)
 			{
-				str += htmlOpen("tr");
+				str += DesktopContent.htmlOpen("tr");
 				for(var r=0;r<=maxRow;++r)
 				{
-					str += htmlOpen(
+					str += DesktopContent.htmlOpen(
 							"td",
 							{
 								"id": "macroModule-row-" + r + "-col-" + c,
@@ -589,16 +562,16 @@
 
 					str = "";
 
-					str += htmlOpen("table", //start macro module table
+					str += DesktopContent.htmlOpen("table", //start macro module table
 							{
 									"class": "macroModuleTable",
 							});
 					{ //FE Class html
-						str += htmlOpen("tr"); //start row for FE Class
-						str += htmlOpen("td",{},"<b>FE Type:</b>" /*innerHTML*/,true /*doCloseTag*/);
-						str += htmlOpen("td");
+						str += DesktopContent.htmlOpen("tr"); //start row for FE Class
+						str += DesktopContent.htmlOpen("td",{},"<b>FE Type:</b>" /*innerHTML*/,true /*doCloseTag*/);
+						str += DesktopContent.htmlOpen("td");
 						{
-							str += htmlOpen(
+							str += DesktopContent.htmlOpen(
 									"select",
 									{
 											"id": "feClassSelect-row-" + r + "-col-" + c,
@@ -606,14 +579,14 @@
 											"onchange":"handleSelectedFEClass(" +
 											r + "," + c + ");",
 									});
-							str +=  htmlOpen(
+							str +=  DesktopContent.htmlOpen(
 									"option" + ("*"==feClassSelected?" selected":""),
 									{},
 									"*" /*innerHTML*/,true /*doCloseTag*/);
 							for(var feClass in feClassToFEsMap_) //go through class keys
 							{
 								console.log(feClass);
-								str +=  htmlOpen(
+								str +=  DesktopContent.htmlOpen(
 										"option" + (feClass==feClassSelected?" selected":""),
 										{},
 										feClass /*innerHTML*/,true /*doCloseTag*/);
@@ -624,11 +597,11 @@
 					} //end FE Class html
 
 					{ //FE UID html
-						str += htmlOpen("tr"); //start row for FE UID
-						str += htmlOpen("td",{},"<b>FE Target UID:</b>" /*innerHTML*/,true /*doCloseTag*/);
-						str += htmlOpen("td");
+						str += DesktopContent.htmlOpen("tr"); //start row for FE UID
+						str += DesktopContent.htmlOpen("td",{},"<b>FE Target UID:</b>" /*innerHTML*/,true /*doCloseTag*/);
+						str += DesktopContent.htmlOpen("td");
 						{
-							str += htmlOpen(
+							str += DesktopContent.htmlOpen(
 									"select",
 									{
 											"id": "feUIDSelect-row-" + r + "-col-" + c,
@@ -642,11 +615,11 @@
 					} //end FE Class html
 					
 					{ //Macro Type html
-						str += htmlOpen("tr"); //start row for Macro Type 
-						str += htmlOpen("td",{},"<b>Macro Type:</b>" /*innerHTML*/,true /*doCloseTag*/);
-						str += htmlOpen("td");
+						str += DesktopContent.htmlOpen("tr"); //start row for Macro Type 
+						str += DesktopContent.htmlOpen("td",{},"<b>Macro Type:</b>" /*innerHTML*/,true /*doCloseTag*/);
+						str += DesktopContent.htmlOpen("td");
 						{
-							str += htmlOpen(
+							str += DesktopContent.htmlOpen(
 									"select",
 									{
 											"id": "macroTypeSelect-row-" + r + "-col-" + c,
@@ -658,7 +631,7 @@
 							for(var macroType in MACRO_TYPES_) //go through class keys
 							{
 								console.log(macroType);
-								str +=  htmlOpen(
+								str +=  DesktopContent.htmlOpen(
 										"option" + (MACRO_TYPES_[macroType]==
 												feMacroTypeSelected?" selected":""),
 										{},
@@ -670,11 +643,11 @@
 					} //end Macro Type html
 
 					{ //Macro Name html
-						str += htmlOpen("tr"); //start row for Macro Name
-						str += htmlOpen("td",{},"<b>Macro Name:</b>" /*innerHTML*/,true /*doCloseTag*/);
-						str += htmlOpen("td");
+						str += DesktopContent.htmlOpen("tr"); //start row for Macro Name
+						str += DesktopContent.htmlOpen("td",{},"<b>Macro Name:</b>" /*innerHTML*/,true /*doCloseTag*/);
+						str += DesktopContent.htmlOpen("td");
 						{
-							str += htmlOpen(
+							str += DesktopContent.htmlOpen(
 									"select",
 									{
 											"id": "macroNameSelect-row-" + r + "-col-" + c,
@@ -688,8 +661,8 @@
 					} //end Macro Name html
 					
 					{ //Macro Detail html
-						str += htmlOpen("tr"); //start row for Macro Detail
-						str += htmlOpen("td",{
+						str += DesktopContent.htmlOpen("tr"); //start row for Macro Detail
+						str += DesktopContent.htmlOpen("td",{
 								"colspan":"2",
 								"id": "macroDetail-row-" + r + "-col-" + c,
 								"class":"macroDetail",
@@ -747,7 +720,7 @@
 			
 			var str = "";
 			
-			str +=  htmlOpen(
+			str +=  DesktopContent.htmlOpen(
 					"option",
 					{},
 					"*" /*innerHTML*/,true /*doCloseTag*/);
@@ -762,7 +735,7 @@
 						feUIDptr:feClassToFEsMap_[feClassSelected][feUIDptr];
 				
 				console.log(feUID);
-				str +=  htmlOpen(
+				str +=  DesktopContent.htmlOpen(
 						"option" ,
 						{},
 						feUID /*innerHTML*/,true /*doCloseTag*/);
@@ -978,7 +951,7 @@
 //								macroNamePtr:macroNamePtr);
 
 				console.log(macroName);
-				str +=  htmlOpen(
+				str +=  DesktopContent.htmlOpen(
 						"option" ,
 						{},
 						macroName /*innerHTML*/,true /*doCloseTag*/);
@@ -1086,7 +1059,7 @@
 					str += "<tr><td class='macroInputName'>";
 					str += inputsArr[i] + ":";
 					str += "</td><td>";
-					str += htmlOpen("input",{
+					str += DesktopContent.htmlOpen("input",{
 							"type": "text",
 							"id": "macroInput-row-" + r + "-col-" + c +
 								"-i-" + i,
@@ -1111,7 +1084,7 @@
 			str += "&nbsp;&nbsp;&nbsp; <b>Outputs (count=" + 
 					outputsArr.length + "):</b>";
 
-			str += htmlOpen("div",{
+			str += DesktopContent.htmlOpen("div",{
 					"id": "macroOutputs-row-" + r + "-col-" + c,
 					"class":"macroOutputs",
 					"style": "margin-left:60px;",
@@ -1147,7 +1120,7 @@
 				targetString = "FE &apos;" + feUIDSelected + ".&apos;";
 
 			str += "<br>";
-			str += htmlOpen("input",{
+			str += DesktopContent.htmlOpen("input",{
 					"id": "runMacroButton-row-" + r + "-col-" + c,
 					"class":"runMacroButton",
 					"type":"button",					
@@ -1159,7 +1132,7 @@
 						" &apos;" + macroName + "&apos; on " + targetString,
 			},"" /*innerHTML*/,true /*doCloseTag*/);
 			
-			str += htmlOpen("input",{
+			str += DesktopContent.htmlOpen("input",{
 					"id": "outputMacroToFile-row-" + r + "-col-" + c,
 					"class":"outputMacroToFile",
 					"type":"checkbox",
@@ -1168,7 +1141,7 @@
 			
 			//end Run button
 			
-			str += htmlOpen("div",{
+			str += DesktopContent.htmlOpen("div",{
 					"id": "macroResults-row-" + r + "-col-" + c,
 					"class":"macroResults",
 			},"" /*innerHTML*/,true /*doCloseTag*/);
