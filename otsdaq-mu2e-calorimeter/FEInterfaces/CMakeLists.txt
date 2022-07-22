@@ -1,7 +1,7 @@
+
+include(otsdaq::FEInterface)
     
-basic_plugin(ROCCalorimeterInterface "interface"	
-	otsdaq_mu2e::otsdaq-mu2e_FEInterfaces_ROCPolarFireCoreInterface_interface
-	
+cet_build_plugin(ROCCalorimeterInterface otsdaq::FEInterface LIBRARIES REG otsdaq_mu2e::ROCPolarFireCoreInterface
  )
  
  
