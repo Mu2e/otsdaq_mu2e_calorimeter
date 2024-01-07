@@ -49,6 +49,13 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{"channelNumber"}, //inputs parameters
 	                        std::vector<std::string>{"readValue"}, //output parameters
 	                        1);  // requiredUserPermissions
+	
+	registerFEMacroFunction("Configure State Machine",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::Configure),
+	                        std::vector<std::string>{}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
 
 // function for webgui
 	registerFEMacroFunction("GetROCCaloTemperatureChannel",
@@ -131,12 +138,14 @@ void ROCCalorimeterInterface::configure(void) try
     // set parameter 
     // int linkID = getSelfNode().getNode("linkID").getValue<int>();
     //	__MOUTV__(linkID);
+
+	runSequenceOfCommands("ROCTypeLinkTable/LinkToConfigureSequence"); /*Run Configure Sequence Commands*/
     
-   int myTemp = GetTemperature(1);
-	__MOUTV__(myTemp);
-	__MOUT__<<"my temp"<<myTemp<<__E__;
-    __COUTV__(myTemp);
-    __MCOUTV__(myTemp);
+//    int myTemp = GetTemperature(1);
+// 	__MOUTV__(myTemp);
+// 	__MOUT__<<"my temp"<<myTemp<<__E__;
+//     __COUTV__(myTemp);
+//     __MCOUTV__(myTemp);
 }
 catch(const std::runtime_error& e)
 {
@@ -153,6 +162,13 @@ catch(...)
 	}
 	catch(...){}
 	__FE_SS_THROW__;
+}
+
+//==================================================================================================
+void ROCCalorimeterInterface::Configure(__ARGS__)
+{
+	__MOUT_INFO__ << "Configure called" << __E__;
+	configure();
 }
 
 //==================================================================================================
