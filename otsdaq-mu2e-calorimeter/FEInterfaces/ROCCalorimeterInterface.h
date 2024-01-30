@@ -55,6 +55,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	Thermometer temp1_;
 	double      inputTemp_;
 	
+	void Configure(__ARGS__);
 	void SetVoltageChannel(__ARGS__);
 	void GetVoltageChannel(__ARGS__);
 	void GetTempChannel(__ARGS__);
