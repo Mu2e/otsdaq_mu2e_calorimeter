@@ -1,30 +1,5 @@
 
-#simple_plugin(STIBReceiver "generator"
-#  artdaq-ots_Overlays
-#  otsdaq-demo_Overlays
-#  artdaq-ots_Generators_UDPReceiver_generator
-#  artdaq_Application
-#  artdaq_DAQdata
-#  artdaq-core_Utilities
-#  artdaq-core_Data
-#  ${ART_UTILITIES}
-#  ${FHICLCPP}
-#  ${CETLIB}
-#  )
+include(artdaq::commandableGenerator)
 
-simple_plugin(DataGenReceiver "generator"
-  DataManager
-  WorkLoopManager
-  artdaq-ots_Overlays
-  otsdaq-demo_Overlays
-#  artdaq-ots_Generators_UDPReceiver_generator
-  artdaq_Application
-  artdaq_DAQdata
-  artdaq-core_Utilities
-  artdaq-core_Data
-  ${ART_UTILITIES}
-  ${MF_MESSAGELOGGER}
-  ${FHICLCPP}
-  ${CETLIB}
-  )
-  
+cet_build_plugin(CalorimeterVST    artdaq::commandableGenerator LIBRARIES 
+			       REG artdaq_core_mu2e::artdaq-core-mu2e_Overlays canvas::canvas mu2e_pcie_utils::DTCInterface)
