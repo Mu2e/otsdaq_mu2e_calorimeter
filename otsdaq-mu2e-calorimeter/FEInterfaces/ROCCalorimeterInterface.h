@@ -55,10 +55,17 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	Thermometer temp1_;
 	double      inputTemp_;
 	
-	void Configure(__ARGS__);
-	void SetVoltageChannel(__ARGS__);
-	void GetVoltageChannel(__ARGS__);
-	void GetTempChannel(__ARGS__);
+	void Configure									(__ARGS__);
+	void SetVoltageChannel							(__ARGS__);
+	void GetVoltageChannel							(__ARGS__);
+	void GetTempChannel								(__ARGS__);
+
+	// void SetupForPatternDataTaking					(__ARGS__); // Moved to ROCPolarFireCoreInterface::ROCPolarFireCoreInterface, otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterfaceImpl.cc
+	void SetupForPatternFixedLengthDataTaking		(__ARGS__);
+
+	
+
+	virtual void GetStatus							(__ARGS__) override;
 
 	// clang-format on
 };
