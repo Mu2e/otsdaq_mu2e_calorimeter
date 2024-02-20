@@ -1,9 +1,9 @@
 # -*- mode:tcl -*- 
 #------------------------------------------------------------------------------
-# usage: artdaqDriver -c srcs/otsdaq_mu2e_tracekr_test/test_CalorimeterVST_001.fcl
+# usage: artdaqDriver -c srcs/otsdaq_mu2e_calorimeter/test_CalorimeterVST_001.fcl
 # test_buffer
 #------------------------------------------------------------------------------
-#include "Offline/fcl/standardServices.fcl"
+####include "Offline/fcl/standardServices.fcl"
 
 process_name: CalorimeterVSTTest001
 
@@ -14,24 +14,24 @@ source: {
     module_type: "ArtdaqInput"
 }
 
-services: { @table::Services.Reco 
-    ArtdaqFragmentNamingServiceInterface: {
-	helper_plugin   : "Mu2e"
-	service_provider: "ArtdaqFragmentNamingService"
-    }
-    ArtdaqSharedMemoryServiceInterface: {
-        resume_after_timeout: false
-        service_provider    : "ArtdaqSharedMemoryService"
-        waiting_time        : 1
-    }
+####services: { @table::Services.Reco 
+####    ArtdaqFragmentNamingServiceInterface: {
+####	helper_plugin   : "Mu2e"
+####	service_provider: "ArtdaqFragmentNamingService"
+####    }
+####    ArtdaqSharedMemoryServiceInterface: {
+####        resume_after_timeout: false
+####        service_provider    : "ArtdaqSharedMemoryService"
+####        waiting_time        : 1
+####    }
 
-    DbService: {
-        dbName: "mu2e_conditions_prd"
-        purpose: "EMPTY"
-        verbose: 0
-        version: ""
-    }
-}
+####    DbService: {
+####        dbName: "mu2e_conditions_prd"
+####        purpose: "EMPTY"
+####        verbose: 0
+####        version: ""
+####    }
+####}
 
 #------------------------------------------------------------------------------
 # this is the FCL structure passed to the fragmentgenerator (CalorimeterVST)
@@ -53,7 +53,7 @@ fragment_receiver: {
 		heartbeatInterval      : 2000
     heartbeatsAfter        : 16
 
-    readoutMode            : 0
+    readoutMode            : 200 # for simulation
     max_fragment_size_bytes: 0x100000
 
     saveDTCRegisters             : 0          ## 1
@@ -94,22 +94,23 @@ event_builder: {
     buffer_count                        : 1
     max_fragment_size_bytes             : 0x100000
 }
-
+art : {
 physics: {
     analyzers:   {
         a1:    {
-            module_type: OfflineFragmentsDumper
+            module_type: testFragments
         }
     }
+     #t1: [a1] 
+    t1 :[ a1]
+    end_paths : [t1]
 
-    # t1: [a1]
-    t1 : [ ]
-    e1 : [ rootout ]
+}
 }
 
 outputs: {
     rootout:  { module_type: RootOutput
-        fileName         : "raw.mu2e.trkvst.annex.%06r_%08s.art"
+        fileName         : "raw.mu2e.calvst.annex.%06r_%08s.art"
         fileProperties   : { maxSize : 500000 granularity: SubRun }
         checkFileName	   : false
         compressionLevel : 0

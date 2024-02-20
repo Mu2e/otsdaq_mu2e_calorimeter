@@ -11,7 +11,7 @@
 #include "cetlib_except/exception.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "artdaq-core-mu2e/Overlays/FragmentType.hh"
-#include "artdaq-core-mu2e/Overlays/CalDtcFragment.hh"
+#include "artdaq-core-mu2e/Overlays/TrkDtcFragment.hh"
 
 #include <fstream>
 #include <iomanip>
@@ -170,7 +170,7 @@ namespace mu2e {
 std::vector<uint16_t> mu2e::CalorimeterVST::fragmentIDs() {
   std::vector<uint16_t> v;
   v.push_back(0);
-  if (_saveDTCRegisters) v.push_back(FragmentType::CALDTC);
+  if (_saveDTCRegisters) v.push_back(FragmentType::TRKDTC);
   //  if (_saveSPI)          v.push_back(FragmentType::CALSPI);
   
   return v;
@@ -542,7 +542,7 @@ int mu2e::CalorimeterVST::readDTCRegisters(artdaq::Fragment* Frag, uint16_t* Reg
 
   int      rc(0);
   
-  Frag->resizeBytes(NReg*sizeof(CalDtcFragment::RegEntry));
+  Frag->resizeBytes(NReg*sizeof(TrkDtcFragment::RegEntry));
   uint* f2d = (uint*) Frag->dataBegin();
 
   for (int i=0; i<NReg; i++) {
@@ -736,8 +736,8 @@ bool mu2e::CalorimeterVST::readEvent(artdaq::FragmentPtrs& Frags) {
 // add one more fragment of debug type with the diagnostics registers: 8 bytes per register - (register number, value)
 // for simplicity, keep both 4-byte integers
 //-----------------------------------------------------------------------------
-  artdaq::Fragment* f2 = new artdaq::Fragment(ev_counter(),_fragment_ids[1],FragmentType::CALDTC,tstamp);
-	auto              metadata = CalDtcFragment::create_metadata();
+  artdaq::Fragment* f2 = new artdaq::Fragment(ev_counter(),_fragment_ids[1],FragmentType::TRKDTC,tstamp);
+	auto              metadata = TrkDtcFragment::create_metadata();
   f2->setMetadata(metadata);
   if (_saveDTCRegisters) {
 
