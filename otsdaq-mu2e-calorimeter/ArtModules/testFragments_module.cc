@@ -9,13 +9,13 @@
 #include "art/Framework/Core/ModuleMacros.h"
 #include "art/Framework/Principal/Event.h"
 #include "art/Framework/Principal/Handle.h"
-
+#include "art_root_io/TFileService.h"
 #include "canvas/Utilities/Exception.h"
 
 #include "artdaq-core/Data/Fragment.hh"
 
 #include "trace.h"
-
+#include "TH1.h"
 #include <unistd.h>
 #include <iomanip>
 #include <iostream>
@@ -33,17 +33,25 @@ public:
 
 private:
 	art::InputTag caloFragmentsTag_;
+	//TTree* testTree;
+	TH1F *testHist;
+      	Float_t _nSize;
 };
 
 mu2e::testFragments::testFragments(fhicl::ParameterSet const& pset)
-	: EDAnalyzer{pset}, caloFragmentsTag_{"calo"} {}
+	: EDAnalyzer{pset}, caloFragmentsTag_{"calo"} {
+	art::ServiceHandle<art::TFileService> tfs;
+	//testTree  = tfs->make<TTree>("test", "test");
+       //testTree->Branch("nSize", &_nSize, "nSize/F");
+testHist     = tfs->make<TH1F>("test",  "test",   100,    0., 500.   );
+
+}
 
 void mu2e::testFragments::analyze(art::Event const& e)
 {
 	std::cout<<" [testFragments] analyzer testing simulated events "<<std::endl;	
 	std::vector<art::Handle<artdaq::Fragments>> vah = e.getMany<artdaq::Fragments>();
-	//auto calFragments = e.getValidHandle<artdaq::Fragments>("daq");
-
+	
 	std::cout<<"[testFragments] size "<<vah.size()<<std::endl;
 	for (auto const& calFragments : vah) {
 		const art::Provenance* prov = calFragments.provenance();
@@ -54,30 +62,19 @@ void mu2e::testFragments::analyze(art::Event const& e)
 
 		std::string name = fcn + "_" + prov->moduleLabel() + "_" + instn;
 		std::cout<<"[testFragments]  extracting name =  "<<fcn<<" "<<modn<<" "<<instn<<std::endl;  //artdaq::Fragments daq test001
-		//std::cout<<"with type =  "<<typeid(prov).name()<<std::endl;
+
 		size_t totalSize = 0;
 	
 		for (size_t idx = 0; idx < calFragments->size(); ++idx) {
 			auto size = ((*calFragments)[idx]).size() * sizeof(artdaq::RawDataType);
+		        testHist->Fill(size);
 			totalSize += size;
 			std::cout << "[testFragments]  \tCAL Fragment " << idx << " has size " << size << std::endl;
 		}
-		
+		//testTree->Fill();
 		std::cout << "[testFragments]  \tTotal Size: " << (int)totalSize << " bytes." << std::endl;
 	}
-	/*std::cout << "Event " << e.event() << " has ";
-	
-	std::cout << calFragments->size() << " CAL fragments." << std::endl;
 
-	size_t totalSize = 0;
-	
-	for (size_t idx = 0; idx < calFragments->size(); ++idx) {
-		auto size = ((*calFragments)[idx]).size() * sizeof(artdaq::RawDataType);
-		totalSize += size;
-		std::cout << "\tCAL Fragment " << idx << " has size " << size << std::endl;
-	}
-	
-	std::cout << "\tTotal Size: " << (int)totalSize << " bytes." << std::endl;*/
 }
 
 DEFINE_ART_MODULE(mu2e::testFragments)
