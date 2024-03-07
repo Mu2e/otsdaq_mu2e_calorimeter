@@ -1,6 +1,7 @@
 #include "otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface.h"
 
 #include "otsdaq/Macros/InterfacePluginMacros.h"
+#include <fstream>
 
 using namespace ots;
 
@@ -45,6 +46,20 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	registerFEMacroFunction("Setup for Fixed-length Pattern Data Taking",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking),
+	                        std::vector<std::string>{"Fixed Length of Event [units of 16-bit words, Default := 8]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
+	registerFEMacroFunction("Read ROC Error Counter",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::ReadROCErrorCounter),
+	                        std::vector<std::string>{"Address to read, Default := 0]"}, //inputs parameters
+	                        std::vector<std::string>{"Status"}, //output parameters
+	                        1);  // requiredUserPermissions							
+
+	registerFEMacroFunction("Setup for ADCs Data Taking",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::SetupForADCsDataTaking),
 	                        std::vector<std::string>{"Fixed Length of Event [units of 16-bit words, Default := 8]"}, //inputs parameters
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
@@ -109,15 +124,15 @@ void ROCCalorimeterInterface::writeEmulatorRegister(uint16_t address,
 }  // end writeRegister()
 
 //==================================================================================================
-uint16_t ROCCalorimeterInterface::readEmulatorRegister(uint16_t address)
+uint16_t ROCCalorimeterInterface::readEmulatorRegister(uint16_t address) //not useful, broken by Luca
 {
 	__CFG_COUT__ << "emulator read" << __E__;
 
 	if(address == 6 || address == 7)
 		return ROCPolarFireCoreInterface::readEmulatorRegister(address);
-	if(address == ADDRESS_FIRMWARE_VERSION)
+	if(address == ROC_ADDRESS_EW_LENGHT)
 		return 0x5;
-	else if(address == ADDRESS_MYREGISTER)
+	else if(address == ROC_ADDRESS_EW_BLIND)
 	{	
 		temp1_.noiseTemp(temp1_.GetBoardTempC());
 		return temp1_.GetBoardTempC()*256;	
@@ -216,9 +231,9 @@ void ROCCalorimeterInterface::GetTempChannel(__ARGS__)
 }
 
 //==================================================================================================
-int ROCCalorimeterInterface::GetTemperature(int idchannel)
+int ROCCalorimeterInterface::GetTemperature(int idchannel) //wrong address
 {
-	return readRegister(ADDRESS_MYREGISTER);
+	return readRegister(ROC_ADDRESS_EW_LENGHT);
 }
 
 // //==================================================================================================
@@ -247,17 +262,137 @@ int ROCCalorimeterInterface::GetTemperature(int idchannel)
 void ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking(__ARGS__)
 {
 	__COUT_INFO__ << "SetupForPatternFixedLengthDataTaking()" << __E__;
-	writeRegister(14,1); //ROC reset
-	writeRegister(30,0);
+	writeRegister(ROC_ADDRESS_DDRRESET, 1); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET, 1); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET, 0); 
 
-	writeRegister(79,1);
+
+	writeRegister(ROC_ADDRESS_IS_PATTERN, 0);
+
+	writeRegister(ROC_ADDRESS_IS_COUNTER, 1);
+	writeRegister(ROC_ADDRESS_COUNTER_IS_FALLING, 1);
+
+	writeRegister(ROC_ADDRESS_EW_LENGHT, 300);
+
 
 	unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
 	__FE_COUTV__(numberOfWords);
-	writeRegister(81,numberOfWords);
+	writeRegister(ROC_ADDRESS_COUNTER_SIZE, numberOfWords);
 
 	__COUT_INFO__ << "end SetupForPatternFixedLengthDataTaking()" << __E__;
 } //end SetupForPatternFixedLengthDataTaking()
+
+
+//==================================================================================================
+
+
+
+//==================================================================================================
+void ROCCalorimeterInterface::ReadROCErrorCounter(__ARGS__)
+{
+	__COUT_INFO__ << "ReadROCErrorCounter()" << __E__;
+
+
+	unsigned int errAddr = __GET_ARG_IN__("Address to read, Default := 0]", uint16_t, 0);
+	__FE_COUTV__(errAddr);
+
+	writeRegister(ROC_ADDRESS_ERRCNT, errAddr);
+	writeRegister(ROC_ADDRESS_IS_PATTERN, 64);
+
+	std::stringstream os;
+	DTCLib::roc_data_t readVal;
+    readVal = readRegister(ROC_ADDRESS_ERRCNT);
+
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << errAddr << " (" << std::dec << errAddr << 
+		std::hex << "): data 0x" << readVal << " (" << std::dec << 
+		readVal << ")\n" << __E__;
+
+
+	writeRegister(ROC_ADDRESS_IS_PATTERN, 0);
+
+
+	__COUT_INFO__ << "end ReadROCErrorCounter()" << __E__;
+
+	__SET_ARG_OUT__("Status",os.str());
+
+
+} //end ReadROCErrorCounter()
+
+
+//==================================================================================================
+
+
+
+
+void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
+{
+	__COUT_INFO__ << "SetupForADCsDataTaking()" << __E__;
+
+	unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
+	__FE_COUTV__(numberOfWords);
+
+	std::string filename = std::string(__ENV__("USER_DATA")) + "/roc_thr.csv";
+	std::ifstream myFile(filename);
+
+	// Create a vector of <string, int vector> pairs to store the result
+    std::vector<std::pair<std::string, std::vector<int>>> result;
+
+	if(!myFile.is_open())
+	{
+		__FE_SS__ << "Could not open file: " << filename << __E__;
+		__FE_SS_THROW__;;
+	}
+
+	// Read myFile
+	std::vector<std::vector<std::string>> csvRows;
+
+	for (std::string line; std::getline(myFile, line);) {
+
+		std::istringstream ss(std::move(line));
+		std::vector<std::string> row;
+
+		if (!csvRows.empty())
+		{
+			// We expect each row to be as big as the first row
+			row.reserve(csvRows.front().size());
+		}
+
+		// std::getline can split on other characters, here we use ','
+		for (std::string value; std::getline(ss, value, ',');)
+		{
+			row.push_back(std::move(value));
+		}
+
+		csvRows.push_back(std::move(row));
+	}
+
+    // Close file
+    myFile.close();
+
+	writeRegister(ROC_ADDRESS_DDRRESET,  1); 
+	writeRegister(ROC_ADDRESS_IS_COUNTER, 0); 
+	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
+
+	//Write Roc thrsholds using 
+	for(int ich=0; ich<20; ich++)
+	{
+	  writeRegister(ROC_ADDRESS_BASE_THRESHOLD + ich, std::stoi(csvRows[0][ich+1])); 
+	}
+
+	for (const std::vector<std::string>& row : csvRows)
+	{
+    	for (const std::string& value : row)
+		{
+    		__COUT_INFO__ << std::setw(10) << value;
+    	}
+
+		__COUT_INFO__ << "\n";
+	}
+
+	__COUT_INFO__ << "end SetupForADCsDataTaking()" << __E__;
+} //end SetupForADCsDataTaking()
+
 
 //==================================================================================================
 void ROCCalorimeterInterface::GetStatus(__ARGS__)
@@ -297,6 +432,37 @@ void ROCCalorimeterInterface::GetStatus(__ARGS__)
 	os << "\t\t" << "bit[9:8]=[enable_marker,enable_clock]"
 			"\n\t\t bit[7:4]=[en_int_ewm,en_free_ewm,error_en,pattern_en]"
 			"\n\t\t bit[3:0]=en_lanes[HV1,HV0,CAl1,CAL0]\n" << __E__;
+
+
+	address = 72;
+	readVal = readRegister(address);
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << address << " (" << std::dec << address << 
+		std::hex << "): hbtag error 0x" << readVal << " (" << std::dec << 
+		readVal << ") \n" << __E__;
+
+
+	address = 73;
+	readVal = readRegister(address);
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << address << " (" << std::dec << address << 
+		std::hex << "): dreq error 0x" << readVal << " (" << std::dec << 
+		readVal << ") \n" << __E__;		
+
+
+	address = 74;
+	readVal = readRegister(address);
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << address << " (" << std::dec << address << 
+		std::hex << "): hblost 0x" << readVal << " (" << std::dec << 
+		readVal << ") \n" << __E__;
+
+	address = 75;
+	readVal = readRegister(address);
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << address << " (" << std::dec << address << 
+		std::hex << "): evm lost 0x" << readVal << " (" << std::dec << 
+		readVal << ") \n" << __E__;		
 
 	uint32_t doubleRegVal = 0;
 
@@ -356,7 +522,6 @@ void ROCCalorimeterInterface::GetStatus(__ARGS__)
 			doubleRegVal << ")" << __E__;
 		os << "\t\t" << doubleReadCaptions[i] << "\n" << __E__;
 	} //end double read register loop
-
 
 	__SET_ARG_OUT__("Status",os.str());
 
