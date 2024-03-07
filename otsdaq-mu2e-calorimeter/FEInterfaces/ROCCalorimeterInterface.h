@@ -30,11 +30,36 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	bool emulatorWorkLoop(void) override;
 
-	enum
+	enum CaloRegisters
 	{
-		ADDRESS_FIRMWARE_VERSION = 5,
-		ADDRESS_MYREGISTER       = 0x65,
+
+        ROC_ADDRESS_DDRRESET                 = 14,
+        ROC_ADDRESS_ANALOGRESET              = 13,
+        ROC_ADDRESS_IS_PATTERN               = 8,
+
+        ROC_ADDRESS_ERRCNT                   = 17,
+
+
+  		ROC_ADDRESS_WORKMODE                 = 122,
+
+		ROC_ADDRESS_EW_LENGHT                = 123,
+		ROC_ADDRESS_EW_BLIND                 = 124,
+		ROC_ADDRESS_EW_DELAY                 = 125,
+
+		ROC_ADDRESS_MASK_A                   = 120,
+		ROC_ADDRESS_MASK_B                   = 121,
+		ROC_ADDRESS_BASE_THRESHOLD           = 100,
+ 
+		ROC_ADDRESS_IS_COUNTER               = 79,
+		ROC_ADDRESS_COUNTER_IS_FALLING       = 80,
+		ROC_ADDRESS_COUNTER_SIZE             = 81,
+
+		ROC_ADDRESS_IS_LASER                 = 78,
+		ROC_ADDRESS_LASER_DELAY              = 77 
+
 	};
+
+
 	int GetTemperature(int idchannel);
 	//	temperature--
 	class Thermometer
@@ -62,6 +87,8 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	// void SetupForPatternDataTaking					(__ARGS__); // Moved to ROCPolarFireCoreInterface::ROCPolarFireCoreInterface, otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterfaceImpl.cc
 	void SetupForPatternFixedLengthDataTaking		(__ARGS__);
+	void SetupForADCsDataTaking		(__ARGS__);
+	void ReadROCErrorCounter		(__ARGS__);
 
 	
 
