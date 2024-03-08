@@ -35,7 +35,6 @@ private:
 	art::InputTag caloFragmentsTag_;
 	//TTree* testTree;
 	TH1F *testHist;
-      	Float_t _nSize;
 };
 
 mu2e::testFragments::testFragments(fhicl::ParameterSet const& pset)
