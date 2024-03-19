@@ -8,6 +8,9 @@ using namespace ots;
 #undef __MF_SUBJECT__
 #define __MF_SUBJECT__ "FE-ROCCalorimeterInterface"
 
+// 259 (and others) ==> the number of words in block read is written first as a block write
+const std::set<DTCLib::roc_address_t>		ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_({263});
+
 //=========================================================================================
 ROCCalorimeterInterface::ROCCalorimeterInterface(
     const std::string&       rocUID,
@@ -166,6 +169,35 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 	//		return true;
 	//	}
 }  // end emulatorWorkLoop()
+
+//==================================================================================================
+void ROCCalorimeterInterface::readROCBlock(std::vector<DTCLib::roc_data_t>& data,
+                                  DTCLib::roc_address_t            address,
+                                  uint16_t                         wordCount,
+                                  bool                             incrementAddress)
+{
+	__FE_COUT__ << "Calling read ROC block: link number " << std::dec << linkID_
+	            << ", address = " << address << ", wordCount = " << wordCount
+	            << ", incrementAddress = " << incrementAddress << __E__;
+
+	//check if special Block Write required
+	if(ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_.find(address) != ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_.end())
+	{
+		__FE_COUT__ << "Doing special block write!" << __E__;
+		writeROCBlock({wordCount}, address, false /* incrementAddress*/);
+	}
+	__FE_COUTV__(data.size());
+	thisDTC_->ReadROCBlock(data, linkID_, address, wordCount, incrementAddress, 0);
+	__FE_COUTV__(data.size());
+
+	if(data.size() != wordCount)
+	{
+		__FE_SS__ << "ROC block read failed, expecting " << wordCount 
+			<< " words, and read " << data.size() << " words." << __E__;
+		__FE_SS_THROW__;		
+	}
+
+}  // end readBlock()
 
 //==================================================================================================
 void ROCCalorimeterInterface::configure(void) try
