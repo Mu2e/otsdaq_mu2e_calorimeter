@@ -27,6 +27,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	virtual uint16_t						readEmulatorRegister	(uint16_t address) override;
 
 
+	virtual void 							readROCBlock			(std::vector<DTCLib::roc_data_t>& data, DTCLib::roc_address_t address, uint16_t wordCount, bool incrementAddress) override; 
 
 	bool emulatorWorkLoop(void) override;
 
@@ -66,6 +67,11 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	
 
 	virtual void GetStatus							(__ARGS__) override;
+
+private:
+
+
+	static const std::set<DTCLib::roc_address_t>		SPECIAL_BLOCK_READ_ADDRS_;
 
 	// clang-format on
 };
