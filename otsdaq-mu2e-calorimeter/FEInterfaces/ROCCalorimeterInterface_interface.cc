@@ -185,6 +185,15 @@ void ROCCalorimeterInterface::readROCBlock(std::vector<DTCLib::roc_data_t>& data
 	{
 		__FE_COUT__ << "Doing special block write!" << __E__;
 		writeROCBlock({wordCount}, address, false /* incrementAddress*/);
+
+		uint16_t u;
+		while((u=thisDTC_->ReadROCRegister(linkID_, 128, 100)) == 0){} // when the write operation ends the micropro
+                                                      // cessor writes 0x8000 to register 0x128
+  		printf("r_128:0x%04x\n",u);
+		u = thisDTC_->ReadROCRegister(linkID_, 129, 100);
+		printf("r_129:0x%04x\n",u);
+
+		//wordCount  = u - 4 ; // number of words to read back
 	}
 	__FE_COUTV__(data.size());
 	thisDTC_->ReadROCBlock(data, linkID_, address, wordCount, incrementAddress, 0);
