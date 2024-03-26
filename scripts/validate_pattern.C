@@ -22,8 +22,8 @@ int validate_pattern(int ievtno, string file_name)
   // file names & locations
   //string file_in = "/sudaq/DAQData/TriggerData/MactrisData/l1_rawdata_run" + run + ".bin";
 
-  string file_in = file_name + ".bin";
-  string file_out = "error_" + file_name + ".txt";
+  string file_in = "/home/mu2ecalo/ots/Data_calo/OutputData/" + file_name + ".bin";
+  string file_out = "/home/mu2ecalo/ots/Data_calo/OutputData/" + "error_" + file_name + ".txt";
   ifstream fin(file_in.c_str(), ofstream::binary);
   ofstream fout(file_out.c_str());
   

@@ -60,6 +60,15 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{"Status"}, //output parameters
 	                        1);  // requiredUserPermissions							
 
+	registerFEMacroFunction("ROC Link Status",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::ROCLinkStatus),
+	                        std::vector<std::string>{}, //inputs parameters
+	                        std::vector<std::string>{"Status"}, //output parameters
+	                        1);  // requiredUserPermissions		
+
+
+
 	registerFEMacroFunction("Setup for ADCs Data Taking",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::SetupForADCsDataTaking),
@@ -364,6 +373,66 @@ void ROCCalorimeterInterface::ReadROCErrorCounter(__ARGS__)
 //==================================================================================================
 
 
+//==================================================================================================
+void ROCCalorimeterInterface::ROCLinkStatus(__ARGS__)
+{
+	__COUT_INFO__ << "ROCLinkStatus()" << __E__;
+
+
+
+	std::stringstream os;
+	DTCLib::roc_data_t readVal;
+    uint32_t doubleRegVal;
+
+
+    readVal = readRegister(ROC_BAD_MARKER_COUNT);
+
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << ROC_BAD_MARKER_COUNT << " (" << std::dec << ROC_BAD_MARKER_COUNT << 
+		std::hex << "): BAD_MARKER_COUNT 0x" << readVal << " (" << std::dec << 
+		readVal << ")\n" << __E__;
+
+    readVal = readRegister(ROC_LOSSOFCLOCK_COUNT);
+
+	os << std::hex << std::setprecision(4) << std::setfill('0') <<
+		"address 0x" << ROC_LOSSOFCLOCK_COUNT << " (" << std::dec << ROC_LOSSOFCLOCK_COUNT << 
+		std::hex << "): LOSSOFCLOCK_COUNT 0x" << readVal << " (" << std::dec << 
+		readVal << ")\n" << __E__;
+
+		readVal = readRegister(ROC_HB_COUNT);
+		doubleRegVal = readVal;	
+		readVal = readRegister(ROC_HB_COUNT+1);
+		doubleRegVal |= readVal << 16;
+
+		os << std::hex << std::setprecision(4) << std::setfill('0') <<
+			"address 0x" << ROC_HB_COUNT << " (" << std::dec << ROC_HB_COUNT << 
+			std::setprecision(8) <<
+			std::hex << "): data 0x" << doubleRegVal << " (" << std::dec << 
+			doubleRegVal << ")" << __E__;
+		os << "\t\t" << " HB count " << "\n" << __E__;	
+
+		readVal = readRegister(ROC_EVM_COUNT);
+		doubleRegVal = readVal;	
+		readVal = readRegister(ROC_EVM_COUNT+1);
+		doubleRegVal |= readVal << 16;
+
+		os << std::hex << std::setprecision(4) << std::setfill('0') <<
+			"address 0x" << ROC_EVM_COUNT << " (" << std::dec << ROC_EVM_COUNT << 
+			std::setprecision(8) <<
+			std::hex << "): data 0x" << doubleRegVal << " (" << std::dec << 
+			doubleRegVal << ")" << __E__;
+		os << "\t\t" << " EVM count " << "\n" << __E__;	
+
+	__COUT_INFO__ << "end ROCLinkStatus()" << __E__;
+
+	__SET_ARG_OUT__("Status",os.str());
+
+
+} //end ROCLinkStatus()
+
+
+//==================================================================================================
+
 
 
 void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
@@ -412,6 +481,12 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
     myFile.close();
 
 	writeRegister(ROC_ADDRESS_DDRRESET,  1); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET, 1); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET, 0); 
+
+	writeRegister(ROC_ADDRESS_IS_PATTERN, 0);
+	writeRegister(ROC_ADDRESS_EW_LENGHT, 1000);
+
 	writeRegister(ROC_ADDRESS_IS_COUNTER, 0); 
 	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
 

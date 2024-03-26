@@ -32,14 +32,21 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	bool emulatorWorkLoop(void) override;
 
 	enum CaloRegisters
-	{
+	{ 
+
+		ROC_LOOPBACK_GROSS_DELAY             = 4,
+		ROC_BAD_MARKER_COUNT                 = 6,
+		ROC_LOSSOFCLOCK_COUNT                = 7,
+		ROC_HB_COUNT                         = 9,
+		ROC_EVM_COUNT                        = 11,
+		ROC_DREQSKIPP_COUNT                  = 13,
+		
 
         ROC_ADDRESS_DDRRESET                 = 14,
         ROC_ADDRESS_ANALOGRESET              = 13,
         ROC_ADDRESS_IS_PATTERN               = 8,
 
         ROC_ADDRESS_ERRCNT                   = 17,
-
 
   		ROC_ADDRESS_WORKMODE                 = 122,
 
@@ -90,9 +97,9 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	void SetupForPatternFixedLengthDataTaking		(__ARGS__);
 	void SetupForADCsDataTaking		(__ARGS__);
 	void ReadROCErrorCounter		(__ARGS__);
+	void ROCLinkStatus		(__ARGS__);
 
 	
-
 	virtual void GetStatus							(__ARGS__) override;
 
 private:
