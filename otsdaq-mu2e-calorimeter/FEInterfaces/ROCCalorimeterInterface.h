@@ -19,7 +19,15 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	// state machine
 	//----------------
-	void 									configure				(void) override;
+	// state machine
+	//----------------
+	void 								configure					(void) override;
+	//void 								halt						(void) override;
+	//void 								pause						(void) override;
+	//void 								resume						(void) override;
+	//void 								start						(std::string runNumber) override;
+	//void 								stop						(void) override;
+	bool 								running		                (void) override;
 
 
 	// write and read to registers
@@ -28,6 +36,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 
 	virtual void 							readROCBlock			(std::vector<DTCLib::roc_data_t>& data, DTCLib::roc_address_t address, uint16_t wordCount, bool incrementAddress) override; 
+	virtual void 						universalBlockRead			(char* address, char* returnValue, unsigned int numberOfBytes) override;
 
 	bool emulatorWorkLoop(void) override;
 
@@ -88,7 +97,9 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	// void SetupForPatternDataTaking					(__ARGS__); // Moved to ROCPolarFireCoreInterface::ROCPolarFireCoreInterface, otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterfaceImpl.cc
 	void SetupForPatternFixedLengthDataTaking		(__ARGS__);
+    void SetupForPatternFixedLengthDataTaking       (unsigned int numberOfWords);	
 	void SetupForADCsDataTaking		(__ARGS__);
+    void SetupForADCsDataTaking		(unsigned int numberOfWords);	
 	void ReadROCErrorCounter		(__ARGS__);
 
 	

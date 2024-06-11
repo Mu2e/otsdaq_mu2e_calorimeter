@@ -9,7 +9,7 @@ using namespace ots;
 #define __MF_SUBJECT__ "FE-ROCCalorimeterInterface"
 
 // 259 (and others) ==> the number of words in block read is written first as a block write
-const std::set<DTCLib::roc_address_t>		ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_({263});
+const std::set<DTCLib::roc_address_t>		ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_({263, 256, 257, 261, 262});
 
 //=========================================================================================
 ROCCalorimeterInterface::ROCCalorimeterInterface(
@@ -171,39 +171,108 @@ bool ROCCalorimeterInterface::emulatorWorkLoop(void)
 }  // end emulatorWorkLoop()
 
 //==================================================================================================
+void ROCCalorimeterInterface::universalBlockRead(char*        address,
+                                                 char*        returnValue,
+                                                 unsigned int numberOfBytes)
+{
+	std::vector<DTCLib::roc_data_t> data;
+	readROCBlock(data,
+	             *((DTCLib::roc_address_t*)address),
+	             numberOfBytes / 2,
+	             false /*incAddress*/);
+	if(data.size() != numberOfBytes/2)	{
+		__FE_SS__ << "Illegal number of bytes: "  <<  data.size() << " not " << numberOfBytes/2 << __E__;
+		__FE_SS_THROW__;
+	}
+    memcpy(returnValue,&data[0],data.size()*2);
+	
+}
+
+//==================================================================================================
 void ROCCalorimeterInterface::readROCBlock(std::vector<DTCLib::roc_data_t>& data,
-                                  DTCLib::roc_address_t            address,
-                                  uint16_t                         wordCount,
-                                  bool                             incrementAddress)
+                                           DTCLib::roc_address_t            address,
+                                           uint16_t                   wordCount,
+                                           bool incrementAddress)
 {
 	__FE_COUT__ << "Calling read ROC block: link number " << std::dec << linkID_
 	            << ", address = " << address << ", wordCount = " << wordCount
 	            << ", incrementAddress = " << incrementAddress << __E__;
 
-	//check if special Block Write required
-	if(ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_.find(address) != ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_.end())
+	uint16_t u;
+	u = thisDTC_->ReadROCRegister(linkID_, 0, 100);
+
+	// check if special Block Write required
+	if(ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_.find(address) !=
+	   ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_.end())
 	{
 		__FE_COUT__ << "Doing special block write!" << __E__;
-		writeROCBlock({wordCount}, address, false /* incrementAddress*/);
+                
+                switch (address){
 
-		uint16_t u;
-		while((u=thisDTC_->ReadROCRegister(linkID_, 128, 100)) == 0){} // when the write operation ends the micropro
-                                                      // cessor writes 0x8000 to register 0x128
-  		printf("r_128:0x%04x\n",u);
-		u = thisDTC_->ReadROCRegister(linkID_, 129, 100);
-		printf("r_129:0x%04x\n",u);
+                  case 261:
+                    writeROCBlock({wordCount, 0}, address, false /* incrementAddress*/);
+                    break;                
 
-		//wordCount  = u - 4 ; // number of words to read back
+                  case 257:
+                    writeROCBlock({wordCount}, address, false /* incrementAddress*/);
+                    break;
+
+                  case 263:
+                    writeROCBlock({wordCount}, address, false /* incrementAddress*/);
+                    break;    
+
+                  default:             
+                    writeROCBlock({wordCount}, address, false /* incrementAddress*/);
+                    break;                    
+
+                }
+
+
+		//uint16_t j = 0;
+		while((u = thisDTC_->ReadROCRegister(linkID_, 128, 100)) == 0)
+		{
+/*			usleep(100);
+			j++;
+			if(j == 100)
+			{
+				__FE_SS__ << "ROC block failed at 128"  << __E__;
+				__FE_SS_THROW__;
+			}*/
+		}  // when the write operation ends the micropro
+		   // cessor writes 0x8000 to register 0x128
+	 	__COUT__ << "r_128: 0x" << std::hex << u << __E__;
+		usleep(1000);
+		
+        //j = 0; 
+		while((u = thisDTC_->ReadROCRegister(linkID_, 129, 100)) == 0)
+		{
+			/*usleep(100);
+			j++;
+			if(j == 100)
+			{
+				__FE_SS__ << "ROC block failed at 129"  << __E__;
+				__FE_SS_THROW__;
+			}*/
+		}
+
+	 	__COUT__ << "r_129: 0x" << std::hex << u << __E__;
+
+		//wordCount = u - 4;  // number of words to read back
 	}
 	__FE_COUTV__(data.size());
-	thisDTC_->ReadROCBlock(data, linkID_, address, wordCount, incrementAddress, 0);
+	__FE_COUTV__(wordCount);
+	__FE_COUTV__(u-4);
+	thisDTC_->ReadROCBlock(data, linkID_, address, u-4, incrementAddress, 0);
 	__FE_COUTV__(data.size());
+	//only fix data if received more than needed - TODO fix in ROC firmware
+	while(data.size() > wordCount) data.pop_back();
+
 
 	if(data.size() != wordCount)
 	{
-		__FE_SS__ << "ROC block read failed, expecting " << wordCount 
-			<< " words, and read " << data.size() << " words." << __E__;
-		__FE_SS_THROW__;		
+		__FE_SS__ << "ROC block read failed, expecting " << wordCount
+		          << " words, and read " << data.size() << " words." << __E__;
+		__FE_SS_THROW__;
 	}
 
 }  // end readBlock()
@@ -243,6 +312,18 @@ catch(...)
 	catch(...){}
 	__FE_SS_THROW__;
 }
+
+//==================================================================================================
+bool ROCCalorimeterInterface::running(void)
+{
+
+  //SetupForPatternFixedLengthDataTaking(40);
+  SetupForADCsDataTaking(40);
+
+  return false;
+  
+}
+
 
 //==================================================================================================
 void ROCCalorimeterInterface::Configure(__ARGS__)
@@ -302,6 +383,20 @@ int ROCCalorimeterInterface::GetTemperature(int idchannel) //wrong address
 //==================================================================================================
 void ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking(__ARGS__)
 {
+	
+unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
+
+SetupForPatternFixedLengthDataTaking(numberOfWords);
+
+
+
+
+} //end SetupForPatternFixedLengthDataTaking()
+
+
+//==================================================================================================
+void ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking(unsigned int numberOfWords)
+{
 	__COUT_INFO__ << "SetupForPatternFixedLengthDataTaking()" << __E__;
 	writeRegister(ROC_ADDRESS_DDRRESET, 1); 
 	writeRegister(ROC_ADDRESS_ANALOGRESET, 1); 
@@ -313,15 +408,15 @@ void ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking(__ARGS__)
 	writeRegister(ROC_ADDRESS_IS_COUNTER, 1);
 	writeRegister(ROC_ADDRESS_COUNTER_IS_FALLING, 1);
 
-	writeRegister(ROC_ADDRESS_EW_LENGHT, 300);
+	writeRegister(ROC_ADDRESS_EW_LENGHT, 1500);
 
 
-	unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
 	__FE_COUTV__(numberOfWords);
 	writeRegister(ROC_ADDRESS_COUNTER_SIZE, numberOfWords);
 
 	__COUT_INFO__ << "end SetupForPatternFixedLengthDataTaking()" << __E__;
 } //end SetupForPatternFixedLengthDataTaking()
+
 
 
 //==================================================================================================
@@ -368,9 +463,22 @@ void ROCCalorimeterInterface::ReadROCErrorCounter(__ARGS__)
 
 void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
 {
+	unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
+
+    SetupForADCsDataTaking(numberOfWords);
+
+
+} //end SetupForADCsDataTaking()
+
+//==================================================================================================
+
+
+
+
+void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
+{
 	__COUT_INFO__ << "SetupForADCsDataTaking()" << __E__;
 
-	unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
 	__FE_COUTV__(numberOfWords);
 
 	std::string filename = std::string(__ENV__("USER_DATA")) + "/roc_thr.csv";
@@ -415,6 +523,10 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
 	writeRegister(ROC_ADDRESS_IS_COUNTER, 0); 
 	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
 
+    writeRegister(ROC_ADDRESS_EW_DELAY,   0); 
+	writeRegister(ROC_ADDRESS_EW_BLIND,   10); 
+
+
 	//Write Roc thrsholds using 
 	for(int ich=0; ich<20; ich++)
 	{
@@ -433,6 +545,7 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
 
 	__COUT_INFO__ << "end SetupForADCsDataTaking()" << __E__;
 } //end SetupForADCsDataTaking()
+
 
 
 //==================================================================================================
