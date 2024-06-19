@@ -99,6 +99,14 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
 
+	// Scarsi prova
+	registerFEMacroFunction("SCARSI TEST FUNCTION",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::ScarsiTest),
+	                        std::vector<std::string>{}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
 // // function for webgui
 // 	registerFEMacroFunction("GetROCCaloTemperatureChannel",
 // 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
@@ -330,6 +338,12 @@ void ROCCalorimeterInterface::Configure(__ARGS__)
 {
 	__MOUT_INFO__ << "Configure called" << __E__;
 	configure();
+}
+
+//==================================================================================================
+void ROCCalorimeterInterface::ScarsiTest(__ARGS__)
+{
+	__MOUT_INFO__ << prova << __E__;
 }
 
 //==================================================================================================
