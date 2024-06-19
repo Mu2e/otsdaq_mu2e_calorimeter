@@ -344,7 +344,7 @@ void ROCCalorimeterInterface::Configure(__ARGS__)
 void ROCCalorimeterInterface::ScarsiTest(__ARGS__)
 {
 	__MOUT_INFO__ << "prova 1" << __E__;
-	__FE_COUTV__ << "prova 2" << __E__;
+	// __FE_COUTV__ << "prova 2" << __E__;
 	__FE_COUT__ << "prova 3" << __E__;
 	__COUT__ << "prova 4" << __E__;
 	__FE_SS__ << "prova 5" << __E__;
