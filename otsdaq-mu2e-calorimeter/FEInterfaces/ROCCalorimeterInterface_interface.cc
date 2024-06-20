@@ -381,9 +381,11 @@ void ROCCalorimeterInterface::ScarsiTest(__ARGS__)
 	
 	for(size_t i=0; i < BUFFER_SIZE; i+=8){
 		for(int j=0; j<8; j++){
-			fprintf(__MOUT_INFO__, "%02x ", *vectToWrite++);
+			// fprintf(__MOUT_INFO__, "%02x ", *vectToWrite++);
+			__MOUT_INFO__ << *vectToWrite++ << __E__;
 		}
-		fprintf(__MOUT_INFO__, "\n");
+		// fprintf(__MOUT_INFO__, "\n");
+		__MOUT_INFO__ << __E__;
 	}
 
 }
