@@ -362,13 +362,13 @@ void ROCCalorimeterInterface::ScarsiTest(__ARGS__)
 	MZB_OSCMDCODE_t command;
     float paramVect[9];
     uint8_t *vectToWrite;
-    int res;
+    uint32_t res;
 
 
     // HVON
     command = HVONOFF;
     paramVect[0] = 1;
-    for (int i=1; i<9; i++){
+    for (uint32_t i=1; i<9; i++){
         paramVect[i] = NAN;
     }
 
