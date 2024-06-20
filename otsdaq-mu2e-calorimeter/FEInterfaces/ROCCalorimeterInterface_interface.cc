@@ -8,6 +8,16 @@ using namespace ots;
 #undef __MF_SUBJECT__
 #define __MF_SUBJECT__ "FE-ROCCalorimeterInterface"
 
+
+#include "MU2E-API/API_I2C.h"
+#include "MU2E-API/SBL_utils.h"
+
+extern "C" {
+    #include "MU2E-API/API_I2C.h"
+    #include "MU2E-API/SBL_utils.h"
+}
+
+
 // 259 (and others) ==> the number of words in block read is written first as a block write
 const std::set<DTCLib::roc_address_t>		ROCCalorimeterInterface::SPECIAL_BLOCK_READ_ADDRS_({263, 256, 257, 261, 262});
 
@@ -345,9 +355,30 @@ void ROCCalorimeterInterface::ScarsiTest(__ARGS__)
 {
 	__MOUT_INFO__ << "prova 1" << __E__;
 	// __FE_COUTV__ << "prova 2" << __E__;
-	__FE_COUT__ << "prova 3" << __E__;
+	/*__FE_COUT__ << "prova 3" << __E__;
 	__COUT__ << "prova 4" << __E__;
-	__FE_SS__ << "prova 5" << __E__;
+	__FE_SS__ << "prova 5" << __E__;*/
+
+	MZB_OSCMDCODE_t command;
+    float paramVect[9];
+    uint8_t *vectToWrite;
+    int res;
+
+
+    // HVON
+    command = HVONOFF;
+    paramVect[0] = 1;
+    for (int i=1; i<9; i++){
+        paramVect[i] = NAN;
+    }
+
+    vectToWrite = MZB_Encode_CMD_Command_raw(command, paramVect);
+    // res = I2C_Write(vectToWrite, BUFFER_SIZE, I2C_BUS);
+    // printf("HVON --> Res: %d\n", res);
+
+	__MOUT_INFO__ << vectToWrite << __E__;
+	fprintf(__MOUT_INFO__, "HVON --> Res: %d\n", res);
+
 }
 
 //==================================================================================================
