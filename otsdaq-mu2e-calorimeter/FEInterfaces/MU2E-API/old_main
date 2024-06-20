@@ -1,0 +1,245 @@
+#include <stdio.h>
+
+#include "API_I2C.h"
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
+
+
+
+
+void write_hvon(){
+
+    int file;
+    char *filename = I2C_BUS;
+    // int addr = 0x56; // I2C Addr of MZB Board
+    int addr = I2C_SLAVE_EE_ADDR; // I2C Addr of MZB Board
+
+    // Apri il bus I2C
+    // if ((file = open(filename, O_RDWR)) < 0) {
+    if ((file = open(filename, O_WRONLY)) < 0) {
+        perror("Failed to open the i2c bus");
+        exit(1);
+    }
+
+    // Setta l'indirizzo del dispositivo I2C
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        perror("Failed to acquire bus access and/or talk to slave");
+        exit(1);
+    }
+
+
+
+
+    // *** HVON ***
+    printf("--> HVON\n");
+
+    // Construct the command to be send
+    MZB_OSCMDCODE_t command;
+    // command = HVONOFF;
+    // float paramVect[9];
+    // paramVect[0] = 0;
+    // for (int i=1; i<9; i++){
+    //     paramVect[i] = NAN;
+    // }
+    command = ADCFG;
+    float paramVect[9];
+    for (int i=0; i<9; i++){
+        paramVect[i] = NAN;
+    }
+
+    unsigned char *vectToWrite = MZB_Encode_CMD_Command(command, paramVect);
+
+    for(int i=0; i<BUFFER_SIZE; i++){
+        printf("%x\t", vectToWrite[i]);
+    }
+
+
+    // Esempio di scrittura sul bus I2C
+    // Sostituisci questi comandi con quelli necessari per il tuo dispositivo
+    // unsigned int offset;
+    // offset = offsetof(EE_DATABUF_t, functionReq_tag);
+    // unsigned char offset_buf[2];
+    // offset_buf[1] = (offset >> 8) & 0xff;
+    // offset_buf[0] = offset & 0xff;
+
+
+    // if (write(file, offset_buf, 2) != 2) {
+    //     perror("Failed to write to the i2c bus (offset)");
+    //     exit(1);
+    // }
+    
+    if (write(file, vectToWrite, BUFFER_SIZE) != BUFFER_SIZE) {
+        perror("Failed to write to the i2c bus (actual data)");
+        exit(1);
+    }
+
+    // unsigned char end_buf[1] = {0xff};
+    // if (write(file, end_buf, 1) != 1) {
+    //     perror("Failed to write to the i2c bus (0xff)");
+    //     exit(1);
+    // }
+
+
+    close(file);
+
+
+}
+
+
+
+
+void write_dacset(){
+
+    int file;
+    char *filename = I2C_BUS;
+    // int addr = 0x56; // I2C Addr of MZB Board
+    int addr = I2C_SLAVE_EE_ADDR; // I2C Addr of MZB Board
+
+    // Apri il bus I2C
+    // if ((file = open(filename, O_RDWR)) < 0) {
+    if ((file = open(filename, O_WRONLY)) < 0) {
+        perror("Failed to open the i2c bus");
+        exit(1);
+    }
+
+    // Setta l'indirizzo del dispositivo I2C
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        perror("Failed to acquire bus access and/or talk to slave");
+        exit(1);
+    }
+
+
+
+
+    // *** DACSET ***
+    printf("--> DACSET\n");
+
+    // Construct the command to be send
+    MZB_OSCMDCODE_t command;
+    command = DACSET;
+    float paramVect[9];
+    paramVect[0] = 0;
+    paramVect[1] = 20;
+
+
+    unsigned char *vectToWrite = MZB_Encode_CMD_Command(command, paramVect);
+
+    // for(int i=0; i<44; i++){
+    //     printf("%x\t", vectToWrite[i]);
+    // }
+
+
+    // Esempio di scrittura sul bus I2C
+    // Sostituisci questi comandi con quelli necessari per il tuo dispositivo
+    unsigned int offset;
+    offset = offsetof(EE_DATABUF_t, functionReq_tag);
+    unsigned char offset_buf[2];
+    offset_buf[1] = (offset >> 8) & 0xff;
+    offset_buf[0] = offset & 0xff;
+
+
+    if (write(file, offset_buf, 2) != 2) {
+        perror("Failed to write to the i2c bus (offset)");
+        exit(1);
+    }
+    
+    if (write(file, vectToWrite, BUFFER_SIZE) != BUFFER_SIZE) {
+        perror("Failed to write to the i2c bus (actual data)");
+        exit(1);
+    }
+
+    // unsigned char end_buf[1] = {0xff};
+    // if (write(file, end_buf, 1) != 1) {
+    //     perror("Failed to write to the i2c bus (0xff)");
+    //     exit(1);
+    // }
+
+
+    close(file);
+
+
+}
+
+
+
+void prova_lettura(){
+
+    int file;
+    char *filename = I2C_BUS;
+    // int addr = 0x56; // I2C Addr of MZB Board
+    int addr = I2C_SLAVE_EE_ADDR; // I2C Addr of MZB Board
+
+    // Apri il bus I2C
+    // if ((file = open(filename, O_RDWR)) < 0) {
+    if ((file = open(filename, O_RDONLY)) < 0) {
+        perror("Failed to open the i2c bus");
+        exit(1);
+    }
+
+    // Setta l'indirizzo del dispositivo I2C
+    if (ioctl(file, I2C_SLAVE, addr) < 0) {
+        perror("Failed to acquire bus access and/or talk to slave");
+        exit(1);
+    }
+
+
+
+    /*
+    unsigned int offset;
+    offset = 4;
+    unsigned char offset_buf[2];
+    offset_buf[1] = (offset >> 8) & 0xff;
+    offset_buf[0] = offset & 0xff;
+
+
+    if (write(file, offset_buf, 2) != 2) {
+        perror("Failed to write to the i2c bus (offset)");
+        exit(1);
+    }
+    */
+
+
+
+    // Esempio di lettura dal bus I2C
+    // Sostituisci questi comandi con quelli necessari per il tuo dispositivo
+    char readBuf[4]; // Buffer per i dati letti
+    if (read(file, readBuf, 4) != 4) {
+        perror("Failed to read from the i2c bus");
+        exit(1);
+    }
+
+    for (int i=0; i<4; i++){
+        printf("%x\t",readBuf[i]);
+    }
+
+
+
+
+
+    close(file);
+
+}
+
+
+
+
+int main() {
+
+    write_hvon();
+    // write_dacset();
+    // prova_lettura();
+    return 0;
+
+}
+
+
+
+
+
