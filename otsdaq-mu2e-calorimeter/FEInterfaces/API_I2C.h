@@ -1,7 +1,7 @@
 // #ifndef _API_I2C_H
 // #define _API_I2C_H
 
-
+#define GNU_COMP
 
 #include <stddef.h>
 #include <stdint.h>
