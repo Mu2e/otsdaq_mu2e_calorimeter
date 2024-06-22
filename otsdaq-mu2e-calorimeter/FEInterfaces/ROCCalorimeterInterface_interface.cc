@@ -9,15 +9,14 @@ using namespace ots;
 #define __MF_SUBJECT__ "FE-ROCCalorimeterInterface"
 
 
-#include "MU2E-API/API_I2C.h"
-#include "MU2E-API/SBL_utils.h"
+#include "API_I2C.h"
+#include "SBL_utils.h"
 
 // extern "C" {
 //     #include "MU2E-API/API_I2C.h"
 //     #include "MU2E-API/SBL_utils.h"
 // }
-    #include "MU2E-API/API_I2C.h"
-    #include "MU2E-API/SBL_utils.h"
+
 
 
 // 259 (and others) ==> the number of words in block read is written first as a block write
