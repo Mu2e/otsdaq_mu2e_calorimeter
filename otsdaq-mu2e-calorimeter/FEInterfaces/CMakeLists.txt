@@ -1,11 +1,9 @@
 
 include(otsdaq::FEInterface)
 
-include_directories(MU2E-API)
-include_directories(MU2E-API/res)
-    
-cet_build_plugin(ROCCalorimeterInterface otsdaq::FEInterface LIBRARIES REG otsdaq_mu2e::ROCPolarFireCoreInterface
- )
+cet_make_library(LIBRARY_NAME FEInterfaces SOURCE MZB.C)
+
+cet_build_plugin(ROCCalorimeterInterface otsdaq::FEInterface LIBRARIES REG otsdaq_mu2e::ROCPolarFireCoreInterface otsdaq_mu2e_calorimeter::FEInterfaces)
  
  
 install_headers()
