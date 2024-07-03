@@ -1,7 +1,10 @@
 #include "otsdaq-mu2e-calorimeter/FEInterfaces/ROCCalorimeterInterface.h"
+#include "otsdaq-mu2e-calorimeter/FEInterfaces/MZB.h"
+
 
 #include "otsdaq/Macros/InterfacePluginMacros.h"
 #include <fstream>
+#include <cstring>
 
 using namespace ots;
 
@@ -9,8 +12,6 @@ using namespace ots;
 #define __MF_SUBJECT__ "FE-ROCCalorimeterInterface"
 
 
-#include "API_I2C.h"
-#include "SBL_utils.h"
 
 // extern "C" {
 //     #include "MU2E-API/API_I2C.h"
@@ -64,6 +65,15 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
 
+	registerFEMacroFunction("Send Mz Command",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::SendMzCommand),
+	                        std::vector<std::string>{"command tag from mz manual", "argument 0, Default := 0]", "argument 1, Default := 0]", "argument 2, Default := 0]",
+							"argument 3, Default := 0]", "argument 4, Default := 0]", "argument 5, Default := 0]","argument 6, Default := 0]", "argument 7, Default := 0]",
+							"argument 8, Default := 0]","argument 9, Default := 0]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
 	registerFEMacroFunction("Read ROC Error Counter",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::ReadROCErrorCounter),
@@ -106,14 +116,6 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	registerFEMacroFunction("Configure State Machine",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::Configure),
-	                        std::vector<std::string>{}, //inputs parameters
-	                        std::vector<std::string>{}, //output parameters
-	                        1);  // requiredUserPermissions
-
-	// Scarsi prova
-	registerFEMacroFunction("SCARSI TEST FUNCTION",
-	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
-	                            &ROCCalorimeterInterface::ScarsiTest),
 	                        std::vector<std::string>{}, //inputs parameters
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
@@ -351,45 +353,6 @@ void ROCCalorimeterInterface::Configure(__ARGS__)
 	configure();
 }
 
-//==================================================================================================
-void ROCCalorimeterInterface::ScarsiTest(__ARGS__)
-{
-	__MOUT_INFO__ << "prova 1" << __E__;
-	// __FE_COUTV__ << "prova 2" << __E__;
-	/*__FE_COUT__ << "prova 3" << __E__;
-	__COUT__ << "prova 4" << __E__;
-	__FE_SS__ << "prova 5" << __E__;*/
-
-	MZB_OSCMDCODE_t command;
-    float paramVect[9];
-    uint8_t *vectToWrite;
-
-
-    // HVON
-    command = HVONOFF;
-    paramVect[0] = 1;
-    for (int i=1; i<9; i++){
-        paramVect[i] = NAN;
-    }
-
-    vectToWrite = MZB_Encode_CMD_Command_raw(command, paramVect);
-    // res = I2C_Write(vectToWrite, BUFFER_SIZE, I2C_BUS);
-    // printf("HVON --> Res: %d\n", res);
-
-	__MOUT_INFO__ << vectToWrite << __E__;
-	// fprintf(__MOUT_INFO__, "HVON --> Res: %d\n", );
-
-	
-	for(size_t i=0; i < BUFFER_SIZE; i+=8){
-		for(int j=0; j<8; j++){
-			// fprintf(__MOUT_INFO__, "%02x ", *vectToWrite++);
-			__MOUT_INFO__ << *vectToWrite++ << __E__;
-		}
-		// fprintf(__MOUT_INFO__, "\n");
-		__MOUT_INFO__ << __E__;
-	}
-
-}
 
 //==================================================================================================
 void ROCCalorimeterInterface::SetVoltageChannel(__ARGS__)
@@ -467,7 +430,7 @@ void ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking(unsigned int 
 	writeRegister(ROC_ADDRESS_IS_COUNTER, 1);
 	writeRegister(ROC_ADDRESS_COUNTER_IS_FALLING, 1);
 
-	writeRegister(ROC_ADDRESS_EW_LENGHT, 1500);
+	writeRegister(ROC_ADDRESS_EW_LENGHT, 5000);
 
 
 	__FE_COUTV__(numberOfWords);
@@ -477,6 +440,76 @@ void ROCCalorimeterInterface::SetupForPatternFixedLengthDataTaking(unsigned int 
 } //end SetupForPatternFixedLengthDataTaking()
 
 
+
+//==================================================================================================
+
+
+//==================================================================================================
+void ROCCalorimeterInterface::SendMzCommand(std::string command, float paramVect[])
+{
+	__COUT_INFO__ << "SendMzCommand()" << __E__;
+	
+	uint8_t *vectToWrite;
+
+    //MZB_OSCMDCODE_t cmd_code = mz_string_to_enum(command.c_str());
+	MZB_OSCMDCODE_t cmd_code = SYNTAX_ERROR;
+	
+	for (int i = 0; i < sizeof(code_map) / sizeof(code_map[0]); i++) {
+        //if (code_map[i].str == command.c_str()) {
+        if (strcmp(code_map[i].str, command.c_str()) == 0) {
+            cmd_code = code_map[i].code;
+			break;
+        }
+    }
+	
+	if(cmd_code == SYNTAX_ERROR){
+	  __FE_SS__ << "Wrong MZB command, please check the inserted string! " << __E__ << command << __E__  << command.c_str() << __E__  << code_map[21].str  << __E__ ; 
+	  __FE_SS_THROW__;			
+	}
+
+    vectToWrite = MZB_Encode_CMD_Command_raw(cmd_code, paramVect);	
+	
+    //uint16_t *input_data = &vectToWrite;
+	//__MOUT_INFO__ << "Mz debug ****" << __E__;
+
+	std::vector<uint16_t> input_data;
+    for (std::size_t i = 0; i < MZ_BUFFER_SIZE; i += 2) {
+        uint16_t value = (static_cast<uint16_t>(vectToWrite[i]) << 8) | (static_cast<uint16_t>(vectToWrite[i + 1]));
+        //__MOUT_INFO__ << std::hex << std::setprecision(4) << std::setfill('0') << "0x" << value << __E__;
+		input_data.push_back(value);
+    }
+
+    writeROCBlock(input_data, MZ_ADDRESS, false /* incrementAddress*/);
+
+	//free(vectToWrite);
+
+
+	__COUT_INFO__ << "end SendMzCommand()" << __E__;
+} //end SendMzCommand()
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::SendMzCommand(__ARGS__)
+{
+	
+	std::string command = __GET_ARG_IN__("command tag from mz manual", std::string, "");
+	float paramVect[9];
+    
+	paramVect[0] = __GET_ARG_IN__("argument 0, Default := 0]", float, NAN);
+	paramVect[1] = __GET_ARG_IN__("argument 1, Default := 0]", float, NAN);
+	paramVect[2] = __GET_ARG_IN__("argument 2, Default := 0]", float, NAN);
+	paramVect[3] = __GET_ARG_IN__("argument 3, Default := 0]", float, NAN);
+	paramVect[4] = __GET_ARG_IN__("argument 4, Default := 0]", float, NAN);
+	paramVect[5] = __GET_ARG_IN__("argument 5, Default := 0]", float, NAN);
+	paramVect[6] = __GET_ARG_IN__("argument 6, Default := 0]", float, NAN);
+	paramVect[7] = __GET_ARG_IN__("argument 7, Default := 0]", float, NAN);
+	paramVect[8] = __GET_ARG_IN__("argument 8, Default := 0]", float, NAN);
+
+    SendMzCommand(command, paramVect);
+
+
+} //end SetupForADCsDataTaking()
 
 //==================================================================================================
 
@@ -579,11 +612,18 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
     myFile.close();
 
 	writeRegister(ROC_ADDRESS_DDRRESET,  1); 
+	writeRegister(ROC_ADDRESS_DDRRESET,  0); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET,  1); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET,  0); 
+	
+
+	writeRegister(ROC_ADDRESS_IS_PATTERN, 0);
 	writeRegister(ROC_ADDRESS_IS_COUNTER, 0); 
 	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
 
     writeRegister(ROC_ADDRESS_EW_DELAY,   0); 
-	writeRegister(ROC_ADDRESS_EW_BLIND,   10); 
+	writeRegister(ROC_ADDRESS_EW_BLIND,   40); 
+	writeRegister(ROC_ADDRESS_EW_LENGHT,   5000); 
 
 
 	//Write Roc thrsholds using 

@@ -119,6 +119,86 @@
 } MZB_OSCMDCODE_t;
 
 
+typedef struct {
+    MZB_OSCMDCODE_t code;
+    const char* str;
+} MZB_OSCMDCODE_MAP_t;
+
+
+MZB_OSCMDCODE_MAP_t code_map[] = {
+    {SYNTAX_ERROR, "SYNTAX_ERROR"},
+    {ADCONVERT, "ADCONVERT"},
+    {ADCFG, "ADCFG"},
+    {ADINIT, "ADINIT"},
+    {ADSTS, "ADSTS"},
+    {APPCONFIG, "APPCONFIG"},
+    {AUTOCALIBRATE, "AUTOCALIBRATE"},
+    {AUTOCONFIGURE, "AUTOCONFIGURE"},
+    {AUTOSTART, "AUTOSTART"},
+    {AUTOWDG, "AUTOWDG"},
+    {BUSYSRC, "BUSYSRC"},
+    {BUSYTMO, "BUSYTMO"},
+    {CALADCP1P2, "CALADCP1P2"},
+    {CALLPCP1P2, "CALLPCP1P2"},
+    {CALDACP1P2, "CALDACP1P2"},
+    {CALCARD, "CALCARD"},
+    {CALDATA, "CALDATA"},
+    {CALSOURCE, "CALSOURCE"},
+    {CALTEMP, "CALTEMP"},
+    {CARDSTS, "CARDSTS"},
+    {COMBPS, "COMBPS"},
+    {DACSET, "DACSET"},
+    {DACSTS, "DACSTS"},
+    {DEBUGMODE, "DEBUGMODE"},
+    {DELTAT_ms, "DELTAT_ms"},
+    {EMACENABLE, "EMACENABLE"},
+    {EMACINIT, "EMACINIT"},
+    {EMACSTS, "EMACSTS"},
+    {EMACWRITE, "EMACWRITE"},
+    {ERRORS, "ERRORS"},
+    {ERRSTS, "ERRSTS"},
+    {FRFLAG, "FRFLAG"},
+    {GAIN, "GAIN"},
+    {GPINPUT, "GPINPUT"},
+    {GPOUTPUT, "GPOUTPUT"},
+    {HELLO, "HELLO"},
+    {HELP, "HELP"},
+    {HVOO_AUTOSET, "HVOO_AUTOSET"},
+    {HVONOFF, "HVONOFF"},
+    {I2CRESET, "I2CRESET"},
+    {I2CSTS, "I2CSTS"},
+    {I2CENUMERATE, "I2CENUMERATE"},
+    {IP4ADR, "IP4ADR"},
+    {IRQ, "IRQ"},
+    {IRQENABLE, "IRQENABLE"},
+    {MSGLEVEL, "MSGLEVEL"},
+    {MPXREG, "MPXREG"},
+    {MZBDUMP, "MZBDUMP"},
+    {LOGIN, "LOGIN"},
+    {LOGOUT, "LOGOUT"},
+    {PROCESSES, "PROCESSES"},
+    {POST, "POST"},
+    {RESTART, "RESTART"},
+    {RESTORE, "RESTORE"},
+    {RIT, "RIT"},
+    {ROOT, "ROOT"},
+    {SBLACTIVATE, "SBLACTIVATE"},
+    {SEU, "SEU"},
+    {SHOW_TRANSIENT, "SHOW_TRANSIENT"},
+    {SKIPERROR, "SKIPERROR"},
+    {SILENT, "SILENT"},
+    {SLEWRATE, "SLEWRATE"},
+    {STATUS_REG, "STATUS_REG"},
+    {TEST, "TEST"},
+    {UPDATE, "UPDATE"},
+    {VERSION, "VERSION"},
+    {HWWDG, "HWWDG"},
+    {SWWDG, "SWWDG"},
+    {DIRACWDG, "DIRACWDG"},
+    {DIRACRST, "DIRACRST"},
+    {WATCHDOG, "WATCHDOG"},
+    {RESERVED, "RESERVED"}
+};
 
 
 #ifdef GNU_COMP
@@ -263,5 +343,6 @@
 
 uint8_t* MZB_Encode_CMD_Command_raw(MZB_OSCMDCODE_t cmdCode, float* params);
 unsigned ees_chksum(void *ptr, int len);
+MZB_OSCMDCODE_t mz_string_to_enum(const char* str);
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterface.h"
 
+#define MZ_ADDRESS 262
+#define MZ_BUFFER_SIZE 46
+
 namespace ots
 {
 class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
@@ -101,6 +104,11 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
     void SetupForPatternFixedLengthDataTaking       (unsigned int numberOfWords);	
 	void SetupForADCsDataTaking		(__ARGS__);
     void SetupForADCsDataTaking		(unsigned int numberOfWords);	
+
+	void SendMzCommand(__ARGS__);
+    void SendMzCommand(std::string command, float paramVect[]);
+
+
 	void ReadROCErrorCounter		(__ARGS__);
 
 	
