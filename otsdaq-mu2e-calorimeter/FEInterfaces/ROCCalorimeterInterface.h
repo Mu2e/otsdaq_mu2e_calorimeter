@@ -3,6 +3,9 @@
 
 #include "otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterface.h"
 
+#define MZ_ADDRESS 262
+#define MZ_BUFFER_SIZE 46
+
 namespace ots
 {
 class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
@@ -19,7 +22,15 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	// state machine
 	//----------------
-	void 									configure				(void) override;
+	// state machine
+	//----------------
+	void 								configure					(void) override;
+	//void 								halt						(void) override;
+	//void 								pause						(void) override;
+	//void 								resume						(void) override;
+	//void 								start						(std::string runNumber) override;
+	//void 								stop						(void) override;
+	bool 								running		                (void) override;
 
 
 	// write and read to registers
@@ -28,6 +39,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 
 	virtual void 							readROCBlock			(std::vector<DTCLib::roc_data_t>& data, DTCLib::roc_address_t address, uint16_t wordCount, bool incrementAddress) override; 
+	virtual void 						universalBlockRead			(char* address, char* returnValue, unsigned int numberOfBytes) override;
 
 	bool emulatorWorkLoop(void) override;
 
@@ -56,7 +68,9 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 		ROC_ADDRESS_COUNTER_SIZE             = 81,
 
 		ROC_ADDRESS_IS_LASER                 = 78,
-		ROC_ADDRESS_LASER_DELAY              = 77 
+		ROC_ADDRESS_LASER_DELAY              = 77,
+
+		ROC_ADDRESS_MZB_BUSY                 = 140 
 
 	};
 
@@ -82,13 +96,23 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	double      inputTemp_;
 	
 	void Configure									(__ARGS__);
+	void ScarsiTest									(__ARGS__);
 	void SetVoltageChannel							(__ARGS__);
 	void GetVoltageChannel							(__ARGS__);
 	void GetTempChannel								(__ARGS__);
 
 	// void SetupForPatternDataTaking					(__ARGS__); // Moved to ROCPolarFireCoreInterface::ROCPolarFireCoreInterface, otsdaq_mu2e/otsdaq-mu2e/FEInterfaces/ROCPolarFireCoreInterfaceImpl.cc
 	void SetupForPatternFixedLengthDataTaking		(__ARGS__);
+    void SetupForPatternFixedLengthDataTaking       (unsigned int numberOfWords);	
 	void SetupForADCsDataTaking		(__ARGS__);
+    void SetupForADCsDataTaking		(unsigned int numberOfWords);	
+
+	void SendMzCommand(__ARGS__);
+    void SendMzCommand(std::string command, float paramVect[]);
+	void EnableAndPowerSiPMs(__ARGS__);
+    void EnableAndPowerSiPMs(bool hvonoff, float vbias);
+
+
 	void ReadROCErrorCounter		(__ARGS__);
 
 	
