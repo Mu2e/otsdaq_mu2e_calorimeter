@@ -68,7 +68,9 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 		ROC_ADDRESS_COUNTER_SIZE             = 81,
 
 		ROC_ADDRESS_IS_LASER                 = 78,
-		ROC_ADDRESS_LASER_DELAY              = 77 
+		ROC_ADDRESS_LASER_DELAY              = 77,
+
+		ROC_ADDRESS_MZB_BUSY                 = 140 
 
 	};
 
@@ -107,6 +109,8 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	void SendMzCommand(__ARGS__);
     void SendMzCommand(std::string command, float paramVect[]);
+	void EnableAndPowerSiPMs(__ARGS__);
+    void EnableAndPowerSiPMs(bool hvonoff, float vbias);
 
 
 	void ReadROCErrorCounter		(__ARGS__);

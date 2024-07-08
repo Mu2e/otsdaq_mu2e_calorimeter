@@ -74,6 +74,14 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
 
+
+	registerFEMacroFunction("Enable and Power SiPMs",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::EnableAndPowerSiPMs),
+	                        std::vector<std::string>{"HV Enabled, Default := 0]", "Bias voltage to set, Default := 0]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
 	registerFEMacroFunction("Read ROC Error Counter",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::ReadROCErrorCounter),
@@ -451,6 +459,8 @@ void ROCCalorimeterInterface::SendMzCommand(std::string command, float paramVect
 	
 	uint8_t *vectToWrite;
 
+	//writeRegister(ROC_ADDRESS_MZB_BUSY, 1);
+
     //MZB_OSCMDCODE_t cmd_code = mz_string_to_enum(command.c_str());
 	MZB_OSCMDCODE_t cmd_code = SYNTAX_ERROR;
 	
@@ -483,6 +493,8 @@ void ROCCalorimeterInterface::SendMzCommand(std::string command, float paramVect
 
 	//free(vectToWrite);
 
+	//writeRegister(ROC_ADDRESS_MZB_BUSY, 0);
+
 
 	__COUT_INFO__ << "end SendMzCommand()" << __E__;
 } //end SendMzCommand()
@@ -510,6 +522,80 @@ void ROCCalorimeterInterface::SendMzCommand(__ARGS__)
 
 
 } //end SetupForADCsDataTaking()
+
+//==================================================================================================
+
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::EnableAndPowerSiPMs(__ARGS__)
+{
+	
+    bool hvonoff = __GET_ARG_IN__("HV Enabled, Default := 0]", bool, 0);
+    float vbias = __GET_ARG_IN__("Bias voltage to set, Default := 0]", float, 0);
+
+    EnableAndPowerSiPMs(hvonoff, vbias);
+
+
+} //end EnableAndPowerSiPMs()
+
+//==================================================================================================
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::EnableAndPowerSiPMs(bool hvonoff, float vbias)
+{
+	
+    std::string command = "HVONOFF"; //the dalays have a random value
+	float paramVect[9];
+	paramVect[0] = hvonoff;
+	paramVect[1] = NAN;
+	paramVect[2] = NAN;
+	paramVect[3] = NAN;
+	paramVect[4] = NAN;
+	paramVect[5] = NAN;
+	paramVect[6] = NAN;
+	paramVect[7] = NAN;
+	paramVect[8] = NAN;
+
+    SendMzCommand(command, paramVect);
+
+    usleep(1000);
+
+    command = "ADCFG";
+	paramVect[0] = 1;
+	paramVect[1] = 0;
+	paramVect[2] = NAN;
+	paramVect[3] = NAN;
+	paramVect[4] = NAN;
+	paramVect[5] = NAN;
+	paramVect[6] = NAN;
+	paramVect[7] = NAN;
+	paramVect[8] = NAN;
+
+    usleep(1000);
+
+    SendMzCommand(command, paramVect);
+
+    command = "DACSET";
+	paramVect[0] = 0;
+	paramVect[1] = vbias;
+	paramVect[2] = NAN;
+	paramVect[3] = NAN;
+	paramVect[4] = NAN;
+	paramVect[5] = NAN;
+	paramVect[6] = NAN;
+	paramVect[7] = NAN;
+	paramVect[8] = NAN;
+
+    usleep(1000);
+
+    SendMzCommand(command, paramVect);
+
+
+} //end EnableAndPowerSiPMs()
 
 //==================================================================================================
 
