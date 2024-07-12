@@ -622,8 +622,8 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
 	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
 
     writeRegister(ROC_ADDRESS_EW_DELAY,   0); 
-	writeRegister(ROC_ADDRESS_EW_BLIND,   40); 
-	writeRegister(ROC_ADDRESS_EW_LENGHT,   5000); 
+	writeRegister(ROC_ADDRESS_EW_BLIND,   0); 
+	writeRegister(ROC_ADDRESS_EW_LENGHT,  19500); 
 
 
 	//Write Roc thrsholds using 
