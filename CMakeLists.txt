@@ -60,4 +60,7 @@ endif()
 #FILE(COPY ServiceData DESTINATION Data)
 #INSTALL(DIRECTORY ServiceData DESTINATION ${product}/${version}/Data)
 
+FILE(COPY boardConfig DESTINATION .)
+INSTALL(DIRECTORY boardConfig DESTINATION . FILE_PERMISSIONS USE_SOURCE_PERMISSIONS)
+
 cet_cmake_config()

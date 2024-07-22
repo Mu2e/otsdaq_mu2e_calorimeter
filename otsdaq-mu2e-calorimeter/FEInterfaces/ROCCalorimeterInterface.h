@@ -52,7 +52,6 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
         ROC_ADDRESS_ERRCNT                   = 17,
 
-
   		ROC_ADDRESS_WORKMODE                 = 122,
 
 		ROC_ADDRESS_EW_LENGHT                = 123,
@@ -70,7 +69,23 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 		ROC_ADDRESS_IS_LASER                 = 78,
 		ROC_ADDRESS_LASER_DELAY              = 77,
 
-		ROC_ADDRESS_MZB_BUSY                 = 140 
+		ROC_ADDRESS_MZB_BUSY                 = 140, 
+
+		ROC_ADDRESS_SELECTLINE               = 141, 
+
+		ROC_ADDRESS_BOARD_ID                 = 142, 
+
+		ROC_ADDRESS_OSCMODE_FLAG             = 148, 
+		ROC_ADDRESS_OSCMODE_LENGHT           = 149, 
+
+		ROC_ADDRESS_BOARD_U_ID_LSB           = 145, 
+		ROC_ADDRESS_BOARD_U_ID_CSB           = 146,
+		ROC_ADDRESS_BOARD_U_ID_MSB           = 147
+
+
+		 
+
+
 
 	};
 
@@ -105,12 +120,19 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	void SetupForPatternFixedLengthDataTaking		(__ARGS__);
     void SetupForPatternFixedLengthDataTaking       (unsigned int numberOfWords);	
 	void SetupForADCsDataTaking		(__ARGS__);
-    void SetupForADCsDataTaking		(unsigned int numberOfWords);	
+    void SetupForADCsDataTaking		(unsigned int threshold);	
 
 	void SendMzCommand(__ARGS__);
     void SendMzCommand(std::string command, float paramVect[]);
 	void EnableAndPowerSiPMs(__ARGS__);
     void EnableAndPowerSiPMs(bool hvonoff, float vbias);
+	void SetBoardVoltages(__ARGS__);
+    void SetBoardVoltages(bool hvonoff, int boardID);
+    void SetupForNoiseTaking(__ARGS__);
+    void SetupForNoiseTaking(unsigned int numberOfsamples);
+
+	void ConfigureLink(__ARGS__);
+    void ConfigureLink(bool hvonoff);
 
 
 	void ReadROCErrorCounter		(__ARGS__);

@@ -82,6 +82,30 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
 
+	registerFEMacroFunction("Set Board Voltages",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::SetBoardVoltages),
+	                        std::vector<std::string>{"Left/Right, Default := 0]", "Board Number in Crate, Default := 0]", "Crate Number, Default := 0]", "Half Number, Default := 0]", 
+							"Disk Number, Default := 0]", "Board ID, Default := -1]", "HV Enabled, Default := 0]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
+	registerFEMacroFunction("Configure Link",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::ConfigureLink),
+	                        std::vector<std::string>{"HV Enabled, Default := 0]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
+
+	registerFEMacroFunction("SetupForNoiseTaking",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::SetupForNoiseTaking),
+	                        std::vector<std::string>{"Number of noise samples per evt [Default := 20]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
+
+
 	registerFEMacroFunction("Read ROC Error Counter",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::ReadROCErrorCounter),
@@ -92,7 +116,7 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	registerFEMacroFunction("Setup for ADCs Data Taking",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::SetupForADCsDataTaking),
-	                        std::vector<std::string>{"Fixed Length of Event [units of 16-bit words, Default := 8]"}, //inputs parameters
+	                        std::vector<std::string>{"Threshold [units of adccounts, Default := 2300]"}, //inputs parameters
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
 
@@ -485,9 +509,11 @@ void ROCCalorimeterInterface::SendMzCommand(std::string command, float paramVect
 	std::vector<uint16_t> input_data;
     for (std::size_t i = 0; i < MZ_BUFFER_SIZE; i += 2) {
         uint16_t value = (static_cast<uint16_t>(vectToWrite[i]) << 8) | (static_cast<uint16_t>(vectToWrite[i + 1]));
-        //__MOUT_INFO__ << std::hex << std::setprecision(4) << std::setfill('0') << "0x" << value << __E__;
+        __MOUT_INFO__ << std::hex << std::setprecision(4) << std::setfill('0') << "0x" << value << __E__;
 		input_data.push_back(value);
+
     }
+
 
     writeROCBlock(input_data, MZ_ADDRESS, false /* incrementAddress*/);
 
@@ -520,7 +546,7 @@ void ROCCalorimeterInterface::SendMzCommand(__ARGS__)
 
     SendMzCommand(command, paramVect);
 
-
+ 
 } //end SetupForADCsDataTaking()
 
 //==================================================================================================
@@ -542,6 +568,225 @@ void ROCCalorimeterInterface::EnableAndPowerSiPMs(__ARGS__)
 
 //==================================================================================================
 
+
+void ROCCalorimeterInterface::SetBoardVoltages(__ARGS__)
+{
+
+    //boardID == L/R + 2*bordNum + 8* cratenum + 40*half + 80*disk
+	int leftright = __GET_ARG_IN__("Left/Right, Default := 0]", int, 0);
+	int boardNum = __GET_ARG_IN__("Board Number in Crate, Default := 0]", int, 0);
+	int crateNum = __GET_ARG_IN__("Crate Number, Default := 0]", int, 0);
+	int halfNum = __GET_ARG_IN__("Half Number, Default := 0]", int, 0);
+	int diskNum = __GET_ARG_IN__("Disk Number, Default := 0]", int, 1);
+
+    int boardID = __GET_ARG_IN__("Board ID, Default := -1]", int, -1);
+
+    bool hvonoff = __GET_ARG_IN__("HV Enabled, Default := 0]", bool, 0);
+
+    if(boardID == -1) boardID = leftright + 2*boardNum + 8*crateNum + 40*halfNum + 80*diskNum; 
+
+    SetBoardVoltages(hvonoff, boardID);
+
+
+} //end SetBoardVoltages()
+
+
+//==================================================================================================
+
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::ConfigureLink(__ARGS__)
+{
+
+    bool hvonoff = __GET_ARG_IN__("HV Enabled, Default := 0]", bool, 0);
+
+    ConfigureLink(hvonoff);
+
+
+} //end ConfigureLink()
+
+
+//==================================================================================================
+
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::ConfigureLink(bool hvonoff)
+{
+
+	DTCLib::roc_address_t address = 147;
+	DTCLib::roc_data_t readVal;
+	readVal = readRegister(address);
+        
+	//to do:
+	//std::string filename = std::string(__ENV__("CALORIMETER_CONF_DIR")) + "/" + buff;
+	//fix it asking to ryan or eric.. 
+
+	std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
+	std::ifstream confMap(filename);
+
+	if(!confMap.is_open())
+	{
+		__FE_SS__ << "Could not open file: " << filename << __E__;
+		__FE_SS_THROW__;;
+	}
+
+    int boardid = -1;
+
+    for(int iboard = 0; iboard<158; iboard++){
+
+        int nboard;
+		int notused;
+		int buid;
+
+		confMap >> nboard >> notused >> buid;
+		if(readVal == buid){
+          boardid = nboard; 
+          break;
+		}
+
+	}
+
+	if(boardid != -1){
+      SetBoardVoltages(hvonoff, boardid);
+	  writeRegister(ROC_ADDRESS_BOARD_ID,  boardid); 
+	}
+	else {
+		__FE_SS__ << "Cannot match board unique ID.." << __E__;
+		__FE_SS_THROW__;;
+	}
+
+    confMap.close();
+
+
+} //end ConfigureLink()
+
+
+//==================================================================================================
+
+
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID)
+{
+	
+    std::string command = "HVONOFF"; 
+	float paramVect[9];
+	paramVect[0] = hvonoff;
+	paramVect[1] = NAN;
+	paramVect[2] = NAN;
+	paramVect[3] = NAN;
+	paramVect[4] = NAN;
+	paramVect[5] = NAN;
+	paramVect[6] = NAN;
+	paramVect[7] = NAN;
+	paramVect[8] = NAN;
+
+    SendMzCommand(command, paramVect);
+
+    usleep(100000);
+
+
+	command = "ADCFG";
+	paramVect[0] = 1;
+	paramVect[1] = 0;
+	paramVect[2] = NAN;
+	paramVect[3] = NAN;
+	paramVect[4] = NAN;
+	paramVect[5] = NAN;
+	paramVect[6] = NAN;
+	paramVect[7] = NAN;
+	paramVect[8] = NAN;
+
+	SendMzCommand(command, paramVect);
+
+	usleep(100000);
+
+
+    command = "SLEWRATE"; 
+	paramVect[0] = 40;
+	paramVect[1] = NAN;
+	paramVect[2] = NAN;
+	paramVect[3] = NAN;
+	paramVect[4] = NAN;
+	paramVect[5] = NAN;
+	paramVect[6] = NAN;
+	paramVect[7] = NAN;
+	paramVect[8] = NAN;
+
+    SendMzCommand(command, paramVect);
+
+    usleep(100000);
+
+	if(hvonoff == 1){
+
+        char buff[50];
+		sprintf(buff, "board%03d.config", boardID);
+        
+		//to do:
+		//std::string filename = std::string(__ENV__("CALORIMETER_CONF_DIR")) + "/" + buff;
+		//fix it asking to ryan or eric.. 
+
+
+		std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/") + buff;		
+		std::ifstream confFile(filename);
+
+		if(!confFile.is_open())
+		{
+			__FE_SS__ << "Could not open file: " << filename << __E__;
+			__FE_SS_THROW__;;
+		}
+
+        __MOUT_INFO__ << "Opening file: " << filename << __E__;
+
+
+        for(int ichan = 0; ichan<20; ichan++){
+
+            int chindex;
+			float vbias;
+			std::string type;
+
+			confFile >> chindex >> vbias >> type;
+        
+            __MOUT_INFO__ << chindex << "  " <<  vbias  <<  "  " << type << __E__;
+
+			command = "DACSET";
+			paramVect[0] = chindex+1;
+			paramVect[1] = vbias;
+			paramVect[2] = NAN;
+			paramVect[3] = NAN;
+			paramVect[4] = NAN;
+			paramVect[5] = NAN;
+			paramVect[6] = NAN;
+			paramVect[7] = NAN;
+			paramVect[8] = NAN;
+
+			usleep(100000);
+
+			SendMzCommand(command, paramVect);
+
+		}
+
+        __MOUT_INFO__ << "Ramping up.. " << filename << __E__;
+
+        confFile.close();
+
+        __MOUT_INFO__ << "Configuration done.." << filename << __E__;
+
+
+	}
+
+} //end SetBoardVoltages()
+
+//==================================================================================================
+
+
+
 //==================================================================================================
 
 
@@ -562,7 +807,7 @@ void ROCCalorimeterInterface::EnableAndPowerSiPMs(bool hvonoff, float vbias)
 
     SendMzCommand(command, paramVect);
 
-    usleep(1000);
+    usleep(100000);
 
     command = "ADCFG";
 	paramVect[0] = 1;
@@ -575,7 +820,7 @@ void ROCCalorimeterInterface::EnableAndPowerSiPMs(bool hvonoff, float vbias)
 	paramVect[7] = NAN;
 	paramVect[8] = NAN;
 
-    usleep(1000);
+    usleep(100000);
 
     SendMzCommand(command, paramVect);
 
@@ -590,7 +835,7 @@ void ROCCalorimeterInterface::EnableAndPowerSiPMs(bool hvonoff, float vbias)
 	paramVect[7] = NAN;
 	paramVect[8] = NAN;
 
-    usleep(1000);
+    usleep(100000);
 
     SendMzCommand(command, paramVect);
 
@@ -598,7 +843,6 @@ void ROCCalorimeterInterface::EnableAndPowerSiPMs(bool hvonoff, float vbias)
 } //end EnableAndPowerSiPMs()
 
 //==================================================================================================
-
 
 
 //==================================================================================================
@@ -641,9 +885,23 @@ void ROCCalorimeterInterface::ReadROCErrorCounter(__ARGS__)
 
 void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
 {
-	unsigned int numberOfWords = __GET_ARG_IN__("Fixed Length of Event [units of 16-bit words, Default := 8]", uint32_t, 8);
+	unsigned int threshold = __GET_ARG_IN__("Threshold [units of adccounts, Default := 2300]", uint32_t, 2300);
 
-    SetupForADCsDataTaking(numberOfWords);
+    SetupForADCsDataTaking(threshold);
+
+
+} //end SetupForADCsDataTaking()
+
+//==================================================================================================
+
+
+//==================================================================================================
+
+void ROCCalorimeterInterface::SetupForNoiseTaking(__ARGS__)
+{
+	unsigned int numberOfsamples = __GET_ARG_IN__("Number of noise samples per evt [Default := 20]", uint32_t, 20);
+
+    SetupForNoiseTaking(numberOfsamples);
 
 
 } //end SetupForADCsDataTaking()
@@ -652,14 +910,46 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(__ARGS__)
 
 
 
+//==================================================================================================
 
-void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
+
+
+void ROCCalorimeterInterface::SetupForNoiseTaking(unsigned int numberOfsamples)
+{
+	__COUT_INFO__ << "SetupForNoiseTaking()" << __E__;
+
+	writeRegister(ROC_ADDRESS_DDRRESET,  1); 
+	writeRegister(ROC_ADDRESS_DDRRESET,  0); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET,  1); 
+	writeRegister(ROC_ADDRESS_ANALOGRESET,  0); 
+	
+	writeRegister(ROC_ADDRESS_IS_PATTERN, 0);
+	writeRegister(ROC_ADDRESS_IS_COUNTER, 0); 
+	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
+
+    writeRegister(ROC_ADDRESS_EW_DELAY,   0); 
+	writeRegister(ROC_ADDRESS_EW_BLIND,   0); 
+	writeRegister(ROC_ADDRESS_EW_LENGHT,   numberOfsamples); 
+
+	writeRegister(ROC_ADDRESS_OSCMODE_FLAG,   1); 
+	writeRegister(ROC_ADDRESS_OSCMODE_LENGHT,   numberOfsamples); 
+
+
+	__COUT_INFO__ << "end SetupForNoiseTaking()" << __E__;
+} //end SetupForNoiseTaking()
+
+
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int threshold)
 {
 	__COUT_INFO__ << "SetupForADCsDataTaking()" << __E__;
 
-	__FE_COUTV__(numberOfWords);
+	__FE_COUTV__(threshold);
 
-	std::string filename = std::string(__ENV__("USER_DATA")) + "/roc_thr.csv";
+	/*std::string filename = std::string(__ENV__("USER_DATA")) + "/roc_thr.csv";
 	std::ifstream myFile(filename);
 
 	// Create a vector of <string, int vector> pairs to store the result
@@ -695,7 +985,7 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
 	}
 
     // Close file
-    myFile.close();
+    myFile.close();*/
 
 	writeRegister(ROC_ADDRESS_DDRRESET,  1); 
 	writeRegister(ROC_ADDRESS_DDRRESET,  0); 
@@ -706,19 +996,22 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
 	writeRegister(ROC_ADDRESS_IS_PATTERN, 0);
 	writeRegister(ROC_ADDRESS_IS_COUNTER, 0); 
 	writeRegister(ROC_ADDRESS_IS_LASER,   0); 
+	writeRegister(ROC_ADDRESS_OSCMODE_FLAG,   0); 
+
 
     writeRegister(ROC_ADDRESS_EW_DELAY,   0); 
-	writeRegister(ROC_ADDRESS_EW_BLIND,   40); 
-	writeRegister(ROC_ADDRESS_EW_LENGHT,   5000); 
+	writeRegister(ROC_ADDRESS_EW_BLIND,   0); 
+	writeRegister(ROC_ADDRESS_EW_LENGHT,   19500); 
 
 
 	//Write Roc thrsholds using 
 	for(int ich=0; ich<20; ich++)
 	{
-	  writeRegister(ROC_ADDRESS_BASE_THRESHOLD + ich, std::stoi(csvRows[0][ich+1])); 
+	  //writeRegister(ROC_ADDRESS_BASE_THRESHOLD + ich, std::stoi(csvRows[0][ich+1]));
+	  writeRegister(ROC_ADDRESS_BASE_THRESHOLD + ich, threshold); 
 	}
 
-	for (const std::vector<std::string>& row : csvRows)
+	/*for (const std::vector<std::string>& row : csvRows)
 	{
     	for (const std::string& value : row)
 		{
@@ -726,7 +1019,7 @@ void ROCCalorimeterInterface::SetupForADCsDataTaking(unsigned int numberOfWords)
     	}
 
 		__COUT_INFO__ << "\n";
-	}
+	}*/
 
 	__COUT_INFO__ << "end SetupForADCsDataTaking()" << __E__;
 } //end SetupForADCsDataTaking()
