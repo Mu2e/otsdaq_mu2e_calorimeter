@@ -464,7 +464,7 @@ void ROCCalorimeterInterface::SendMzCommand(std::string command, float paramVect
     //MZB_OSCMDCODE_t cmd_code = mz_string_to_enum(command.c_str());
 	MZB_OSCMDCODE_t cmd_code = SYNTAX_ERROR;
 	
-	for (int i = 0; i < sizeof(code_map) / sizeof(code_map[0]); i++) {
+	for (size_t i = 0; i < sizeof(code_map) / sizeof(code_map[0]); i++) {
         //if (code_map[i].str == command.c_str()) {
         if (strcmp(code_map[i].str, command.c_str()) == 0) {
             cmd_code = code_map[i].code;

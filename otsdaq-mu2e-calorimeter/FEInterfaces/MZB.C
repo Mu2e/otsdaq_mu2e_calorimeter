@@ -100,7 +100,7 @@ unsigned ees_chksum(void *ptr, int len) {
 }
 
 MZB_OSCMDCODE_t mz_string_to_enum(const char* str){
-    for (int i = 0; i < sizeof(code_map) / sizeof(code_map[0]); i++) {
+    for (unsigned i = 0; i < sizeof(code_map) / sizeof(code_map[0]); i++) {
         if (code_map[i].str == str) {
             return code_map[i].code;
         }
