@@ -109,3 +109,48 @@ MZB_OSCMDCODE_t mz_string_to_enum(const char* str){
     return SYNTAX_ERROR;
 
 }
+
+
+/**
+ *  @brief   Write the the SiPM HV set command to the MEZZANINE slave
+ *  @param   ch    FEE channel to set
+ *  @param   hv    HV bias Voltage
+ *  @return  0=SUCCESS else error code
+ 
+int RMZB_writeSiPMbias(int ch, float hv) {
+  int retval = 1;
+  
+struct __attribute__((packed, aligned(4))) {    
+    short dummy;
+    short adr;
+    struct __attribute__((packed)) {    
+      short biasVreq_tag;             // 'HV'
+      short reserved;
+      unsigned short biasVreq[FEE_NUM];
+    } bias;
+    unsigned chksum;
+  } bm;
+
+  hv = hv * 10. + .49999;
+
+  memset(&bm, 0, sizeof(bm));
+  bm.adr = offsetof(EE_DATABUF_t, biasVreq_tag);
+  bm.bias.biasVreq_tag = 'H' | ('V'<<8);
+  if(ch) {
+    ch = ch-1;
+    bm.bias.biasVreq[ch] = hv;
+    bm.bias.biasVreq[ch] |= 0x8000;
+  } else {
+    for(;ch<FEE_NUM; ch++) {
+      bm.bias.biasVreq[ch] = hv;
+      bm.bias.biasVreq[ch] |= 0x8000;
+    }
+  }
+  bm.chksum   = 1 + (~ees_chksum((void *)&bm.bias, sizeof(bm.bias)));
+
+  retval = MZB_writeRegisters((void*)&bm.adr, sizeof(bm)-2);
+
+  return retval;
+} 
+
+*/
