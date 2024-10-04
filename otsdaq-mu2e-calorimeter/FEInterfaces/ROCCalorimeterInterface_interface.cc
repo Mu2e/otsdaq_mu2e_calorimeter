@@ -85,7 +85,7 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	registerFEMacroFunction("Set Board Voltages",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::SetBoardVoltages),
-	                        std::vector<std::string>{"Left/Right, Default := 0]", "Board Number in Crate, Default := 0]", "Crate Number, Default := 0]", "Half Number, Default := 0]", 
+	                        std::vector<std::string>{"configuration folder, Default:= nominal", "Left/Right, Default := 0]", "Board Number in Crate, Default := 0]", "Crate Number, Default := 0]", "Half Number, Default := 0]", 
 							"Disk Number, Default := 0]", "Board ID, Default := -1]", "HV Enabled, Default := 0]"}, //inputs parameters
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
@@ -93,10 +93,16 @@ ROCCalorimeterInterface::ROCCalorimeterInterface(
 	registerFEMacroFunction("Configure Link",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
 	                            &ROCCalorimeterInterface::ConfigureLink),
-	                        std::vector<std::string>{"HV Enabled, Default := 0]"}, //inputs parameters
+	                        std::vector<std::string>{"Configuration folder, Default:= nominal", "HV Enabled, Default := 0]", "Upload MZB calibration parameters, Default := 0]"}, //inputs parameters
 	                        std::vector<std::string>{}, //output parameters
 	                        1);  // requiredUserPermissions
 
+	registerFEMacroFunction("Calibrate Mzb",
+	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
+	                            &ROCCalorimeterInterface::CalibrateMZB),
+	                        std::vector<std::string>{"BoardID, Default := -1]"}, //inputs parameters
+	                        std::vector<std::string>{}, //output parameters
+	                        1);  // requiredUserPermissions
 
 	registerFEMacroFunction("SetupForNoiseTaking",
 	                        static_cast<FEVInterface::frontEndMacroFunction_t>(
@@ -572,7 +578,11 @@ void ROCCalorimeterInterface::EnableAndPowerSiPMs(__ARGS__)
 void ROCCalorimeterInterface::SetBoardVoltages(__ARGS__)
 {
 
+
+	std::string conf = __GET_ARG_IN__("configuration folder, Default:= nominal", std::string, "nominal");
+
     //boardID == L/R + 2*bordNum + 8* cratenum + 40*half + 80*disk
+
 	int leftright = __GET_ARG_IN__("Left/Right, Default := 0]", int, 0);
 	int boardNum = __GET_ARG_IN__("Board Number in Crate, Default := 0]", int, 0);
 	int crateNum = __GET_ARG_IN__("Crate Number, Default := 0]", int, 0);
@@ -583,9 +593,11 @@ void ROCCalorimeterInterface::SetBoardVoltages(__ARGS__)
 
     bool hvonoff = __GET_ARG_IN__("HV Enabled, Default := 0]", bool, 0);
 
+
+
     if(boardID == -1) boardID = leftright + 2*boardNum + 8*crateNum + 40*halfNum + 80*diskNum; 
 
-    SetBoardVoltages(hvonoff, boardID);
+    SetBoardVoltages(hvonoff, boardID, conf);
 
 
 } //end SetBoardVoltages()
@@ -600,9 +612,12 @@ void ROCCalorimeterInterface::SetBoardVoltages(__ARGS__)
 void ROCCalorimeterInterface::ConfigureLink(__ARGS__)
 {
 
+	std::string conf = __GET_ARG_IN__("Configuration folder, Default:= nominal", std::string, "nominal");
     bool hvonoff = __GET_ARG_IN__("HV Enabled, Default := 0]", bool, 0);
+    bool doCalibration = __GET_ARG_IN__("Upload MZB calibration parameters, Default := 0]", bool, 0);
 
-    ConfigureLink(hvonoff);
+
+    ConfigureLink(conf, hvonoff, doCalibration);
 
 
 } //end ConfigureLink()
@@ -614,7 +629,7 @@ void ROCCalorimeterInterface::ConfigureLink(__ARGS__)
 //==================================================================================================
 
 
-void ROCCalorimeterInterface::ConfigureLink(bool hvonoff)
+void ROCCalorimeterInterface::ConfigureLink(std::string conf, bool hvonoff, bool doCalibration)
 {
 
 	DTCLib::roc_address_t address = 147;
@@ -651,7 +666,8 @@ void ROCCalorimeterInterface::ConfigureLink(bool hvonoff)
 	}
 
 	if(boardid != -1){
-      SetBoardVoltages(hvonoff, boardid);
+      if(doCalibration) CalibrateMZB(boardid);
+      SetBoardVoltages(hvonoff, boardid, conf);
 	  writeRegister(ROC_ADDRESS_BOARD_ID,  boardid); 
 	}
 	else {
@@ -667,12 +683,89 @@ void ROCCalorimeterInterface::ConfigureLink(bool hvonoff)
 
 //==================================================================================================
 
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::CalibrateMZB(__ARGS__)
+{
+
+    int boardID = __GET_ARG_IN__("BoardID, Default := -1]", int, -1);
+
+    CalibrateMZB(boardID);
+
+
+} //end ConfigureLink()
 
 
 //==================================================================================================
 
 
-void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID)
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::CalibrateMZB(int  boardID)
+{
+	
+    char buff[50];
+    sprintf(buff, "mzb%03d.config", boardID);
+        
+		//to do:
+		//std::string filename = std::string(__ENV__("CALORIMETER_CONF_DIR")) + "/" + buff;
+		//fix it asking to ryan or eric.. 
+
+
+		std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/mzbCalib/") + buff;		
+		std::ifstream confFile(filename);
+
+		if(!confFile.is_open())
+		{
+			__FE_SS__ << "Could not open file: " << filename << __E__;
+			__FE_SS_THROW__;;
+		}
+
+        __MOUT_INFO__ << "Opening file: " << filename << __E__;
+
+        for(int ichan = 0; ichan<20; ichan++){
+
+            int chindex;
+			float slope;
+			float offset;
+
+
+            std::string command = "CALCARD"; 
+	        float paramVect[9];
+
+ 			confFile >> chindex;
+			paramVect[0] = chindex+1;
+
+			for (int icalib=0; icalib<4; icalib++){
+              confFile >> slope >> offset;
+  			  paramVect[(icalib*2)+1] = slope;
+			  paramVect[(icalib*2)+2] = offset;
+            __MOUT_INFO__ << slope <<  "  " << offset << __E__;
+			} 
+       	
+			usleep(100000);
+
+			SendMzCommand(command, paramVect);
+
+		}
+
+
+        confFile.close();
+
+        __MOUT_INFO__ << "Calibration done.." << filename << __E__;
+
+
+	
+
+} //end CalibrateMZB()
+
+
+//==================================================================================================
+
+
+void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID, std::string conf)
 {
 	
     std::string command = "HVONOFF"; 
@@ -733,7 +826,7 @@ void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID)
 		//fix it asking to ryan or eric.. 
 
 
-		std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/") + buff;		
+		std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/") + conf + std::string("/") + buff;		
 		std::ifstream confFile(filename);
 
 		if(!confFile.is_open())

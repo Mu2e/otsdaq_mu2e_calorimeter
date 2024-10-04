@@ -83,9 +83,6 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 		ROC_ADDRESS_BOARD_U_ID_MSB           = 147
 
 
-		 
-
-
 
 	};
 
@@ -127,12 +124,14 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 	void EnableAndPowerSiPMs(__ARGS__);
     void EnableAndPowerSiPMs(bool hvonoff, float vbias);
 	void SetBoardVoltages(__ARGS__);
-    void SetBoardVoltages(bool hvonoff, int boardID);
+    void SetBoardVoltages(bool hvonoff, int boardID, std::string conf);
     void SetupForNoiseTaking(__ARGS__);
     void SetupForNoiseTaking(unsigned int numberOfsamples);
 
 	void ConfigureLink(__ARGS__);
-    void ConfigureLink(bool hvonoff);
+    void ConfigureLink(std::string conf, bool hvonoff, bool doCalibration);
+	void CalibrateMZB(__ARGS__);
+    void CalibrateMZB(int boardID);
 
 
 	void ReadROCErrorCounter		(__ARGS__);
