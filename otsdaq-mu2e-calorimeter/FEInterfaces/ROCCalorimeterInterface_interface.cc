@@ -337,6 +337,55 @@ void ROCCalorimeterInterface::readROCBlock(std::vector<DTCLib::roc_data_t>& data
 }  // end readBlock()
 
 //==================================================================================================
+
+
+
+//==================================================================================================
+void ROCCalorimeterInterface::readMZBregisters(std::vector<DTCLib::roc_data_t>& data,
+                                           uint16_t                   wordCount,
+                                           bool incrementAddress)
+{
+	__FE_COUT__ << "Calling read MZB block: link number " << std::dec << linkID_
+	            << ", address = " << address << ", wordCount = " << wordCount
+	            << ", incrementAddress = " << incrementAddress << __E__;
+
+	uint16_t u;
+	u = thisDTC_->ReadROCRegister(linkID_, 0, 100);
+
+	
+
+		//uint16_t j = 0;
+	while((u = thisDTC_->ReadROCRegister(linkID_, 128, 100)) == 0)
+	
+	__COUT__ << "r_128: 0x" << std::hex << u << __E__;
+	usleep(1000);
+		
+    while((u = thisDTC_->ReadROCRegister(linkID_, 129, 100)) == 0)
+	{
+		usleep(100);
+	}
+		
+	__COUT__ << "r_129: 0x" << std::hex << u << __E__;
+
+
+	thisDTC_->ReadROCBlock(data, linkID_, address, u-4, incrementAddress, 0);
+
+	//only fix data if received more than needed - TODO fix in ROC firmware
+	while(data.size() > wordCount) data.pop_back();
+
+	if(data.size() != wordCount)
+	{
+		__FE_SS__ << "ROC block read failed, expecting " << wordCount
+		          << " words, and read " << data.size() << " words." << __E__;
+		__FE_SS_THROW__;
+	}
+
+}  // end readBlock()
+
+
+
+//======================================================================================================
+
 void ROCCalorimeterInterface::configure(void) try
 {
 	ROCPolarFireCoreInterface::configure();
@@ -640,7 +689,10 @@ void ROCCalorimeterInterface::ConfigureLink(std::string conf, bool hvonoff, bool
 	//std::string filename = std::string(__ENV__("CALORIMETER_CONF_DIR")) + "/" + buff;
 	//fix it asking to ryan or eric.. 
 
-	std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
+	//std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
+	std::string filename = std::string("/home/users/moresca/ots_spack2/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
+	
+	
 	std::ifstream confMap(filename);
 
 	if(!confMap.is_open())
@@ -651,7 +703,7 @@ void ROCCalorimeterInterface::ConfigureLink(std::string conf, bool hvonoff, bool
 
     int boardid = -1;
 
-    for(int iboard = 0; iboard<158; iboard++){
+    for(int iboard = 0; iboard<161; iboard++){
 
         int nboard;
 		int notused;
@@ -671,7 +723,7 @@ void ROCCalorimeterInterface::ConfigureLink(std::string conf, bool hvonoff, bool
 	  writeRegister(ROC_ADDRESS_BOARD_ID,  boardid); 
 	}
 	else {
-		__FE_SS__ << "Cannot match board unique ID.." << __E__;
+		__FE_SS__ << "Cannot match board unique ID: readval is " << readVal << ", while boardid is " <<  boardid << __E__;
 		__FE_SS_THROW__;;
 	}
 
@@ -714,7 +766,10 @@ void ROCCalorimeterInterface::CalibrateMZB(int  boardID)
 		//fix it asking to ryan or eric.. 
 
 
-		std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/mzbCalib/") + buff;		
+		//std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/mzbCalib/") + buff;		
+    	std::string filename = std::string("/home/users/moresca/ots_spack2/srcs/otsdaq-mu2e-calorimeter/boardConfig/mzbCalib/") + buff;		
+
+		
 		std::ifstream confFile(filename);
 
 		if(!confFile.is_open())
@@ -800,8 +855,7 @@ void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID, std::
 
 	usleep(100000);
 
-
-    command = "SLEWRATE"; 
+    /*command = "SLEWRATE"; 
 	paramVect[0] = 40;
 	paramVect[1] = NAN;
 	paramVect[2] = NAN;
@@ -814,7 +868,8 @@ void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID, std::
 
     SendMzCommand(command, paramVect);
 
-    usleep(100000);
+    usleep(100000);*/
+	
 
 	if(hvonoff == 1){
 
@@ -826,7 +881,9 @@ void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID, std::
 		//fix it asking to ryan or eric.. 
 
 
-		std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/") + conf + std::string("/") + buff;		
+		//std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/") + conf + std::string("/") + buff;		
+		std::string filename = std::string("/home/users/moresca/ots_spack2/srcs/otsdaq-mu2e-calorimeter/boardConfig/") + conf + std::string("/") + buff;		
+
 		std::ifstream confFile(filename);
 
 		if(!confFile.is_open())
@@ -837,8 +894,20 @@ void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID, std::
 
         __MOUT_INFO__ << "Opening file: " << filename << __E__;
 
-
+        float vbias[20];
+	   
         for(int ichan = 0; ichan<20; ichan++){
+
+            int chindex;
+			std::string type;
+
+			confFile >> chindex >> vbias[ichan] >> type;
+            __MOUT_INFO__ << chindex << "  " <<  vbias[ichan]  <<  "  " << type << __E__;
+
+
+		}
+
+        /*for(int ichan = 0; ichan<20; ichan++){
 
             int chindex;
 			float vbias;
@@ -859,11 +928,19 @@ void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff, int  boardID, std::
 			paramVect[7] = NAN;
 			paramVect[8] = NAN;
 
-			usleep(100000);
+			usleep(500000);
 
 			SendMzCommand(command, paramVect);
+            
 
-		}
+            RMZB_writeSiPMbias(chindex+1, vbias);
+			usleep(100000);
+
+
+		}*/
+
+        RMZB_writeAllSiPMbias(vbias);
+
 
         __MOUT_INFO__ << "Ramping up.. " << filename << __E__;
 
@@ -1251,5 +1328,115 @@ void ROCCalorimeterInterface::GetStatus(__ARGS__)
 	__SET_ARG_OUT__("Status",os.str());
 
 } //end GetStatus()
+
+
+
+/**
+ *  @brief   Write the the SiPM HV set command to the MEZZANINE slave
+ *  @param   ch    FEE channel to set
+ *  @param   hv    HV bias Voltage
+ *  @return  0=SUCCESS else error code
+ 
+*/
+
+/*void ROCCalorimeterInterface::RMZB_writeSiPMbias(int ch, float hv) {
+  
+struct __attribute__((packed, aligned(4))) {    
+    short dummy;
+    short adr;
+    struct __attribute__((packed)) {    
+      short biasVreq_tag;             // 'HV'
+      short reserved;
+      unsigned short biasVreq[FEE_NUM];
+    } bias;
+    unsigned chksum;
+  } bm;
+
+  hv = hv * 10. + .49999;
+
+  memset(&bm, 0, sizeof(bm));
+  bm.adr = offsetof(EE_DATABUF_t, biasVreq_tag);
+  bm.bias.biasVreq_tag = 'H' | ('V'<<8);
+  if(ch) {
+    ch = ch-1;
+    bm.bias.biasVreq[ch] = hv;
+    bm.bias.biasVreq[ch] |= 0x8000;
+  } else {
+    for(;ch<FEE_NUM; ch++) {
+      bm.bias.biasVreq[ch] = hv+ch;
+      bm.bias.biasVreq[ch] |= 0x8000;
+    }
+  }
+  bm.chksum   = 1 + (~ees_chksum((void *)&bm.bias, sizeof(bm.bias)));
+
+  std::vector<uint16_t> input_data;
+
+  char *p = (char *) &bm;
+  p+=2;
+
+  for (std::size_t i = 2; i < sizeof(bm); i += 2, p+=2) {
+      
+	  uint16_t value = ((uint16_t) (*(p+1)) << 8) | ((uint16_t) (*p));
+      //uint16_t value = (static_cast<uint16_t>(vectToWrite[i]) << 8) | (static_cast<uint16_t>(vectToWrite[i + 1]));
+      __MOUT_INFO__ << std::hex << std::setprecision(4) << std::setfill('0') << "0x" << value << __E__;
+      input_data.push_back(value);
+  }
+
+//  retval = MZB_writeRegisters((void*)&bm.adr, sizeof(bm)-2);
+
+  //writeROCBlock(input_data, MZ_ADDRESS, false  incrementAddress);
+
+
+} */
+
+
+void ROCCalorimeterInterface::RMZB_writeAllSiPMbias(float* hv) {
+  
+struct __attribute__((packed, aligned(4))) {    
+    short dummy;
+    short adr;
+    struct __attribute__((packed)) {    
+      short biasVreq_tag;             // 'HV'
+      short reserved;
+      unsigned short biasVreq[FEE_NUM];
+    } bias;
+    unsigned chksum;
+  } bm;
+
+  std::vector<uint16_t> input_data;
+
+  memset(&bm, 0, sizeof(bm));
+  bm.adr = offsetof(EE_DATABUF_t, biasVreq_tag);
+  input_data.push_back(bm.adr);
+
+
+  bm.bias.biasVreq_tag = 'H' | ('V'<<8);
+  input_data.push_back(bm.bias.biasVreq_tag);
+     
+  input_data.push_back(0x00);
+
+
+  for(int ch = 0;ch<FEE_NUM; ch++) {
+    float hvset = hv[ch] * 10. + .49999;
+    bm.bias.biasVreq[ch] = hvset;
+    bm.bias.biasVreq[ch] |= 0x8000;
+    input_data.push_back(bm.bias.biasVreq[ch]);
+  }
+  
+
+  bm.chksum   = 1 + (~ees_chksum((void *)&bm.bias, sizeof(bm.bias)));
+  input_data.push_back((uint16_t) (bm.chksum >> 16));
+  input_data.push_back((uint16_t) (bm.chksum & 0xFFFF));
+
+  for (auto& value : input_data) {
+    value = (value >> 8) | (value << 8); // Scambia i due byte
+  }
+
+
+  writeROCBlock(input_data, MZ_ADDRESS, false /* incrementAddress*/);
+ 
+
+} 
+
 
 DEFINE_OTS_INTERFACE(ROCCalorimeterInterface)

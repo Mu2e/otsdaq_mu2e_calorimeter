@@ -127,6 +127,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
     void SetBoardVoltages(bool hvonoff, int boardID, std::string conf);
     void SetupForNoiseTaking(__ARGS__);
     void SetupForNoiseTaking(unsigned int numberOfsamples);
+	void RMZB_writeAllSiPMbias(float *hv);
 
 	void ConfigureLink(__ARGS__);
     void ConfigureLink(std::string conf, bool hvonoff, bool doCalibration);
@@ -136,7 +137,7 @@ class ROCCalorimeterInterface : public ROCPolarFireCoreInterface
 
 	void ReadROCErrorCounter		(__ARGS__);
 
-	
+
 
 	virtual void GetStatus							(__ARGS__) override;
 
