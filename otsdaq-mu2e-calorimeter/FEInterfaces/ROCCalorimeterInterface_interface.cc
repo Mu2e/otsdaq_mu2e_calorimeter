@@ -636,19 +636,13 @@ void ROCCalorimeterInterface::ConfigureLink(std::string conf, bool hvonoff, bool
 {
 
 	DTCLib::roc_address_t address = 147;
-	DTCLib::roc_data_t readVal;
+	DTCLib::roc_data_t    readVal;
 	readVal = readRegister(address);
         
-	//to do:
-	//std::string filename = std::string(__ENV__("CALORIMETER_CONF_DIR")) + "/" + buff;
-	//fix it asking to ryan or eric.. 
-
 	// std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
-	cet::filepath_lookup_after1 lookup_policy("FHICL_FILE_PATH");
-	//std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");
-
-	auto file_path = lookup_policy("config_file_I_want.config");
-	std::ifstream confMap("boardMap.conf");
+	cet::filepath_lookup_after1 lookup_policy("MU2E_CALORIMETER_CONFIG_PATH");
+	auto file_path = lookup_policy("boardMap.config");//FIXME! THIS NEEDS TO BE A VARIABLE
+	std::ifstream confMap(file_path);
 
 	if(!confMap.is_open())
 	{
