@@ -3,6 +3,9 @@
 
 
 #include "otsdaq/Macros/InterfacePluginMacros.h"
+
+#include "cetlib/filepath_maker.h"
+
 #include <fstream>
 #include <cstring>
 
@@ -640,12 +643,16 @@ void ROCCalorimeterInterface::ConfigureLink(std::string conf, bool hvonoff, bool
 	//std::string filename = std::string(__ENV__("CALORIMETER_CONF_DIR")) + "/" + buff;
 	//fix it asking to ryan or eric.. 
 
-	std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
-	std::ifstream confMap(filename);
+	// std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");		
+	cet::filepath_lookup_after1 lookup_policy("FHICL_FILE_PATH");
+	//std::string filename = std::string("/home/mu2ecalo/ots_spack/srcs/otsdaq-mu2e-calorimeter/boardConfig/boardMap.conf");
+
+	auto file_path = lookup_policy("config_file_I_want.config");
+	std::ifstream confMap("boardMap.conf");
 
 	if(!confMap.is_open())
 	{
-		__FE_SS__ << "Could not open file: " << filename << __E__;
+		__FE_SS__ << "Could not open file: " << file_path << __E__;
 		__FE_SS_THROW__;;
 	}
 
