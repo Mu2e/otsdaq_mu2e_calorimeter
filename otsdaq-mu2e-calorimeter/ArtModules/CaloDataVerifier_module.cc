@@ -24,6 +24,7 @@
 #include <iomanip>
 #include <sstream>
 
+
 namespace mu2e {
   class CaloDataVerifier : public art::EDFilter
   {
@@ -117,45 +118,61 @@ bool mu2e::CaloDataVerifier::filter(art::Event& event)
       // iterate over the data blocks
       std::vector<DTCLib::DTC_DataBlock> dataBlocks = subevent.GetDataBlocks();
       for (unsigned int j = 0; j < dataBlocks.size(); ++j){
-        std::cout << "Data block [" << j << "]:" << std::endl;
+        if (diagLevel_ > 0) std::cout << "Data block [" << j << "]:" << std::endl;
         // print the data block header
         DTCLib::DTC_DataHeaderPacket* dataHeader = dataBlocks[j].GetHeader().get();
-        std::cout << dataHeader->toJSON() << std::endl;
+        if (diagLevel_ > 0) std::cout << dataHeader->toJSON() << std::endl;
 
         // print the data block payload
         const void* dataPtr = dataBlocks[j].GetData();
-        std::cout << "Data payload:" << std::endl;
+        if (diagLevel_ > 0) std::cout << "Data payload:" << std::endl;
         for (int l = 0; l < dataHeader->GetByteCount() - 16; l += 2){
           auto thisWord = reinterpret_cast<const uint16_t*>(dataPtr)[l];
-          std::cout << "\t0x" << std::hex << std::setw(4) << std::setfill('0') << static_cast<int>(thisWord) << std::endl;
+          if (diagLevel_ > 0) std::cout << "\t0x" << std::hex << std::setw(4) << std::setfill('0') << static_cast<int>(thisWord) << std::endl;
         }
 
         // Print the calo data decoder info
         auto CaloPacketColl = cf.GetCalorimeterHitData(j);
         uint npackets = CaloPacketColl->size();
-        std::cout << "There are " << npackets << " hit packets" << std::endl;
+        if (diagLevel_ > 0) std::cout << "There are " << npackets << " hit packets" << std::endl;
         for (uint packet_i = 0; packet_i<npackets; packet_i++){
           mu2e::CalorimeterTestDataDecoder::CalorimeterHitTestDataPacket hit = CaloPacketColl->at(packet_i).first;
           std::vector<uint16_t> hit_bytes = CaloPacketColl->at(packet_i).second;
 
-          std::cout << "Hit packet "   << packet_i << " :"<<std::endl;
-          std::cout << "BeginMarker: " << hit.BeginMarker << std::endl;
-          std::cout << "BoardID: "     << hit.BoardID     << std::endl;
-          std::cout << "ChannelID: "   << hit.ChannelID   << std::endl;
-          std::cout << "InPayloadEventWindowTag: "   << hit.InPayloadEventWindowTag << std::endl;
-          std::cout << "LastSampleMarker: "          << hit.LastSampleMarker << std::endl;
-          std::cout << "ErrorFlags: "                << hit.ErrorFlags << std::endl;
-          std::cout << "Time: "                      << hit.Time << std::endl;
-          std::cout << "IndexOfMaxDigitizerSample: " << hit.IndexOfMaxDigitizerSample << std::endl;
-          std::cout << "NumberOfSamples: "           << hit.NumberOfSamples << std::endl;
-
-          std::cout << "Dumping the waveform: " << std::endl;
-          for (uint wi=0; wi<hit_bytes.size(); wi++){
-            std::cout << hit_bytes[wi] << " ";
+          if (diagLevel_ > 0) {
+            std::cout << "Hit packet "   << packet_i << " :"<<std::endl;
+            std::cout << "BeginMarker: " << hit.BeginMarker << std::endl;
+            std::cout << "BoardID: "     << hit.BoardID     << std::endl;
+            std::cout << "ChannelID: "   << hit.ChannelID   << std::endl;
+            std::cout << "InPayloadEventWindowTag: "   << hit.InPayloadEventWindowTag << std::endl;
+            std::cout << "LastSampleMarker: "          << hit.LastSampleMarker << std::endl;
+            std::cout << "ErrorFlags: "                << hit.ErrorFlags << std::endl;
+            std::cout << "Time: "                      << hit.Time << std::endl;
+            std::cout << "IndexOfMaxDigitizerSample: " << hit.IndexOfMaxDigitizerSample << std::endl;
+            std::cout << "NumberOfSamples: "           << hit.NumberOfSamples << std::endl;
+  
+            std::cout << "Dumping the waveform: " << std::endl;
+            for (uint wi=0; wi<hit_bytes.size(); wi++){
+              std::cout << hit_bytes[wi] << " ";
+            }
+            std::cout << std::endl;
           }
-          std::cout << std::endl;
+
+          if (metricMan != nullptr){
+            metricMan->sendMetric("BoardID", hit.BoardID, "Board ID number",
+              metrics_reporting_level_, artdaq::MetricMode::LastPoint);
+            metricMan->sendMetric("ChannelID", hit.ChannelID, "Channel ID number",
+              metrics_reporting_level_, artdaq::MetricMode::LastPoint);
+            metricMan->sendMetric("NumberOfSamples", hit.NumberOfSamples, "Number of samples",
+              metrics_reporting_level_, artdaq::MetricMode::LastPoint);
+          }
         }
       }
+    }
+
+    if (metricMan != nullptr){
+      metricMan->sendMetric("nSubEvents", caloSEvents.size(), "Subevents",
+        metrics_reporting_level_, artdaq::MetricMode::LastPoint);
     }
   }
 
@@ -171,11 +188,10 @@ bool mu2e::CaloDataVerifier::filter(art::Event& event)
   }
 
 
-  if (metricMan != nullptr)
-    {
-      metricMan->sendMetric("nFragments", fragments.size(), "Fragments",
-          metrics_reporting_level_, artdaq::MetricMode::LastPoint);
-    }
+  if (metricMan != nullptr){
+    metricMan->sendMetric("nFragments", fragments.size(), "Fragments",
+      metrics_reporting_level_, artdaq::MetricMode::LastPoint);
+  }
 
   return true;
 }
