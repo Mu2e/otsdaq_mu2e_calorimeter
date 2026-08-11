@@ -2318,8 +2318,6 @@ std::string ROCCalorimeterInterface::getFirmwareInventoryRow(void) {
 }
 
 //==================================================================================================
-<<<<<<< HEAD
-=======
 std::string ROCCalorimeterInterface::getFirmwareInventoryJSON(void) {
 	const uint16_t timeoutWord = 0xEFFE;
 
@@ -2378,7 +2376,6 @@ std::string ROCCalorimeterInterface::getFirmwareInventoryJSON(void) {
 }
 
 //==================================================================================================
->>>>>>> origin/caloWorkInProgress
 
 void ROCCalorimeterInterface::SetBoardVoltages(bool hvonoff) { SetBoardVoltages(hvonoff, static_cast<int>(boardConfig_.boardID), "DB"); }
 
