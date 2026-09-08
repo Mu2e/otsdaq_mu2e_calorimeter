@@ -1,0 +1,112 @@
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardServices.fcl"
+
+process_name : FragmentToDigi
+
+source : {
+  module_type : RootInput
+  fileNames   : @nil
+  maxEvents   : -1
+  inputCommands: [
+    "keep *",
+    "drop *_*STM*_*_*"
+  ]
+}
+
+services : {
+
+  #@local::Services.Reco
+  GeometryService		:		{inputFile: "Offline/Mu2eG4/geom/geom_common.txt" bFieldFile: "Offline/Mu2eG4/geom/bfgeom_reco_v01.txt" simulatedDetector : {tool_type: "Mu2e"}}
+  GlobalConstantsService		:		{inputFile : "Offline/GlobalConstantsService/data/globalConstants_01.txt"}
+  DbService		:		@local::DbEmpty
+  ProditionsService		:		@local::Proditions
+  TimeTracker: {}
+}
+
+physics : {
+
+  filters : {
+
+    caloVerifier : {
+      module_type         : CaloDataVerifier
+      verbosity           : 2
+      dataType            : 1
+      metricsLevel        : 2
+      subsystemOverride   : calo
+      produceCaloDecoders : true
+      stopOnFailure       : false
+      checkEWTs           : false
+    }
+  }
+
+  producers : {
+    genFrags : {
+      module_type  : ArtFragmentsFromDTCEvents
+      diagLevel    : 0
+      makeCaloFrag : 1
+      makeTrkFrag  : 0
+      makeCRVFrag  : 0
+      makeSTMFrag  : 0
+    }
+
+    CaloDigis : {
+      module_type : CaloDigisFromDTCEvents
+      dataType : 0
+      diagLevel : 1
+      #caloTag : "genFrags"
+      useOfflineID : false
+      useDTCROCID : true
+    }
+
+    CaloHits : {
+      module_type : CaloHitsFromDTCEvents
+      dataType : 0
+      diagLevel : 1
+      digiSampling : 5
+      deltaTPulses : 6
+      nPEperMeV : 16
+      noiseLevelMeV : 2
+      nSigmaNoise : 1
+      hitEDepMax : 10000
+      hitEDepMin : 0
+      caphriEDepMax : 10000
+      caphriEDepMin : 0
+    }
+
+
+  }
+
+  analyzers  : {
+
+    caloAnalyzer : {
+      module_type         : CaloDataAnalyzer
+      unpackerModuleLabel   : "genFrags"
+      unpackerInstanceLabel : ""
+      verbosity           : 0
+      dataType            : 1
+    }
+  }
+
+  t0 : [caloVerifier]
+
+
+  t1 : [ CaloDigis , CaloHits ]
+  e1 : [ outfile ]
+
+  trigger_paths  : [t1]
+  end_paths      : [e1]
+}
+
+outputs:  {
+   outfile :  {
+      module_type   :   RootOutput
+      fileName      :   "digis_hits_from_dtcevents.art"
+
+      outputCommands: [
+         "drop *_*_*_*",
+         "keep *_*_*_*"
+      ]
+   }
+}
+
+services.scheduler.wantSummary: true

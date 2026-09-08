@@ -1,0 +1,43 @@
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardServices.fcl"
+
+process_name : ArtToRoot
+
+source : {
+   module_type : RootInput
+   fileNames   : @nil
+   maxEvents   : -1
+}
+
+services : {
+  TimeTracker: {}
+}
+
+physics : {
+
+  filters : {
+    filterEmptyEvents : {
+      module_type : CaloEventFilter
+    }
+  }
+
+  producers : {
+  }
+
+  analyzers  : {
+    caloAnalyzer : {
+      module_type           : CaloDataAnalyzer
+      verbosity             : 0
+      dataType              : 0
+      SelectEvents          : [ t1 ]
+    }
+  }
+
+  t1 : [ filterEmptyEvents ]
+  e1 : [ caloAnalyzer ]
+
+  trigger_paths  : [t1]
+  end_paths      : [e1]
+}
+
+services.scheduler.wantSummary: true

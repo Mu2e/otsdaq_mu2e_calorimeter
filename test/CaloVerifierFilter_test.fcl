@@ -1,0 +1,136 @@
+#------------------------------------------------------------------------------
+# usage: art -c srcs/otsdaq_mu2e_calorimeter/test/CaloVerifierFilter_test.fcl -s input.art
+#------------------------------------------------------------------------------
+
+#include "Offline/fcl/minimalMessageService.fcl"
+#include "Offline/fcl/standardServices.fcl"
+
+daq.metrics : {
+  graphite: {
+    metricPluginType : graphite
+    level            : 2
+    host             : "mu2e-dcs-01.fnal.gov"
+    port             : 2003
+    namespace        : "test.pgirotti."
+  }
+}
+
+process_name: calotest
+
+source : {
+  module_type : RootInput
+  fileNames   : @nil
+  maxEvents   : -1
+  #   inputCommands: ["keep *",
+  #                   "drop *Mu2eEventHeader*_*_*_*"]
+}
+
+services : {
+
+  TimeTracker: {}
+
+  ArtdaqSharedMemoryServiceInterface: {
+    service_provider: ArtdaqSharedMemoryService
+    waiting_time: 1
+    resume_after_timeout: true
+  }
+
+  ArtdaqFragmentNamingServiceInterface: {
+    service_provider: ArtdaqFragmentNamingService
+    helper_plugin: Mu2e
+  }
+
+  GeometryService		:		{inputFile: "Offline/Mu2eG4/geom/geom_common.txt" bFieldFile: "Offline/Mu2eG4/geom/bfgeom_reco_v01.txt" simulatedDetector : {tool_type: "Mu2e"}}
+  GlobalConstantsService		:		{inputFile : "Offline/GlobalConstantsService/data/globalConstants_01.txt"}
+  DbService		:		@local::DbEmpty
+  ProditionsService		:		@local::Proditions
+}
+
+
+physics: {
+
+
+  filters: {
+
+    caloVerifier : {
+      module_type         : CaloDataVerifier
+      verbosity           : 0
+      dataType            : 2
+      metricsLevel        : 2
+      subsystemOverride   : tracker
+      produceCaloDecoders : true
+      stopOnFailure       : false
+      checkEWTs           : false
+    }
+
+  }
+
+  producers : {
+    genFrags : {
+      module_type  : ArtFragmentsFromDTCEvents
+      diagLevel    : 10
+      makeCaloFrag : 1
+      makeTrkFrag  : 0
+      makeCRVFrag  : 0
+      makeSTMFrag  : 0
+    }
+
+    makeCaloHits : {
+      module_type    : CaloHitsFromFragments
+      caloTag        : "caloVerifier"
+      diagLevel      : 1
+      digiSampling   : 5
+      deltaTPulses   : 5.
+      nPEperMeV      : 30
+      noiseLevelMeV  : 0.55
+      nSigmaNoise    : 4
+      # hitEDepMax    : 80.
+      hitEDepMax     : 1000. # for testing
+      hitEDepMin     : 0.0
+      caphriEDepMax  : 5.0 #MeV
+      caphriEDepMin  : 1.0 #MeV
+    }
+
+    makeCaloDigi : {
+      module_type    : CaloDigiFromFragments
+      caloTag        : "caloVerifier"
+      dataType       : 1
+      diagLevel      : 0
+    }
+  }
+
+  analyzers : {
+
+    caloAnalyzer : {
+      module_type         : CaloDataAnalyzer
+      unpackerModuleLabel   : "caloVerifier"
+      unpackerInstanceLabel : ""
+      verbosity           : 0
+      dataType            : 1
+    }
+  }
+
+  t1 : [ caloVerifier ]#, makeCaloDigi ]#, makeCaloReco ]
+  e1 : [ ]#caloAnalyzer ]#outfile ] # dump, outfile ]
+
+  trigger_paths  : [t1]
+  end_paths      : [e1]
+}
+
+outputs:  {
+  outfile :  {
+    module_type : RootDAQOut
+    fileName    : "calo_filter.art"
+    outputCommands: [ "drop *", "keep mu2e::CaloDigis_*_*_*" ]
+  }
+
+  dump: {
+    module_type: FileDumperOutput
+    wantProductFriendlyClassName: true
+    onlyIfPresent: true
+  }
+}
+
+services.TFileService.fileName : "CaloVerifierFilter_test.root"
+services.scheduler.wantSummary: true
+services.ArtdaqSharedMemoryServiceInterface: { service_provider: ArtdaqGlobalsService }

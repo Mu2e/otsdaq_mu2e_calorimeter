@@ -22,3 +22,6 @@ setupARTDAQOTS
 *.bk
 *.tmp
 CMakePresets.json
+build-linux-*
+spack-build-*
+_codeql_*
